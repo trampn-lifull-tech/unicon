@@ -1,0 +1,14 @@
+<?php
+
+namespace Shared\Adapter\Doctrine\Type;
+
+use Doctrine\DBAL\Types\GuidType;
+
+/**
+ * Class UuidType
+ * @author ntd1712
+ */
+final class UuidType extends GuidType
+{
+    //
+}

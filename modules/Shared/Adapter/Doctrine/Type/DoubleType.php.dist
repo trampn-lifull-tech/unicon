@@ -1,0 +1,14 @@
+<?php
+
+namespace Shared\Adapter\Doctrine\Type;
+
+use Doctrine\DBAL\Types\FloatType;
+
+/**
+ * Class DoubleType
+ * @author ntd1712
+ */
+final class DoubleType extends FloatType
+{
+    //
+}

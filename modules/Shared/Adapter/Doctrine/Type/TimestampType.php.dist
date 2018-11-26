@@ -1,0 +1,14 @@
+<?php
+
+namespace Shared\Adapter\Doctrine\Type;
+
+use Doctrine\DBAL\Types\DateTimeType;
+
+/**
+ * Class TimestampType
+ * @author ntd1712
+ */
+final class TimestampType extends DateTimeType
+{
+    //
+}

@@ -1,0 +1,14 @@
+services:
+  System\Entity\Lookup:
+    class:  System\Entity\Lookup
+    lazy:   true
+    shared: false
+  System\Entity\LookupListener:
+    class:  System\Entity\LookupListener
+    lazy:   true
+    shared: false
+  System\Service\LookupService:
+    class:  System\Services\LookupService
+    lazy:   true
+  Lookup: '@System\Entities\Lookup'
+  LookupService: '@System\Services\LookupService'

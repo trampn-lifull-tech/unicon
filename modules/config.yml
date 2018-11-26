@@ -1,0 +1,75 @@
+app:
+  default_route: setting.index
+  fallback_locale: en
+  locale: en
+  theme: element
+  url: ''
+
+auth:
+  default_driver: ~
+  drivers:
+    oauth2:
+      redirectUri: %BASE_URL%
+
+framework:
+  application_key: uV3tbdxO12KrSJgN7mjbOQvXX69Wn3oL
+
+doctrine:
+  dbal:
+    schema_filter: tbl_
+    connections:
+      default:
+        dbname: unicon
+        host: 127.0.0.1
+        port: 3306
+        user: root
+        password: ~
+  orm:
+    auto_generate_proxy_classes: 1
+    proxy_dir: %ROOT_PATH%/storage/framework/proxies
+    entity_managers:
+      default:
+        query_cache_driver:
+          # type: filesystem
+          directory: %ROOT_PATH%/storage/framework/cache
+        metadata_cache_driver:
+          # type: filesystem
+          directory: %ROOT_PATH%/storage/framework/cache
+        result_cache_driver:
+          # type: filesystem
+          directory: %ROOT_PATH%/storage/framework/cache
+        mappings:
+          default:
+            dir:
+              # - %ROOT_PATH%/modules/Account/Entity
+              - %ROOT_PATH%/modules/System/Entity
+            use_simple_annotation_reader: false
+
+mail:
+  default_mailer: default
+  mailers:
+    default:
+      transport: smtp
+      username: ~
+      password: ~
+      host: 127.0.0.1
+      port: false
+      encryption: tls
+      auth_mode: login
+
+session:
+  name: Laravel_session
+  cookie_lifetime: 7200
+  cookie_domain: unicon.loc
+
+path:
+  api: %ROOT_PATH%/public/api
+  config: %ROOT_PATH%/modules/custom.yml
+  uploads: %ROOT_PATH%/public/uploads
+
+url:
+  api: %BASE_URL%/api
+  reset: %BASE_URL%/#/reset?k=
+
+imports:
+  - { resource: custom.yml }
