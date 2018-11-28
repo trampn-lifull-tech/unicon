@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Shared\Foundation\LaravelRestController;
 
-class Controller extends BaseController
+/**
+ * Class Controller
+ * @author ntd1712
+ */
+class Controller extends LaravelRestController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    //
 }

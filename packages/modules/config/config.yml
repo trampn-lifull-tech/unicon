@@ -12,37 +12,37 @@ auth:
       redirectUri: %BASE_URL%
 
 framework:
-  application_key: uV3tbdxO12KrSJgN7mjbOQvXX69Wn3oL
+  application_key: base64:YqGEu7hFO+sUMgTKas6d+tgZDtEyrOtLsbR3LLt2bsY=
 
 doctrine:
   dbal:
     schema_filter: tbl_
     connections:
       default:
-        dbname: unicon
+        dbname: la5ng
         host: 127.0.0.1
         port: 3306
         user: root
         password: ~
   orm:
     auto_generate_proxy_classes: 1
-    proxy_dir: %ROOT_PATH%/storage/framework/proxies
+    proxy_dir: %BASE_PATH%/storage/framework/proxies
     entity_managers:
       default:
         query_cache_driver:
           # type: filesystem
-          directory: %ROOT_PATH%/storage/framework/cache
+          directory: %BASE_PATH%/storage/framework/cache
         metadata_cache_driver:
           # type: filesystem
-          directory: %ROOT_PATH%/storage/framework/cache
+          directory: %BASE_PATH%/storage/framework/cache
         result_cache_driver:
           # type: filesystem
-          directory: %ROOT_PATH%/storage/framework/cache
+          directory: %BASE_PATH%/storage/framework/cache
         mappings:
           default:
             dir:
-              # - %ROOT_PATH%/modules/Account/Entity
-              - %ROOT_PATH%/modules/System/Entity
+              # - %BASE_PATH%/packages/modules/src/Account/Entity
+              - %BASE_PATH%/packages/modules/src/System/Entity
             use_simple_annotation_reader: false
 
 mail:
@@ -63,9 +63,9 @@ session:
   cookie_domain: unicon.loc
 
 path:
-  api: %ROOT_PATH%/public/api
-  config: %ROOT_PATH%/modules/custom.yml
-  uploads: %ROOT_PATH%/public/uploads
+  api: %BASE_PATH%/public/api
+  config: %BASE_PATH%/packages/modules/config/custom.yml
+  uploads: %BASE_PATH%/public/uploads
 
 url:
   api: %BASE_URL%/api

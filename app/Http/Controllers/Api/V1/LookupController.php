@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class LookupController
+ * @author ntd1712
+ */
 class LookupController extends Controller
 {
     /**
