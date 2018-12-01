@@ -1,6 +1,6 @@
 <?php
 
-namespace Shared\Adapter\Doctrine\Walker;
+namespace Chaos\Shared\Adapter\Doctrine\Walker;
 
 use Doctrine\ORM\Query\SqlWalker;
 

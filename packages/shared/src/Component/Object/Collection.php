@@ -1,6 +1,6 @@
 <?php
 
-namespace Shared\Component\Object;
+namespace Chaos\Shared\Component\Object;
 
 /**
  * Class Collection

@@ -9,7 +9,7 @@ auth:
   default_driver: ~
   drivers:
     oauth2:
-      redirectUri: %BASE_URL%
+      redirectUri: BASE_URL
 
 framework:
   application_key: base64:YqGEu7hFO+sUMgTKas6d+tgZDtEyrOtLsbR3LLt2bsY=
@@ -19,30 +19,31 @@ doctrine:
     schema_filter: tbl_
     connections:
       default:
-        dbname: la5ng
+        dbname: unicon
         host: 127.0.0.1
         port: 3306
         user: root
         password: ~
   orm:
     auto_generate_proxy_classes: 1
-    proxy_dir: %BASE_PATH%/storage/framework/proxies
+    proxy_dir: BASE_DIR/storage/framework/proxies
     entity_managers:
       default:
         query_cache_driver:
           # type: filesystem
-          directory: %BASE_PATH%/storage/framework/cache
+          directory: BASE_DIR/storage/framework/cache
         metadata_cache_driver:
           # type: filesystem
-          directory: %BASE_PATH%/storage/framework/cache
+          directory: BASE_DIR/storage/framework/cache
         result_cache_driver:
           # type: filesystem
-          directory: %BASE_PATH%/storage/framework/cache
+          directory: BASE_DIR/storage/framework/cache
         mappings:
           default:
             dir:
-              # - %BASE_PATH%/packages/modules/src/Account/Entity
-              - %BASE_PATH%/packages/modules/src/System/Entity
+              - BASE_DIR/packages/components/src/Lookup/Entity
+              - BASE_DIR/packages/components/src/Permission/Entity
+              - BASE_DIR/packages/components/src/Setting/Entity
             use_simple_annotation_reader: false
 
 mail:
@@ -62,14 +63,14 @@ session:
   cookie_lifetime: 7200
   cookie_domain: unicon.loc
 
-path:
-  api: %BASE_PATH%/public/api
-  config: %BASE_PATH%/packages/modules/config/custom.yml
-  uploads: %BASE_PATH%/public/uploads
+dir:
+  api: BASE_DIR/public/api
+  config: BASE_DIR/packages/modules/config/custom.yml
+  uploads: BASE_DIR/public/uploads
 
 url:
-  api: %BASE_URL%/api
-  reset: %BASE_URL%/#/reset?k=
+  api: BASE_URL/api
+  reset: BASE_URL/#/reset?k=
 
 imports:
   - { resource: custom.yml }

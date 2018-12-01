@@ -1,6 +1,6 @@
 <?php
 
-namespace Shared\Foundation;
+namespace Chaos\Shared\Foundation;
 
 use M1\Vars\Vars;
 

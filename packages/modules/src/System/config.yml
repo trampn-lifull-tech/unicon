@@ -1,2 +1,3 @@
-foo:
-  bar: ~
+imports:
+  - { resource: ../../../components/src/Lookup/config.yml }
+  - { resource: ../../../components/src/Setting/config.yml }

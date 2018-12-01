@@ -1,6 +1,6 @@
 <?php
 
-namespace Shared\Foundation;
+namespace Chaos\Shared\Foundation;
 
 /**
  * Class LaravelRestController

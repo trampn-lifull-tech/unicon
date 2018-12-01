@@ -1,6 +1,6 @@
 <?php
 
-namespace Shared\Component\Object\Contract;
+namespace Chaos\Shared\Component\Object\Contract;
 
 /**
  * Interface IObject
