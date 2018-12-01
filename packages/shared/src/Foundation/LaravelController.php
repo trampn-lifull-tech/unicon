@@ -2,12 +2,9 @@
 
 namespace Chaos\Shared\Foundation;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
-use Chaos\Shared\Adapter\Doctrine\EntityManagerFactory;
+use Chaos\Factory\Doctrine\EntityManagerFactory;
 
 /**
  * Class LaravelController
@@ -15,22 +12,19 @@ use Chaos\Shared\Adapter\Doctrine\EntityManagerFactory;
  */
 abstract class LaravelController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests,
-        ConfigAwareTrait, ContainerAwareTrait;
+    use ConfigAwareTrait, ContainerAwareTrait;
         /*Traits\ServiceAwareTrait, BaseControllerTrait;*/
 
     /**
      * Constructor.
      *
+     * @param   \ArrayAccess|array $container An array holding the paths to the service files.
      * @param   \ArrayAccess|array $config An array holding the paths to the config files.
      * @throws  \Exception
      */
-    public function __construct($config = [])
+    public function __construct($container = [], $config = [])
     {
-        $this->setVars($config);
-        print_r($this->getVars()->getContent());die;
-
-//        $this->setContainer($container)->setVars($config);
+        $this->setContainer($container)->setVars($config);
         $this->getContainer()->set(
             DOCTRINE_ENTITY_MANAGER,
             (new EntityManagerFactory)->__invoke(null, null, $this->getVars()->getContent())

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c403ade515d4578ec77880b2e905d925",
+    "content-hash": "919a84b366e812a3ad223e4577a36d96",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2040,165 +2040,6 @@
             "time": "2017-01-10T10:39:54+00:00"
         },
         {
-            "name": "jasny/config",
-            "version": "v2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jasny/config.git",
-                "reference": "1ecc225337117137c9b74ba315ddc6f4ed918862"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jasny/config/zipball/1ecc225337117137c9b74ba315ddc6f4ed918862",
-                "reference": "1ecc225337117137c9b74ba315ddc6f4ed918862",
-                "shasum": ""
-            },
-            "require": {
-                "jasny/dotkey": "^1.0",
-                "jasny/php-functions": "^3.3",
-                "php": ">=7.1",
-                "psr/container": "^1.0"
-            },
-            "require-dev": {
-                "aws/aws-sdk-php": "^3.2",
-                "ext-json": "*",
-                "ext-mysqli": "*",
-                "ext-yaml": "*",
-                "jasny/php-code-quality": "^2.3",
-                "nette/neon": "^2.3",
-                "phpstan/phpstan": "^0.10.2",
-                "phpstan/phpstan-strict-rules": "^0.10.1",
-                "symfony/yaml": "^3.0"
-            },
-            "suggest": {
-                "aws/aws-sdk-php": "Required to load configuration from AWS DynamoDB",
-                "nette/neon": "Required to use the NEON notation",
-                "symfony/yaml": "To support YAML without the yaml php extension"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Jasny\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Arnold Daniels",
-                    "email": "arnold@jasny.net",
-                    "homepage": "http://www.jasny.net"
-                }
-            ],
-            "description": "Configure your application",
-            "keywords": [
-                "config",
-                "configuration",
-                "db",
-                "ini",
-                "json",
-                "mysql",
-                "yaml"
-            ],
-            "time": "2018-07-26T03:27:36+00:00"
-        },
-        {
-            "name": "jasny/dotkey",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jasny/dotkey.git",
-                "reference": "034a3c30ef07ddb276da51c24ab5500316d35ff2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jasny/dotkey/zipball/034a3c30ef07ddb276da51c24ab5500316d35ff2",
-                "reference": "034a3c30ef07ddb276da51c24ab5500316d35ff2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8",
-                "satooshi/php-coveralls": "^0.6.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Jasny\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Arnold Daniels",
-                    "email": "arnold@jasny.net",
-                    "homepage": "http://www.jasny.net"
-                }
-            ],
-            "description": "Access objects and arrays through dot notation",
-            "keywords": [
-                "array",
-                "json",
-                "object",
-                "query"
-            ],
-            "time": "2016-07-01T13:42:21+00:00"
-        },
-        {
-            "name": "jasny/php-functions",
-            "version": "v3.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jasny/php-functions.git",
-                "reference": "eeae939f0cc12e9c58d38565668f8b404dc3b220"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jasny/php-functions/zipball/eeae939f0cc12e9c58d38565668f8b404dc3b220",
-                "reference": "eeae939f0cc12e9c58d38565668f8b404dc3b220",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "jasny/php-code-quality": "^2.0",
-                "phpunit/phpunit": "^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/array_functions.php",
-                    "src/case_functions.php",
-                    "src/string_functions.php",
-                    "src/server_functions.php",
-                    "src/type_functions.php",
-                    "src/file_functions.php",
-                    "src/object_functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Arnold Daniels",
-                    "email": "arnold@jasny.net",
-                    "homepage": "http://www.jasny.net"
-                }
-            ],
-            "description": "A set of useful PHP functions",
-            "time": "2018-11-26T11:18:06+00:00"
-        },
-        {
             "name": "jms/metadata",
             "version": "2.0.0",
             "source": {
@@ -2566,6 +2407,77 @@
                 "storage"
             ],
             "time": "2018-11-23T23:41:29+00:00"
+        },
+        {
+            "name": "m1/vars",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/m1/Vars.git",
+                "reference": "f496b40ebe4418783c3490efe30b92725249b833"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/m1/Vars/zipball/f496b40ebe4418783c3490efe30b92725249b833",
+                "reference": "f496b40ebe4418783c3490efe30b92725249b833",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/filesystem": "^2.8 | ^3.0"
+            },
+            "require-dev": {
+                "m1/env": "2.*",
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1",
+                "silex/silex": "1.3.*",
+                "squizlabs/php_codesniffer": "^2.3",
+                "symfony/yaml": "~2.8",
+                "yosymfony/toml": "~0.3"
+            },
+            "suggest": {
+                "m1/env": "For loading of Env files",
+                "symfony/yaml": "For loading of YAML files",
+                "yosymfony/toml": "For loading of Toml files"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "M1\\Vars\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miles Croxford",
+                    "email": "hello@milescroxford.com",
+                    "homepage": "http://milescroxford.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Vars is a simple to use and easily extendable configuration loader with in built loaders for ini, json, PHP, toml, XML and yaml/yml file types. It also comes with in built support for Silex and more frameworks to come soon.",
+            "homepage": "https://github.com/m1/vars",
+            "keywords": [
+                "config",
+                "configuration",
+                "croxford",
+                "ini",
+                "json",
+                "loader",
+                "miles",
+                "php",
+                "provider",
+                "service",
+                "silex",
+                "toml",
+                "vars",
+                "xml",
+                "yml"
+            ],
+            "time": "2016-05-18T12:35:01+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6911,77 +6823,6 @@
                 "psysh"
             ],
             "time": "2018-10-12T19:39:35+00:00"
-        },
-        {
-            "name": "m1/vars",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/m1/Vars.git",
-                "reference": "f496b40ebe4418783c3490efe30b92725249b833"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/m1/Vars/zipball/f496b40ebe4418783c3490efe30b92725249b833",
-                "reference": "f496b40ebe4418783c3490efe30b92725249b833",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0",
-                "symfony/filesystem": "^2.8 | ^3.0"
-            },
-            "require-dev": {
-                "m1/env": "2.*",
-                "phpunit/phpunit": "4.*",
-                "scrutinizer/ocular": "~1.1",
-                "silex/silex": "1.3.*",
-                "squizlabs/php_codesniffer": "^2.3",
-                "symfony/yaml": "~2.8",
-                "yosymfony/toml": "~0.3"
-            },
-            "suggest": {
-                "m1/env": "For loading of Env files",
-                "symfony/yaml": "For loading of YAML files",
-                "yosymfony/toml": "For loading of Toml files"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "M1\\Vars\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Miles Croxford",
-                    "email": "hello@milescroxford.com",
-                    "homepage": "http://milescroxford.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Vars is a simple to use and easily extendable configuration loader with in built loaders for ini, json, PHP, toml, XML and yaml/yml file types. It also comes with in built support for Silex and more frameworks to come soon.",
-            "homepage": "https://github.com/m1/vars",
-            "keywords": [
-                "config",
-                "configuration",
-                "croxford",
-                "ini",
-                "json",
-                "loader",
-                "miles",
-                "php",
-                "provider",
-                "service",
-                "silex",
-                "toml",
-                "vars",
-                "xml",
-                "yml"
-            ],
-            "time": "2016-05-18T12:35:01+00:00"
         },
         {
             "name": "mockery/mockery",

@@ -10,7 +10,3 @@ framework:
   datetime_format: Y-m-d\TH:i:s.u     # jsDate.toISOString(), e.g. 2017-09-21T10:11:19.026Z
   datetimetz_format: D, d M Y H:i:s O # jsDate.toUTCString(), e.g. Thu, 21 Sep 2017 17:03:45 GMT+0700 (ICT)
   time_format: H:i:s                  # jsDate.toTimeString(), e.g. 17:03:45 GMT+0700 (ICT)
-
-imports:
-  - { resource: doctrine.yml }
-  - { resource: jms.yml }

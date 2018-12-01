@@ -1,0 +1,42 @@
+services:
+  Chaos\Component\Permission\Entity\Permission:
+    class:  Chaos\Component\Permission\Entity\Permission
+    lazy:   true
+    shared: false
+  Chaos\Component\Permission\Event\PermissionListener:
+    class:  Chaos\Component\Permission\Event\PermissionListener
+    lazy:   true
+    shared: false
+  Chaos\Component\Permission\Service\PermissionService:
+    class:  Chaos\Component\Permission\Service\PermissionService
+    lazy:   true
+  Permission: '@Chaos\Component\Permission\Entity\Permission'
+  PermissionService: '@Chaos\Component\Permission\Service\PermissionService'
+
+  Chaos\Component\Role\Entity\Role:
+    class:  Chaos\Component\Role\Entity\Role
+    lazy:   true
+    shared: false
+  Chaos\Component\Role\Event\RoleListener:
+    class:  Chaos\Component\Role\Event\RoleListener
+    lazy:   true
+    shared: false
+  Chaos\Component\Role\Service\RoleService:
+    class:  Chaos\Component\Role\Service\RoleService
+    lazy:   true
+  Role: '@Chaos\Component\Role\Entity\Role'
+  RoleService: '@Chaos\Component\Role\Service\RoleService'
+
+  Chaos\Component\User\Entity\User:
+    class:  Chaos\Component\User\Entity\User
+    lazy:   true
+    shared: false
+  Chaos\Component\User\Event\UserListener:
+    class:  Chaos\Component\User\Event\UserListener
+    lazy:   true
+    shared: false
+  Chaos\Component\User\Service\UserService:
+    class:  Chaos\Component\User\Service\UserService
+    lazy:   true
+  User: '@Chaos\Component\User\Entity\User'
+  UserService: '@Chaos\Component\User\Service\UserService'

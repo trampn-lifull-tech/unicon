@@ -2,12 +2,12 @@ doctrine:
   dbal:
     default_connection: default
     types: ~
-    schema_filter: ~
+    schema_filter: tbl_
     connections:
       default:
-        dbname: ~
+        dbname: unicon
         host: 127.0.0.1
-        port: ~
+        port: 3306
         user: root
         password: ~
         charset: utf8
@@ -18,17 +18,23 @@ doctrine:
         mapping_types: ~
   orm:
     default_entity_manager: default
-    auto_generate_proxy_classes: 0
-    proxy_dir: /path/to/proxy/dir
+    auto_generate_proxy_classes: 1
+    proxy_dir: '%APP_DIR%/storage/framework/proxies'
     proxy_namespace: DoctrineProxies
     entity_managers:
       default:
         query_cache_driver:
           type: array
+#          type: filesystem
+#          directory: '%APP_DIR%/storage/framework/cache'
         metadata_cache_driver:
           type: array
+#          type: filesystem
+#          directory: '%APP_DIR%/storage/framework/cache'
         result_cache_driver:
           type: array
+#          type: filesystem
+#          directory: '%APP_DIR%/storage/framework/cache'
         connection: default
         class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
         default_repository_class: Doctrine\ORM\EntityRepository
@@ -37,7 +43,11 @@ doctrine:
           default:
             mapping: true
             type: annotation
-            dir: /path/to/entity/dir
+            dir:
+              - '%APP_DIR%/packages/components/src/Lookup/Entity'
+              - '%APP_DIR%/packages/components/src/Permission/Entity'
+              - '%APP_DIR%/packages/components/src/Setting/Entity'
+            use_simple_annotation_reader: false
         ast: ~
         dql:
           string_functions: ~

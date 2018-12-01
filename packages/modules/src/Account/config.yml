@@ -1,2 +1,3 @@
-imports:
-  - { resource: ../../../components/src/Permission/config.yml }
+module:
+  account:
+    foo: bar

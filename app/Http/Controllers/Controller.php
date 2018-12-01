@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Chaos\Shared\Foundation\LaravelRestController;
 
-/**
- * Class Controller
- * @author ntd1712
- */
 class Controller extends LaravelRestController
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     /**
      * {@inheritdoc} @override
      */
@@ -25,11 +26,12 @@ class Controller extends LaravelRestController
             'loaders' => ['yaml'],
             'merge_globals' => false,
             'replacements' => [
-                'base_dir' => $basePath,
-                'base_url' => $cfg->get('app.url')
+                'APP_DIR' => $basePath,
+                'APP_URL' => $cfg->get('app.url'),
+                'APP_KEY' => $cfg->get('app.key')
             ]
         ];
 
-        parent::__construct($config);
+        parent::__construct(glob($basePath . '/packages/modules/src/*/services.yml', GLOB_NOSORT), $config);
     }
 }

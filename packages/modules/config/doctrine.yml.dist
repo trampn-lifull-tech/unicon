@@ -3,22 +3,22 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
     default_connection: default
     types:
       double:
-        class: Chaos\Shared\Adapter\Doctrine\Type\DoubleType
+        class: Chaos\Factory\Doctrine\Type\DoubleType
         commented: true
       mediumint:
-        class: Chaos\Shared\Adapter\Doctrine\Type\MediumIntType
+        class: Chaos\Factory\Doctrine\Type\MediumIntType
       timestamp:
-        class: Chaos\Shared\Adapter\Doctrine\Type\TimestampType
+        class: Chaos\Factory\Doctrine\Type\TimestampType
       tinyint:
-        class: Chaos\Shared\Adapter\Doctrine\Type\TinyIntType
+        class: Chaos\Factory\Doctrine\Type\TinyIntType
       uuid:
-        class: Chaos\Shared\Adapter\Doctrine\Type\UuidType
+        class: Chaos\Factory\Doctrine\Type\UuidType
     schema_filter: ~
     connections:
       default:
         dbname: ~
         host: 127.0.0.1
-        port: ~
+        port: 3306
         user: root
         password: ~
         charset: utf8
@@ -110,7 +110,7 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
             type: staticphp
             dir: ~
         ast:
-          doctrine.customOutputWalker: Chaos\Shared\Adapter\Doctrine\Walker\CustomOutputWalker
+          doctrine.customOutputWalker: Chaos\Factory\Doctrine\Walker\CustomOutputWalker
         dql:
           string_functions:
             binary: DoctrineExtensions\Query\Sqlite\Binary

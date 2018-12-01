@@ -1,0 +1,33 @@
+jms:
+  metadata:
+    debug: false
+    include_interface_metadata: false
+    cache_dir: ~
+    metadata_dirs:
+#      MyApplication\Entity: my-dir/SomeObject.yml
+    annotation_reader: ~
+  handlers:
+#    - JMS\Serializer\Handler\DateHandler
+#    - JMS\Serializer\Handler\StdClassHandler
+#    - JMS\Serializer\Handler\PhpCollectionHandler
+#    - JMS\Serializer\Handler\ArrayCollectionHandler
+#    - JMS\Serializer\Handler\PropelCollectionHandler
+  events:
+#    - JMS\Serializer\EventDispatcher\Subscriber\DoctrineProxySubscriber
+  expression_evaluator:
+#    language: Symfony\Component\ExpressionLanguage\ExpressionLanguage
+  object_constructor: ~
+  property_naming_strategy:
+#    class_name: JMS\Serializer\Naming\CamelCaseNamingStrategy
+#    args:
+#      separator: _
+#      lowerCase: true
+  serialization_visitors:
+#    xml: JMS\Serializer\XmlSerializationVisitor
+#    yml: JMS\Serializer\YamlSerializationVisitor
+#    json: JMS\Serializer\JsonSerializationVisitor
+  deserialization_visitors:
+#    xml: JMS\Serializer\XmlDeserializationVisitor
+#    json: JMS\Serializer\JsonDeserializationVisitor
+  serialization_context_factory: ~
+  deserialization_context_factory: ~

@@ -1,0 +1,14 @@
+services:
+  Chaos\Component\User\Entity\User:
+    class:  Chaos\Component\User\Entity\User
+    lazy:   true
+    shared: false
+  Chaos\Component\User\Event\UserListener:
+    class:  Chaos\Component\User\Event\UserListener
+    lazy:   true
+    shared: false
+  Chaos\Component\User\Service\UserService:
+    class:  Chaos\Component\User\Service\UserService
+    lazy:   true
+  User: '@Chaos\Component\User\Entity\User'
+  UserService: '@Chaos\Component\User\Service\UserService'

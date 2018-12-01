@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Shared\Adapter\JMS;
+namespace Chaos\Factory\JMS;
 
 use JMS\Serializer\Construction;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
@@ -28,7 +28,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get('M1\Vars\Vars'); // TODO: use jasny/config
+            $options = $container->get('M1\Vars\Vars'); // TODO: write method to return default options
         }
 
         $serializer = SerializerBuilder::create()

@@ -1,0 +1,28 @@
+services:
+  Chaos\Component\Lookup\Entity\Lookup:
+    class:  Chaos\Component\Lookup\Entity\Lookup
+    lazy:   true
+    shared: false
+  Chaos\Component\Lookup\Event\LookupListener:
+    class:  Chaos\Component\Lookup\Event\LookupListener
+    lazy:   true
+    shared: false
+  Chaos\Component\Lookup\Service\LookupService:
+    class:  Chaos\Component\Lookup\Service\LookupService
+    lazy:   true
+  Lookup: '@Chaos\Component\Lookup\Entity\Lookup'
+  LookupService: '@Chaos\Component\Lookup\Service\LookupService'
+
+  Chaos\Component\Setting\Entity\Setting:
+    class:  Chaos\Component\Setting\Entity\Setting
+    lazy:   true
+    shared: false
+  Chaos\Component\Setting\Event\SettingListener:
+    class:  Chaos\Component\Setting\Event\SettingListener
+    lazy:   true
+    shared: false
+  Chaos\Component\Setting\Service\SettingService:
+    class:  Chaos\Component\Setting\Service\SettingService
+    lazy:   true
+  Setting: '@Chaos\Component\Setting\Entity\Setting'
+  SettingService: '@Chaos\Component\Setting\Service\SettingService'

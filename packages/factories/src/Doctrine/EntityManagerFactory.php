@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Shared\Adapter\Doctrine;
+namespace Chaos\Factory\Doctrine;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache;
@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM;
 use Doctrine\ORM\Mapping\Driver;
 use Psr\Container\ContainerInterface;
-use Chaos\Shared\Adapter\Doctrine\Event\TablePrefix;
+use Chaos\Factory\Doctrine\Event\TablePrefix;
 
 /**
  * Class EntityManagerFactory
@@ -31,7 +31,7 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
     public function __invoke(ContainerInterface $container = null, $requestedName = null, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get('M1\Vars\Vars'); // TODO: use jasny/config
+            $options = $container->get('M1\Vars\Vars'); // TODO: write method to return default options
         }
 
         $entityManager = ORM\EntityManager::create(

@@ -1,0 +1,11 @@
+mail:
+  default_mailer: default
+  mailers:
+    default:
+      transport: smtp
+      username: ~
+      password: ~
+      host: 127.0.0.1
+      port: false
+      encryption: tls
+      auth_mode: login
