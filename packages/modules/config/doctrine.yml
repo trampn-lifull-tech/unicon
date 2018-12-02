@@ -1,15 +1,15 @@
 doctrine:
   dbal:
-    default_connection: default
+    default_connection: '%^DB_CONNECTION%'
     types: ~
     schema_filter: tbl_
     connections:
-      default:
-        dbname: unicon
-        host: 127.0.0.1
-        port: 3306
-        user: root
-        password: ~
+      mysql:
+        dbname: '%^DB_DATABASE%'
+        host: '%^DB_HOST%'
+        port: '%^DB_PORT%'
+        user: '%^DB_USERNAME%'
+        password: '%^DB_PASSWORD%'
         charset: utf8
         unix_socket: ~
         driver: pdo_mysql
@@ -35,7 +35,7 @@ doctrine:
           type: array
 #          type: filesystem
 #          directory: '%APP_DIR%/storage/framework/cache'
-        connection: default
+        connection: '%^DB_CONNECTION%'
         class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
         default_repository_class: Doctrine\ORM\EntityRepository
         repository_factory: ~

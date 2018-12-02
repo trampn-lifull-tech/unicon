@@ -1,14 +1,14 @@
 <?php
 
-namespace Chaos\Shared\Foundation;
+namespace Chaos\Shared\Application\Contract;
 
 use M1\Vars\Vars;
 
 /**
- * Trait ConfigAwareTrait
+ * Trait ConfigAware
  * @author ntd1712
  */
-trait ConfigAwareTrait
+trait ConfigAware
 {
     /**
      * @JMS\Serializer\Annotation\Exclude()
@@ -36,7 +36,7 @@ trait ConfigAwareTrait
     public function setVars($config, $optionKey = '__options__')
     {
         if (!$config instanceof Vars) {
-            $resource = __DIR__ . '/../../config/config.yml';
+            $resource = __DIR__ . '/../../../config/config.yml';
             $options = ['cache' => false, 'loaders' => ['yaml'], 'merge_globals' => false];
 
             if (isset($config)) {

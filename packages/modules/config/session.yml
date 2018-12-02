@@ -1,4 +1,0 @@
-session:
-  name: Laravel_session
-  cookie_lifetime: 7200
-  cookie_domain: unicon.loc

@@ -38,7 +38,7 @@ final class CustomOutputWalker extends SqlWalker
                         "%s.%s='%s'",
                         end($parts),
                         $metadata->fieldMappings[$keymap]['columnName'],
-                        $options['framework']['application_key']
+                        $options['app']['key']
                     );
                 }
             }

@@ -10,9 +10,9 @@ namespace Chaos\Component\Lookup\Entity;
  * @Doctrine\ORM\Mapping\EntityListeners({ "Chaos\Component\Lookup\Event\LookupListener" })
  * @Doctrine\ORM\Mapping\Table(name="lookup")
  */
-class Lookup// extends Entity
+class Lookup // extends Entity
 {
-//    use IdentityEntityAwareTrait, AuditEntityAwareTrait;
+    // use IdentityAware, AuditAware;
 
     /**
      * @Doctrine\ORM\Mapping\Column(name="type", type="string")

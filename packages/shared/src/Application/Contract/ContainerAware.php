@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Shared\Foundation;
+namespace Chaos\Shared\Application\Contract;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,10 +8,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * Trait ContainerAwareTrait
+ * Trait ContainerAware
  * @author ntd1712
  */
-trait ContainerAwareTrait
+trait ContainerAware
 {
     /**
      * @JMS\Serializer\Annotation\Exclude()

@@ -1,23 +1,32 @@
 app:
-  default_route: setting.index
-  fallback_locale: en
-  locale: en
-  theme: element
-  url: ''
+  key: '%^APP_KEY%'
+  fallback_locale: '%APP_FALLBACK_LOCALE%'
+  locale: '%APP_LOCALE%'
+  timezone: '%APP_TIMEZONE%'
+  url: '%^APP_URL%'
 
-framework:
-  application_key: '%APP_KEY%'
+session:
+  cookie: '%SESSION_COOKIE%'
+  lifetime: '%^SESSION_LIFETIME%'
+  path: '%SESSION_PATH%'
+  domain: '%SESSION_DOMAIN%'
+  secure: '%SESSION_SECURE%'
+  http_only: '%SESSION_HTTP_ONLY%'
 
-dir:
-  api: '%APP_DIR%/public/api'
-  config: '%APP_DIR%/packages/modules/config/custom.yml'
-  uploads: '%APP_DIR%/public/uploads'
+#multitenant:
+#  enabled: false
+#  keymap: ApplicationKey
 
-url:
-  api: '%APP_URL%/api'
-  reset: '%APP_URL%/#/reset?k='
+#dir:
+#  api: '%APP_DIR%/public/api'
+#  config: '%APP_DIR%/packages/modules/config/custom.yml'
+#  uploads: '%APP_DIR%/public/uploads'
+
+#url:
+#  api: '%^APP_URL%/api'
+#  reset: '%^APP_URL%/#/reset?k='
 
 imports:
+  - { resource: writable.yml }
   - { resource: doctrine.yml }
   - { resource: jms.yml }
-  - { resource: custom.yml }

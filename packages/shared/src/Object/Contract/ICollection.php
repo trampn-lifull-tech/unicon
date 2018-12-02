@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Shared\Component\Object\Contract;
+namespace Chaos\Shared\Object\Contract;
 
 use Doctrine\Common\Collections\Collection as DoctrineCollection;
 

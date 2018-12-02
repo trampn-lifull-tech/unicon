@@ -1,0 +1,7 @@
+app:
+  copyright: Copyright (c) 2018 ntd1712
+  default_route: setting.index
+  image_allowed_ext: gif,jpeg,jpg,png
+  image_max_size: 2097152 # 2mb, in bytes
+  theme: element
+  title: Admin Panel

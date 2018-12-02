@@ -1,12 +1,12 @@
 <?php
 
-namespace Chaos\Shared\Component\Object;
+namespace Chaos\Shared\Object;
 
 /**
  * Trait ObjectAware
  * @author ntd1712
  */
-Trait ObjectAware
+trait ObjectAware
 {
     /**
      * Returns a string consisting of the name of the class of which the object is an instance,

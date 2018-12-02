@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Shared\Component\Object;
+namespace Chaos\Shared\Object;
 
 /**
  * Trait CollectionAware

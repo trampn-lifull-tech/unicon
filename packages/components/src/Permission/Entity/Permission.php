@@ -8,11 +8,9 @@ namespace Chaos\Component\Permission\Entity;
  *
  * @Doctrine\ORM\Mapping\Entity(repositoryClass="Chaos\Component\Permission\Repository\PermissionRepository")
  * @Doctrine\ORM\Mapping\EntityListeners({ "Chaos\Component\Permission\Event\PermissionListener" })
- * @Doctrine\ORM\Mapping\Table(name="Permission")
+ * @Doctrine\ORM\Mapping\Table(name="permission")
  */
-class Permission// extends Entity
+class Permission // extends Entity
 {
-    // use IdentityEntityAwareTrait, AuditEntityAwareTrait;
-
-    // TODO
+    // use IdentityAwareTrait, AuditAwareTrait;
 }

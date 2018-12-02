@@ -1,5 +1,0 @@
-auth:
-  default_driver: ~
-  drivers:
-    oauth2:
-      redirectUri: '%APP_URL%'

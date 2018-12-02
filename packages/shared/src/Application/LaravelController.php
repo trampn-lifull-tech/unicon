@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Shared\Foundation;
+namespace Chaos\Shared\Application;
 
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
@@ -12,8 +12,8 @@ use Chaos\Factory\Doctrine\EntityManagerFactory;
  */
 abstract class LaravelController extends Controller
 {
-    use ConfigAwareTrait, ContainerAwareTrait;
-        /*Traits\ServiceAwareTrait, BaseControllerTrait;*/
+    use Contract\ConfigAware, Contract\ContainerAware,
+        Contract\ControllerAware, Contract\ServiceAware;
 
     /**
      * Constructor.
@@ -25,10 +25,13 @@ abstract class LaravelController extends Controller
     public function __construct($container = [], $config = [])
     {
         $this->setContainer($container)->setVars($config);
+        $this->getContainer()->set(VARS, $this->getVars());
         $this->getContainer()->set(
-            DOCTRINE_ENTITY_MANAGER,
+            ENTITY_MANAGER,
             (new EntityManagerFactory)->__invoke(null, null, $this->getVars()->getContent())
         );
+
+        var_dump($this->getContainer()->get(ENTITY_MANAGER), $this->getVars()->getContent());
     }
 
     /**
@@ -50,9 +53,9 @@ abstract class LaravelController extends Controller
         if (null === $default) {
             $params['EditedAt'] = 'now';
             $params['EditedBy'] = session('loggedName');
-            $params['IsDeleted'] = 'false';
+            $params['NotUse'] = 'false';
             $params['Uuid'] = Uuid::uuid4()->toString();
-            $params['ApplicationKey'] = $this->getVars()->get('framework.application_key');
+            $params['ApplicationKey'] = $this->getVars()->get('app.key');
 
             return $params;
         }
