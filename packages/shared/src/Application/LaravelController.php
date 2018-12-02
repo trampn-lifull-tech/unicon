@@ -30,8 +30,6 @@ abstract class LaravelController extends Controller
             ENTITY_MANAGER,
             (new EntityManagerFactory)->__invoke(null, null, $this->getVars()->getContent())
         );
-
-        var_dump($this->getContainer()->get(ENTITY_MANAGER), $this->getVars()->getContent());
     }
 
     /**

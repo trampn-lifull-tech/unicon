@@ -2,7 +2,6 @@ app:
   key: '%^APP_KEY%'
   fallback_locale: '%APP_FALLBACK_LOCALE%'
   locale: '%APP_LOCALE%'
-  timezone: '%APP_TIMEZONE%'
   url: '%^APP_URL%'
 
 session:
@@ -10,8 +9,6 @@ session:
   lifetime: '%^SESSION_LIFETIME%'
   path: '%SESSION_PATH%'
   domain: '%SESSION_DOMAIN%'
-  secure: '%SESSION_SECURE%'
-  http_only: '%SESSION_HTTP_ONLY%'
 
 #multitenant:
 #  enabled: false

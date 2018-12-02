@@ -38,12 +38,9 @@ class Controller extends LaravelRestController
                 'APP_DIR' => $basePath,
                 'APP_FALLBACK_LOCALE' => $config['app']['fallback_locale'],
                 'APP_LOCALE' => $config['app']['locale'],
-                'APP_TIMEZONE' => $config['app']['timezone'],
                 'SESSION_COOKIE' => $config['session']['cookie'],
                 'SESSION_PATH' => $config['session']['path'],
-                'SESSION_DOMAIN' => $config['session']['domain'],
-                'SESSION_SECURE' => $config['session']['secure'],
-                'SESSION_HTTP_ONLY' => $config['session']['http_only']
+                'SESSION_DOMAIN' => $config['session']['domain']
             ]
         ];
 
