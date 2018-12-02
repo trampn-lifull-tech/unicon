@@ -1,0 +1,14 @@
+services:
+  Chaos\Component\Permission\PermissionEntity:
+    class:  Chaos\Component\Permission\PermissionEntity
+    lazy:   true
+    shared: false
+  Chaos\Component\Permission\PermissionListener:
+    class:  Chaos\Component\Permission\PermissionListener
+    lazy:   true
+    shared: false
+  Chaos\Component\Permission\PermissionService:
+    class:  Chaos\Component\Permission\PermissionService
+    lazy:   true
+  Permission: '@Chaos\Component\Permission\PermissionEntity'
+  PermissionService: '@Chaos\Component\Permission\PermissionService'

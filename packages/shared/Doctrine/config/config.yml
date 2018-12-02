@@ -1,0 +1,160 @@
+doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.html
+  dbal:
+    default_connection: default
+    types:
+      double:
+        class: Chaos\Doctrine\Type\DoubleType
+        commented: true
+      mediumint:
+        class: Chaos\Doctrine\Type\MediumIntType
+      timestamp:
+        class: Chaos\Doctrine\Type\TimestampType
+      tinyint:
+        class: Chaos\Doctrine\Type\TinyIntType
+      uuid:
+        class: Chaos\Doctrine\Type\UuidType
+    schema_filter: ~
+    connections:
+      default:
+        dbname: ~
+        host: 127.0.0.1
+        port: 3306
+        user: root
+        password: ~
+        charset: utf8
+        unix_socket: ~
+        driver: pdo_mysql
+        platform_service: ~
+        auto_commit: false
+        logging: ~
+        profiling: ~
+        server_version: ~
+        driver_class: ~
+        wrapperClass: ~
+        shard_choser: ~
+        shard_choser_service: ~
+        keep_slave: ~
+        options:
+#          key: []
+        mapping_types:
+          enum: string
+          double: double
+          mediumint: mediumint
+          real: real
+          timestamp: timestamp
+          tinyint: tinyint
+          uuid: uuid
+        default_table_options:
+          charset: utf8
+          collate: utf8_general_ci
+          engine: InnoDB
+        slaves: ~
+        shards: ~
+  orm:
+    default_entity_manager: default
+    auto_generate_proxy_classes: 0
+    proxy_dir: /path/to/proxy/dir
+    proxy_namespace: DoctrineProxies
+    resolve_target_entities: []
+    entity_managers:
+      default:
+        query_cache_driver:
+          type: array
+          host:
+          port:
+          instance_class:
+          class:
+        metadata_cache_driver:
+          type: array
+          host:
+          port:
+          instance_class:
+          class:
+        result_cache_driver:
+          type: array
+          host:
+          port:
+          instance_class:
+          class:
+        entity_listeners:
+          entities: ~
+        connection: default
+        class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
+        default_repository_class: Doctrine\ORM\EntityRepository
+        auto_mapping: false
+        naming_strategy: ~
+        quote_strategy: ~
+        entity_listener_resolver: ~
+        repository_factory: ~
+        second_level_cache: ~
+        hydrators: ~
+        mappings:
+          default:
+            mapping: true
+            type: annotation
+            dir: /path/to/entity/dir
+          yaml:
+            mapping: false
+            type: yaml
+            dir: ~
+          xml:
+            mapping: false
+            type: xml
+            dir: ~
+          php:
+            mapping: false
+            type: php
+            dir: ~
+          staticphp:
+            mapping: false
+            type: staticphp
+            dir: ~
+        ast:
+          doctrine.customOutputWalker: Chaos\Doctrine\Walker\CustomOutputWalker
+        dql:
+          string_functions:
+            binary: DoctrineExtensions\Query\Sqlite\Binary
+            char_length: DoctrineExtensions\Query\Sqlite\CharLength
+            concat_ws: DoctrineExtensions\Query\Sqlite\ConcatWs
+            countif: DoctrineExtensions\Query\Sqlite\CountIf
+            crc32: DoctrineExtensions\Query\Sqlite\Crc32
+            degrees: DoctrineExtensions\Query\Sqlite\Degrees
+            field: DoctrineExtensions\Query\Sqlite\Field
+            find_in_set: DoctrineExtensions\Query\Sqlite\FindInSet
+            group_concat: DoctrineExtensions\Query\Sqlite\GroupConcat
+            ifelse: DoctrineExtensions\Query\Sqlite\IfElse
+            ifnull: DoctrineExtensions\Query\Sqlite\IfNull
+            match: DoctrineExtensions\Query\Sqlite\MatchAgainst
+            md5: DoctrineExtensions\Query\Sqlite\Md5
+            nullif: DoctrineExtensions\Query\Sqlite\NullIf
+            radians: DoctrineExtensions\Query\Sqlite\Radians
+            regexp: DoctrineExtensions\Query\Sqlite\Regexp
+            replace: DoctrineExtensions\Query\Sqlite\Replace
+            sha1: DoctrineExtensions\Query\Sqlite\Sha1
+            sha2: DoctrineExtensions\Query\Sqlite\Sha2
+            soundex: DoctrineExtensions\Query\Sqlite\Soundex
+            uuid_short: DoctrineExtensions\Query\Sqlite\UuidShort
+          numeric_functions:
+            round: DoctrineExtensions\Query\Sqlite\Round
+          datetime_functions:
+            date: DoctrineExtensions\Query\Sqlite\Date
+            date_format: DoctrineExtensions\Query\Sqlite\DateFormat
+            dateadd: DoctrineExtensions\Query\Sqlite\DateAdd
+            datediff: DoctrineExtensions\Query\Sqlite\DateDiff
+            day: DoctrineExtensions\Query\Sqlite\Day
+            dayname: DoctrineExtensions\Query\Sqlite\DayName
+            hour: DoctrineExtensions\Query\Sqlite\Hour
+            minute: DoctrineExtensions\Query\Sqlite\Minute
+            month: DoctrineExtensions\Query\Sqlite\Month
+            monthname: DoctrineExtensions\Query\Sqlite\MonthName
+            second: DoctrineExtensions\Query\Sqlite\Second
+            month:  DoctrineExtensions\Query\Sqlite\Month
+            strftime:  DoctrineExtensions\Query\Sqlite\StrfTime
+            strtodate: DoctrineExtensions\Query\Sqlite\StrToDate
+            time: DoctrineExtensions\Query\Sqlite\Time
+            timestampadd: DoctrineExtensions\Query\Sqlite\TimestampAdd
+            timestampdiff: DoctrineExtensions\Query\Sqlite\TimestampDiff
+            week: DoctrineExtensions\Query\Sqlite\Week
+            weekday: DoctrineExtensions\Query\Sqlite\WeekDay
+            year: DoctrineExtensions\Query\Sqlite\Year
+        filters: ~

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Chaos\Shared\Application\LaravelRestController;
+use Chaos\Common\Application\LaravelRestController;
 
 /**
  * Class Controller
@@ -26,10 +26,12 @@ class Controller extends LaravelRestController
             'session' => $config->get('session')
         ];
 
-        $resources = glob($basePath . '/packages/modules/src/*/config.yml', GLOB_NOSORT);
-        array_unshift($resources, $basePath . '/packages/modules/config/config.yml');
-
-        $resources['__options__'] = [
+        $configResources = array_merge(
+            glob($basePath . '/packages/components/*/config/config.yml', GLOB_NOSORT),
+            glob($basePath . '/packages/modules/*/config/config.yml', GLOB_NOSORT),
+            [$basePath . '/packages/config.yml']
+        );
+        $configResources['__options__'] = [
             'cache' => 'production' === $config['app']['env'],
             'cache_path' => $basePath . '/storage/framework', #/vars
             'loaders' => ['yaml'],
@@ -43,7 +45,11 @@ class Controller extends LaravelRestController
                 'SESSION_DOMAIN' => $config['session']['domain']
             ]
         ];
+        $containerResources = array_merge(
+            glob($basePath . '/packages/components/*/config/services.yml', GLOB_NOSORT),
+            glob($basePath . '/packages/modules/*/config/services.yml', GLOB_NOSORT)
+        );
 
-        parent::__construct(glob($basePath . '/packages/modules/src/*/services.yml', GLOB_NOSORT), $resources);
+        parent::__construct($containerResources, $configResources);
     }
 }

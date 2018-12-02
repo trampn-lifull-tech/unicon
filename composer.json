@@ -45,22 +45,17 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Chaos\\Component\\": "packages/components/src",
-            "Chaos\\Factory\\": "packages/factories/src",
-            "Chaos\\Module\\": "packages/modules/src",
-            "Chaos\\Shared\\": "packages/shared/src"
+            "Chaos\\Common\\": "packages/shared/Common/src",
+            "Chaos\\Doctrine\\": "packages/shared/Doctrine/src",
+            "Chaos\\JMS\\": "packages/shared/JMS/src"
         },
         "classmap": [
             "database/seeds",
             "database/factories"
         ],
         "files": [
-            "packages/shared/src/defines.php",
-            "packages/shared/src/functions.php"
-        ],
-        "exclude-from-classmap": [
-            "packages/modules/src/test/",
-            "packages/shared/src/test/"
+            "packages/shared/Common/src/defines.php",
+            "packages/shared/Common/src/functions.php"
         ]
     },
     "autoload-dev": {

@@ -1,0 +1,45 @@
+app:
+  copyright: Copyright (c) 2018 ntd1712
+  charset: utf-8
+  default_route: setting.index
+  image_allowed_ext: gif,jpeg,jpg,png
+  image_max_size: 2097152 # 2mb, in bytes
+  items_per_page: 10
+  max_items_per_page: 100
+  min_search_chars: 4
+  theme: element
+  title: Admin Panel
+
+  date_format: Y-m-d                  # jsDate.toISOString(), e.g. 2017-09-21T10:11:19.026Z
+  datetime_format: Y-m-d\TH:i:s.u     # jsDate.toISOString(), e.g. 2017-09-21T10:11:19.026Z
+  datetimetz_format: D, d M Y H:i:s O # jsDate.toUTCString(), e.g. Thu, 21 Sep 2017 17:03:45 GMT+0700 (ICT)
+  time_format: H:i:s                  # jsDate.toTimeString(), e.g. 17:03:45 GMT+0700 (ICT)
+
+  fallback_locale: '%APP_FALLBACK_LOCALE%'
+  locale: '%APP_LOCALE%'
+  key: '%^APP_KEY%'
+  url: '%^APP_URL%'
+
+#session:
+#  cookie: '%SESSION_COOKIE%'
+#  lifetime: '%^SESSION_LIFETIME%'
+#  path: '%SESSION_PATH%'
+#  domain: '%SESSION_DOMAIN%'
+
+#multitenant:
+#  enabled: false
+#  keymap: ApplicationKey
+
+#dir:
+#  data: '%APP_DIR%/storage/framework/cache/data'
+#  config: '%APP_DIR%/packages/writable.yml'
+#  uploads: '%APP_DIR%/storage/app/public'
+
+#url:
+#  api: '%^APP_URL%/api/v1'
+#  reset: '%^APP_URL%/#/reset?k='
+
+imports:
+  - { resource: doctrine.yml }
+  - { resource: jms.yml }
+  - { resource: writable.yml }
