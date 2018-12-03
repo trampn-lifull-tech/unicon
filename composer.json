@@ -45,17 +45,15 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Chaos\\Common\\": "packages/shared/Common/src",
-            "Chaos\\Doctrine\\": "packages/shared/Doctrine/src",
-            "Chaos\\JMS\\": "packages/shared/JMS/src"
+            "Chaos\\Common\\": "modules/shared/src"
         },
         "classmap": [
             "database/seeds",
             "database/factories"
         ],
         "files": [
-            "packages/shared/Common/src/defines.php",
-            "packages/shared/Common/src/functions.php"
+            "modules/shared/autoload/defines.php",
+            "modules/shared/autoload/functions.php"
         ]
     },
     "autoload-dev": {

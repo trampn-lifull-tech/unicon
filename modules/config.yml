@@ -1,0 +1,35 @@
+app:
+  default_route: setting.index
+  image_allowed_ext: gif,jpeg,jpg,png
+  image_max_size: 2097152 # 2mb, in bytes
+  theme: element
+  title: Admin Panel
+
+  fallback_locale: '%APP_FALLBACK_LOCALE%'
+  locale: '%APP_LOCALE%'
+  key: '%^APP_KEY%'
+  url: '%^APP_URL%'
+
+#session:
+#  cookie: '%SESSION_COOKIE%'
+#  lifetime: '%^SESSION_LIFETIME%'
+#  path: '%SESSION_PATH%'
+#  domain: '%SESSION_DOMAIN%'
+
+#multitenant:
+#  enabled: false
+#  keymap: ApplicationKey
+
+#dir:
+#  data: '%APP_DIR%/storage/framework/cache/data'
+#  config: '%APP_DIR%/packages/writable.yml'
+#  uploads: '%APP_DIR%/storage/app/public'
+
+#url:
+#  api: '%^APP_URL%/api/v1'
+#  reset: '%^APP_URL%/#/reset?k='
+
+imports:
+  - { resource: doctrine.yml }
+  - { resource: jms.yml }
+  - { resource: writable.yml }

@@ -27,9 +27,9 @@ class Controller extends LaravelRestController
         ];
 
         $configResources = array_merge(
-            glob($basePath . '/packages/components/*/config/config.yml', GLOB_NOSORT),
-            glob($basePath . '/packages/modules/*/config/config.yml', GLOB_NOSORT),
-            [$basePath . '/packages/config.yml']
+            // glob($basePath . '/modules/core/*/config/config.yml', GLOB_NOSORT),
+            glob($basePath . '/modules/features/*/config/config.yml', GLOB_NOSORT),
+            [$basePath . '/modules/config.yml']
         );
         $configResources['__options__'] = [
             'cache' => 'production' === $config['app']['env'],
@@ -46,8 +46,8 @@ class Controller extends LaravelRestController
             ]
         ];
         $containerResources = array_merge(
-            glob($basePath . '/packages/components/*/config/services.yml', GLOB_NOSORT),
-            glob($basePath . '/packages/modules/*/config/services.yml', GLOB_NOSORT)
+            // glob($basePath . '/modules/core/*/config/services.yml', GLOB_NOSORT),
+            glob($basePath . '/modules/features/*/config/services.yml', GLOB_NOSORT)
         );
 
         parent::__construct($containerResources, $configResources);
