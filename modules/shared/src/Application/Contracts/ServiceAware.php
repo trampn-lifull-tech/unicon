@@ -4,7 +4,7 @@ namespace Chaos\Common\Application\Contracts;
 
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Filter\StaticFilter;
-use Chaos\Common\Support\Constants\PredicateType;
+use Chaos\Common\Support\Enums\PredicateType;
 
 /**
  * Class ServiceAware

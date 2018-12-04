@@ -44,10 +44,8 @@ doctrine:
             mapping: true
             type: annotation
             dir:
-              - '%APP_DIR%/packages/components/Lookup/src/LookupEntity'
-              - '%APP_DIR%/packages/components/Permission/src/PermissionEntity'
-              - '%APP_DIR%/packages/components/Role/src/RoleEntity'
-              - '%APP_DIR%/packages/components/User/src/UserEntity'
+              - '%APP_DIR%/modules/features/Account/src/Entities'
+              - '%APP_DIR%/modules/features/System/src/Entities'
             use_simple_annotation_reader: false
         ast: ~
         dql:

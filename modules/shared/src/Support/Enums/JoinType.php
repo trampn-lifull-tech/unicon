@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Constants;
+namespace Chaos\Common\Support\Enums;
 
 /**
  * Class JoinType

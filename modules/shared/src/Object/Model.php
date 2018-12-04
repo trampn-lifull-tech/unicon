@@ -8,7 +8,7 @@ namespace Chaos\Common\Object;
  *
  * We use models to transport data between the layers.
  */
-abstract class Model extends \stdClass implements Contract\IModel
+abstract class Model extends \stdClass implements Contracts\IModel
 {
     use ObjectAware;
 

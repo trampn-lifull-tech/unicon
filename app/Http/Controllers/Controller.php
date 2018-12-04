@@ -15,6 +15,8 @@ class Controller extends LaravelRestController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
+     * @todo Move this to somewhere, we don't want to load config by constructor
+     *
      * {@inheritdoc} @override
      */
     public function __construct()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Factories\JMS;
+namespace Chaos\Common\Extension\JMS;
 
 use JMS\Serializer\Construction;
 use JMS\Serializer\EventDispatcher\EventDispatcher;

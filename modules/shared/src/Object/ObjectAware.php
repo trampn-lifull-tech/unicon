@@ -24,10 +24,10 @@ trait ObjectAware
     /**
      * {@inheritdoc}
      *
-     * @param   Contract\IObject $other The reference object with which to compare.
+     * @param   Contracts\IObject $other The reference object with which to compare.
      * @return  bool
      */
-    public function equals(Contract\IObject $other)
+    public function equals(Contracts\IObject $other)
     {
         return $this === $other;
     }

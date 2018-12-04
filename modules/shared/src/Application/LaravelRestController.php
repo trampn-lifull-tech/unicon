@@ -6,7 +6,7 @@ use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 use Chaos\Common\Support\Contracts\ConfigAware;
 use Chaos\Common\Support\Contracts\ContainerAware;
-use Chaos\Common\Support\Factories\Doctrine\EntityManagerFactory;
+use Chaos\Common\Extension\Doctrine\EntityManagerFactory;
 
 /**
  * Class LaravelRestController

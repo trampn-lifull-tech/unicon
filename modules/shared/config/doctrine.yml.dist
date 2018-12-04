@@ -3,16 +3,16 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
     default_connection: mysql
     types:
       double:
-        class: Chaos\Common\Support\Factories\Doctrine\Type\DoubleType
+        class: Chaos\Common\Extension\Doctrine\Type\DoubleType
         commented: true
       mediumint:
-        class: Chaos\Common\Support\Factories\Doctrine\Type\MediumIntType
+        class: Chaos\Common\Extension\Doctrine\Type\MediumIntType
       timestamp:
-        class: Chaos\Common\Support\Factories\Doctrine\Type\TimestampType
+        class: Chaos\Common\Extension\Doctrine\Type\TimestampType
       tinyint:
-        class: Chaos\Common\Support\Factories\Doctrine\Type\TinyIntType
+        class: Chaos\Common\Extension\Doctrine\Type\TinyIntType
       uuid:
-        class: Chaos\Common\Support\Factories\Doctrine\Type\UuidType
+        class: Chaos\Common\Extension\Doctrine\Type\UuidType
     schema_filter: ~
     connections:
       mysql:
@@ -78,7 +78,7 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
           class:
         entity_listeners:
           entities: ~
-        connection: default
+        connection: mysql
         class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
         default_repository_class: Doctrine\ORM\EntityRepository
         auto_mapping: false
@@ -110,7 +110,7 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
             type: staticphp
             dir: ~
         ast:
-          doctrine.customOutputWalker: Chaos\Common\Support\Factories\Doctrine\Query\CustomOutputWalker
+          doctrine.customOutputWalker: Chaos\Common\Extension\Doctrine\Query\CustomOutputWalker
         dql:
           string_functions:
             binary: DoctrineExtensions\Query\Sqlite\Binary

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Factories\Doctrine;
+namespace Chaos\Common\Extension\Doctrine;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache;
@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM;
 use Doctrine\ORM\Mapping\Driver;
 use Psr\Container\ContainerInterface;
-use Chaos\Common\Support\Factories\Doctrine\Event\TablePrefix;
+use Chaos\Common\Extension\Doctrine\Event\TablePrefix;
 
 /**
  * Class EntityManagerFactory

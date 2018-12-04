@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Factories\Doctrine\Query;
+namespace Chaos\Common\Extension\Doctrine\Query;
 
 use Doctrine\ORM\Query\SqlWalker;
 
