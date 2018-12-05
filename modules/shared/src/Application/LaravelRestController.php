@@ -4,9 +4,10 @@ namespace Chaos\Common\Application;
 
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
-use Chaos\Common\Support\Contracts\ConfigAware;
-use Chaos\Common\Support\Contracts\ContainerAware;
-use Chaos\Common\Extension\Doctrine\EntityManagerFactory;
+use Chaos\Common\Service\Contract\ServiceAware;
+use Chaos\Common\Support\Contract\ConfigAware;
+use Chaos\Common\Support\Contract\ContainerAware;
+use Chaos\Common\Support\Doctrine\EntityManagerFactory;
 
 /**
  * Class LaravelRestController
@@ -15,7 +16,7 @@ use Chaos\Common\Extension\Doctrine\EntityManagerFactory;
 abstract class LaravelRestController extends Controller
 {
     use ConfigAware, ContainerAware,
-        Contracts\ControllerAware, Contracts\ServiceAware;
+        Contract\ControllerAware, ServiceAware;
 
     /**
      * Constructor.
@@ -34,13 +35,14 @@ abstract class LaravelRestController extends Controller
         );
 
         var_dump(
+            $this->getRequest(),
             $this->getContainer()->get(VARS)->getContent(),
             $this->getContainer()->get(ENTITY_MANAGER)
         );
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays a listing of the resource.
      *
      * This is the default `index` action, you can override this in the derived class.
      * GET /lookup?filter=&sort=&start=&length=
@@ -53,7 +55,7 @@ abstract class LaravelRestController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores a newly created resource in storage.
      *
      * This is the default `store` action, you can override this in the derived class.
      * POST /lookup
@@ -67,7 +69,7 @@ abstract class LaravelRestController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified resource.
      *
      * This is the default `show` action, you can override this in the derived class.
      * GET /lookup/{lookup}
@@ -81,7 +83,7 @@ abstract class LaravelRestController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified resource in storage.
      *
      * This is the default `update` action, you can override this in the derived class.
      * PUT /lookup/{lookup}
@@ -96,7 +98,7 @@ abstract class LaravelRestController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified resource from storage.
      *
      * This is the default `destroy` action, you can override this in the derived class.
      * DELETE /lookup/{lookup}
@@ -112,7 +114,7 @@ abstract class LaravelRestController extends Controller
     // <editor-fold desc="Private methods">
 
     /**
-     * Either get a query value or all of the input and files.
+     * Either gets a query value or all of the input and files.
      *
      * @param   null|string $key The request parameter key.
      * @param   mixed $default [optional] The default value.
@@ -131,7 +133,7 @@ abstract class LaravelRestController extends Controller
             $params['EditedAt'] = 'now';
             $params['EditedBy'] = session('loggedName');
             $params['NotUse'] = 'false';
-            $params['Uuid'] = Uuid::uuid4()->toString();
+            $params['Guid'] = Uuid::uuid4()->toString();
             $params['ApplicationKey'] = $this->getVars()->get('app.key');
 
             return $params;
