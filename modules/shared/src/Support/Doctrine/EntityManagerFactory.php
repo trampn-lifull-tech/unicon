@@ -31,7 +31,7 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
     public function __invoke(ContainerInterface $container = null, $requestedName = null, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get(VARS);
+            $options = $container->get('M1\Vars\Vars');
         }
 
         $entityManager = ORM\EntityManager::create(
@@ -42,9 +42,9 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
         $entityManager->getConfiguration()->setDefaultQueryHint('options', $options);
         $this->registerTypes($dbal, $entityManager);
 
-        AnnotationRegistry::registerLoader(function ($class) {
+        /*AnnotationRegistry::registerLoader(function ($class) {
             return (bool) class_exists($class); // ensure an attempt to autoload an annotation class is made
-        });
+        });*/
 
         return $entityManager;
     }

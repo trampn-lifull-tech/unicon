@@ -2,7 +2,7 @@
 
 namespace Chaos\Common\Application\Contract;
 
-use Chaos\Common\Support\Enum;
+use Chaos\Common\Support\Enumeration;
 
 /**
  * @todo
@@ -205,12 +205,12 @@ trait ControllerAware
             }
 
             $orderSet[$v['property']] = empty($v['direction']) || !is_string($v['direction'])
-            || Enum\PredicateType::DESC !== strtoupper($v['direction'])
-                ? Enum\PredicateType::ASC : Enum\PredicateType::DESC;
+            || Enumeration\PredicateType::DESC !== strtoupper($v['direction'])
+                ? Enumeration\PredicateType::ASC : Enumeration\PredicateType::DESC;
 
-            if (!empty($v['nulls']) && Enum\PredicateType::has($nulls = 'NULLS ' . strtoupper($v['nulls']))) {
-                $orderSet[$v['property']] .= ' ' . (Enum\PredicateType::NULLS_FIRST === $nulls
-                    ? Enum\PredicateType::NULLS_FIRST : Enum\PredicateType::NULLS_LAST);
+            if (!empty($v['nulls']) && Enumeration\PredicateType::has($nulls = 'NULLS ' . strtoupper($v['nulls']))) {
+                $orderSet[$v['property']] .= ' ' . (Enumeration\PredicateType::NULLS_FIRST === $nulls
+                    ? Enumeration\PredicateType::NULLS_FIRST : Enumeration\PredicateType::NULLS_LAST);
             }
 
             if (CHAOS_MAX_QUERY <= ++$count) {

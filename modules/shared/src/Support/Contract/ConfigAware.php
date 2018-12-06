@@ -13,7 +13,7 @@ trait ConfigAware
     /**
      * @JMS\Serializer\Annotation\Exclude()
      */
-    private static $m705f3wofe;
+    private static $kba2xzbm;
 
     /**
      * Gets a reference to the configuration object. The object returned will be of type <tt>Vars</tt>.
@@ -22,13 +22,13 @@ trait ConfigAware
      */
     public function getVars()
     {
-        return self::$m705f3wofe;
+        return self::$kba2xzbm;
     }
 
     /**
      * Sets a reference to the configuration object.
      *
-     * @param   array|\ArrayAccess|\M1\Vars\Vars $config Either be an array holding the paths to the config files
+     * @param   array|\M1\Vars\Vars $config Either be an array holding the paths to the config files
      *          or a <tt>Vars</tt> instance.
      * @param   string $optionKey [optional]
      * @return  static
@@ -52,7 +52,7 @@ trait ConfigAware
             }
         }
 
-        self::$m705f3wofe = $config;
+        self::$kba2xzbm = $config;
 
         return $this;
     }

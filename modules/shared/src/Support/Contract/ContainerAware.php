@@ -16,7 +16,7 @@ trait ContainerAware
     /**
      * @JMS\Serializer\Annotation\Exclude()
      */
-    private static $c5x8oh0mal;
+    private static $gbk9xbds;
 
     /**
      * Gets a reference to the container object. The object returned will be of type <tt>ContainerInterface</tt>.
@@ -25,13 +25,13 @@ trait ContainerAware
      */
     public function getContainer()
     {
-        return self::$c5x8oh0mal;
+        return self::$gbk9xbds;
     }
 
     /**
      * Sets a reference to the container object.
      *
-     * @param   array|\ArrayAccess|\Symfony\Component\DependencyInjection\ContainerInterface $container Either be
+     * @param   array|\Symfony\Component\DependencyInjection\ContainerInterface $container Either be
      *          an array holding the paths to the service files or a <tt>ContainerBuilder</tt> instance.
      * @return  static
      * @throws  \Exception
@@ -47,11 +47,11 @@ trait ContainerAware
                 $loader->load($resource);
             }
 
-            // https://symfony.com/doc/current/components/dependency_injection/compilation.html
+            // https://symfony.com/doc/master/components/dependency_injection/compilation.html
             // $container->compile();
         }
 
-        self::$c5x8oh0mal = $container;
+        self::$gbk9xbds = $container;
 
         return $this;
     }

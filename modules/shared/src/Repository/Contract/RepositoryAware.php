@@ -8,7 +8,7 @@ use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Zend\Db\Sql\Predicate\PredicateInterface;
 use Zend\Db\Sql\Select;
-use Chaos\Common\Support\Enum\JoinType;
+use Chaos\Common\Support\Enumeration\JoinType;
 
 /**
  * @todo
