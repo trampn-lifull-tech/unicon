@@ -31,7 +31,7 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
     public function __invoke(ContainerInterface $container = null, $requestedName = null, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get('M1\Vars\Vars');
+            $options = $container->get(VARS);
         }
 
         $entityManager = ORM\EntityManager::create(

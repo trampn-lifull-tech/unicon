@@ -2,12 +2,12 @@
 
 namespace Chaos\Common\Application;
 
-use Illuminate\Routing\Controller;
-use Ramsey\Uuid\Uuid;
 use Chaos\Common\Service\Contract\ServiceAware;
 use Chaos\Common\Support\Contract\ConfigAware;
 use Chaos\Common\Support\Contract\ContainerAware;
 use Chaos\Common\Support\Doctrine\EntityManagerFactory;
+use Illuminate\Routing\Controller;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class LaravelRestController
@@ -21,8 +21,8 @@ abstract class LaravelRestController extends Controller
     /**
      * Constructor.
      *
-     * @param   \ArrayAccess|array $container An array holding the paths to the service files.
-     * @param   \ArrayAccess|array $config An array holding the paths to the config files.
+     * @param   array $container An array holding the paths to the service files.
+     * @param   array $config An array holding the paths to the config files.
      * @throws  \Exception
      */
     public function __construct($container = [], $config = [])
