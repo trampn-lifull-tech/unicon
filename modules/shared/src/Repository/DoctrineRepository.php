@@ -2,16 +2,14 @@
 
 namespace Chaos\Common\Repository;
 
+use Chaos\Common\Support\Contract\ConfigAware;
+use Chaos\Common\Support\Contract\ContainerAware;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Chaos\Common\Support\Contract\ConfigAware;
-use Chaos\Common\Support\Contract\ContainerAware;
 
 /**
- * @todo
- *
  * Class DoctrineRepository
  * @author ntd1712
  *
@@ -24,12 +22,12 @@ use Chaos\Common\Support\Contract\ContainerAware;
  */
 abstract class DoctrineRepository extends EntityRepository implements Contract\IDoctrineRepository
 {
-    use ConfigAware, ContainerAware, Contract\DoctrineRepositoryAware;
+    use ConfigAware, ContainerAware, Contract\DoctrineRepositoryTrait;
 
     /**
      * {@inheritdoc}
      *
-     * @param   boolean $fetchJoinCollection Whether the query joins a collection (true by default).
+     * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
      */
     public function paginate($criteria = [], array $paging = [], $fetchJoinCollection = true)
     {
@@ -49,7 +47,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
     /**
      * {@inheritdoc}
      *
-     * @param   integer $hydrationMode Processing mode to be used during the hydration process.
+     * @param   int $hydrationMode [optional] Processing mode to be used during the hydration process.
      */
     public function readAll($criteria = [], $hydrationMode = AbstractQuery::HYDRATE_OBJECT)
     {
@@ -62,7 +60,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
     /**
      * {@inheritdoc}
      *
-     * @param   integer $hydrationMode The hydration mode.
+     * @param   int $hydrationMode [optional] The hydration mode.
      */
     public function read($criteria, $hydrationMode = null)
     {
@@ -74,6 +72,8 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
 
     /**
      * {@inheritdoc}
+     *
+     * @param   bool $autoFlush [optional]
      */
     public function create($entity, $autoFlush = true)
     {
@@ -83,7 +83,8 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
     /**
      * {@inheritdoc}
      *
-     * @param   boolean $isNew A flag indicating we are creating or updating a record.
+     * @param   bool $autoFlush [optional]
+     * @param   bool $isNew [optional] A flag indicating we are creating or updating a record.
      */
     public function update($entity, $criteria = null, $autoFlush = true, $isNew = false)
     {
@@ -114,6 +115,8 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
 
     /**
      * {@inheritdoc}
+     *
+     * @param   bool $autoFlush [optional]
      */
     public function delete($criteria, $autoFlush = true)
     {
@@ -163,6 +166,8 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
         return null !== $this->findOneBy($criteria);
     }
 
+    // <editor-fold desc="Magic methods" defaultstate="collapsed">
+
     /**
      * @param   string $name The name of the property being interacted with.
      * @return  mixed
@@ -192,4 +197,6 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
                 throw new \InvalidArgumentException('Invalid magic property on repository');
         }
     }
+
+    // </editor-fold>
 }

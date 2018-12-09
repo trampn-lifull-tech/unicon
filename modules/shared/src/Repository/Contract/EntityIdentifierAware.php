@@ -3,8 +3,6 @@
 namespace Chaos\Common\Repository\Contract;
 
 /**
- * @todo
- *
  * Trait EntityIdentifierAware
  * @author ntd1712
  */
@@ -13,7 +11,7 @@ trait EntityIdentifierAware
     /**
      * @JMS\Serializer\Annotation\Exclude()
      */
-    private static $mkg2q6cmyz = [];
+    private static $sx39uqvq = [];
 
     /**
      * Gets the identifier of an entity.
@@ -22,7 +20,7 @@ trait EntityIdentifierAware
      */
     public function getEntityIdentifier()
     {
-        return self::$mkg2q6cmyz;
+        return self::$sx39uqvq;
     }
 
     /**
@@ -33,7 +31,7 @@ trait EntityIdentifierAware
      */
     public function setEntityIdentifier(array $identifier)
     {
-        self::$mkg2q6cmyz = $identifier;
+        self::$sx39uqvq = $identifier;
 
         return $this;
     }

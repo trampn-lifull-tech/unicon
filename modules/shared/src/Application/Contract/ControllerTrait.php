@@ -2,26 +2,33 @@
 
 namespace Chaos\Common\Application\Contract;
 
-use Chaos\Common\Support\Enumeration;
+use Chaos\Common\Support\Enumeration\PredicateType;
 
 /**
- * @todo
- *
- * Trait ControllerAware
+ * Trait ControllerTrait
  * @author ntd1712
+ *
+ * @method \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService getService()
+ * @method \M1\Vars\Vars getVars()
  */
-trait ControllerAware
+trait ControllerTrait
 {
     /**
+     * @var \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService
+     */
+    protected $service;
+
+    /**
      * Gets filter parameters.
-     * e.g.
+     *
      * ?filter=[
      *  {"predicate":"equalTo","left":"Id","right":"1","leftType":"identifier","rightType":"value",
      *      "combine":"AND","nesting":"nest"},
      *  {"predicate":"equalTo","left":"Id","right":"2","leftType":"identifier","rightType":"value","combine":"OR"},
      *  {"predicate":"like","identifier":"Name","like":"demo","combine":"and","nesting":"unnest"}
      * ]
-     * // equivalent to
+     *
+     * // ... is equivalent to
      * $predicate = new \Zend\Db\Sql\Predicate\Predicate;
      * $predicate->nest()
      *  ->equalTo('Id', 1)
@@ -29,31 +36,34 @@ trait ControllerAware
      *  ->equalTo('Id', 2)
      *  ->unnest()
      *  ->and
-     *  ->like('Name', '%demo%');
+     *  ->like('Name', 'demo');
      *
-     * Allows parameters:
+     * Parameters allowed:
+     *
      * ?filter=[
-     *  {"predicate":"between|notBetween","identifier":"EditedAt","minValue":"9/29/2014","maxValue":"10/29/2014",
+     *  {"predicate":"between|notBetween","identifier":"CreatedAt","minValue":"9/29/2014","maxValue":"10/29/2014",
      *      "combine":"AND|OR","nesting":"nest|unnest"},
      *  {"predicate":"equalTo|notEqualTo|lessThan|greaterThan|lessThanOrEqualTo|greaterThanOrEqualTo",
-     *   "left":"Name","right":"ntd1712","leftType":"identifier","rightType":"value",
+     *      "left":"Name","right":"ntd1712","leftType":"identifier","rightType":"value",
      *      "combine":"AND|OR","nesting":"nest|unnest"},
-     *  {"predicate":"expression","expression":"CONCAT(?0,?1) IS NOT NULL","parameters":["AddedAt","EditedAt"],
+     *  {"predicate":"expression","expression":"CONCAT(?0,?1) IS NOT NULL","parameters":["CreatedAt","UpdatedAt"],
      *      "combine":"AND|OR","nesting":"nest|unnest"}
-     *  {"predicate":"in|notIn","identifier":"Name","valueSet":["ntd1712","dzung",3],
+     *  {"predicate":"in|notIn","identifier":"Name","valueSet":["ntd1712","moon",17],
      *      "combine":"AND|OR","nesting":"nest|unnest"},
      *  {"predicate":"isNull|isNotNull","identifier":"Name","combine":"AND|OR","nesting":"nest|unnest"},
      *  {"predicate":"like|notLike","identifier":"Name","like|notLike":"ntd1712",
      *      "combine":"AND|OR","nesting":"nest|unnest"}
-     *  {"predicate":"literal","literal":"IsDeleted=false","combine":"AND|OR","nesting":"nest|unnest"}
+     *  {"predicate":"literal","literal":"NotUse=false","combine":"AND|OR","nesting":"nest|unnest"}
      * ]
      * &filter=ntd1712
      *
-     * Allows declarations: $binds = [
+     * Usage allowed:
+     *
+     * $binds = [
      *  'where' => 'Id = 1 OR Name = "ntd1712"',
      *  'where' => ['Id' => 1, 'Name' => 'ntd1712'] // aka. 'Id = 1 AND Name = "ntd1712"'
      *  'where' => ['Id' => 1, 'Name = "ntd1712"']  // aka. 'Id = 1 AND Name = "ntd1712"'
-     *  'where' => new \Zend\Db\Sql\Predicate\Predicate
+     *  'where' => $predicate
      * ]
      *
      * @param   array $binds A bind variable array.
@@ -92,14 +102,17 @@ trait ControllerAware
     /**
      * Gets sort order parameters.
      *
-     * Allows parameters:
+     * Parameters allowed:
+     *
      * ?sort=[
      *  {"property":"Id","direction":"desc","nulls":"first"},
      *  {"property":"Name","direction":"asc","nulls":"last"}
      * ]
      * &sort=name&direction=desc&nulls=first
      *
-     * Allows declarations: $binds = [
+     * Usage allowed:
+     *
+     * $binds = [
      *  'order' => 'Id DESC, Name',
      *  'order' => 'Id DESC NULLS FIRST, Name ASC NULLS LAST',
      *  'order' => ['Id DESC NULLS FIRST', 'Name ASC NULLS LAST'],
@@ -120,7 +133,7 @@ trait ControllerAware
                 $order = trim(rawurldecode($order));
 
                 if (false !== ($decodedValue = isJson($order, true))) {
-                    $order = (array) $decodedValue;
+                    $order = (array)$decodedValue;
                 } else {
                     $order = [[
                         'property' => $order,
@@ -160,11 +173,14 @@ trait ControllerAware
     /**
      * Gets pager parameters.
      *
-     * Allows parameters:
+     * Parameters allowed:
+     *
      *  ?page=1&length=10
      *  ?start=0&length=10
      *
-     * Allows declarations: $binds = [
+     * Usage allowed:
+     *
+     * $binds = [
      *  'CurrentPageStart' => 0,
      *  'CurrentPageNumber' => 1,
      *  'ItemCountPerPage' => 10
@@ -172,7 +188,7 @@ trait ControllerAware
      *
      * @param   array $binds A bind variable array.
      * @param   array $keys The request parameter keys; defaults to <b>['page', 'length']</b>.
-     * @return  boolean|array
+     * @return  bool|array
      */
     protected function getPagerParams(array $binds = [], array $keys = ['page', 'length'])
     {
@@ -205,12 +221,13 @@ trait ControllerAware
             }
 
             $orderSet[$v['property']] = empty($v['direction']) || !is_string($v['direction'])
-            || Enumeration\PredicateType::DESC !== strtoupper($v['direction'])
-                ? Enumeration\PredicateType::ASC : Enumeration\PredicateType::DESC;
+            || PredicateType::DESC !== strtoupper($v['direction'])
+                ? PredicateType::ASC : PredicateType::DESC;
 
-            if (!empty($v['nulls']) && Enumeration\PredicateType::has($nulls = 'NULLS ' . strtoupper($v['nulls']))) {
-                $orderSet[$v['property']] .= ' ' . (Enumeration\PredicateType::NULLS_FIRST === $nulls
-                    ? Enumeration\PredicateType::NULLS_FIRST : Enumeration\PredicateType::NULLS_LAST);
+            if (!empty($v['nulls']) && PredicateType::has($nulls = 'NULLS ' . strtoupper($v['nulls']))) {
+                $orderSet[$v['property']] .= ' ' . (
+                    PredicateType::NULLS_FIRST === $nulls ? PredicateType::NULLS_FIRST : PredicateType::NULLS_LAST
+                    );
             }
 
             if (CHAOS_MAX_QUERY <= ++$count) {
@@ -225,7 +242,7 @@ trait ControllerAware
      * Prepares pager parameters.
      *
      * @param   array $binds A bind variable array.
-     * @return  boolean|array
+     * @return  bool|array
      */
     private function preparePagerParams(array $binds = [])
     {
@@ -234,7 +251,7 @@ trait ControllerAware
         }
 
         if (isset($binds['ItemCountPerPage'])) {
-            $binds['ItemCountPerPage'] = (int) $binds['ItemCountPerPage'];
+            $binds['ItemCountPerPage'] = (int)$binds['ItemCountPerPage'];
 
             if (1 > $binds['ItemCountPerPage']) {
                 $binds['ItemCountPerPage'] = 1;
@@ -246,7 +263,7 @@ trait ControllerAware
         }
 
         if ($hasCurrentPageNumber) {
-            $binds['CurrentPageNumber'] = (int) $binds['CurrentPageNumber'];
+            $binds['CurrentPageNumber'] = (int)$binds['CurrentPageNumber'];
 
             if (1 > $binds['CurrentPageNumber']) {
                 $binds['CurrentPageNumber'] = 1;
@@ -260,7 +277,7 @@ trait ControllerAware
         }
 
         if (isset($binds['CurrentPageStart'])) {
-            $binds['CurrentPageStart'] = (int) $binds['CurrentPageStart'];
+            $binds['CurrentPageStart'] = (int)$binds['CurrentPageStart'];
 
             if (0 > $binds['CurrentPageStart']) {
                 $binds['CurrentPageStart'] = 0;

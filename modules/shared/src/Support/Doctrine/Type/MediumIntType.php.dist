@@ -15,7 +15,7 @@ final class MediumIntType extends Type
      *
      * @param   mixed $value The value to convert.
      * @param   \Doctrine\DBAL\Platforms\AbstractPlatform $platform The currently used database platform.
-     * @return  null|integer The PHP representation of the value.
+     * @return  null|int The PHP representation of the value.
      * @throws  \Doctrine\DBAL\Types\ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
@@ -58,7 +58,7 @@ final class MediumIntType extends Type
     /**
      * {@inheritdoc} @override
      *
-     * @return  integer
+     * @return  int
      */
     public function getBindingType()
     {

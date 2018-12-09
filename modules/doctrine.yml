@@ -44,8 +44,7 @@ doctrine:
             mapping: true
             type: annotation
             dir:
-              - '%APP_DIR%/modules/features/Account/src/Entities'
-              - '%APP_DIR%/modules/features/System/src/Entities'
+              - '%APP_DIR%/modules/core/System/src/Entity'
             use_simple_annotation_reader: false
         ast: ~
         dql:

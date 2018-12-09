@@ -14,7 +14,7 @@ if (!function_exists('isBlank')) {
 if (!function_exists('isJson')) {
     /**
      * <code>
-     * $boolean = false !== ($decodedValue = isJson($json, false, 512, JSON_BIGINT_AS_STRING));
+     * $bool = false !== ($decodedValue = isJson($json, false, 512, JSON_BIGINT_AS_STRING));
      * </code>
      *
      * @return  bool|mixed

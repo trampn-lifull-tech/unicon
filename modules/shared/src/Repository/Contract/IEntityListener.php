@@ -13,10 +13,9 @@ interface IEntityListener
     /**
      * The `postLoad` event.
      *
-     * @param   \Chaos\Common\Repository\Entity|\Chaos\Common\Repository\Contract\IEntity $entity The entity.
+     * @param   \Chaos\Common\Repository\Contract\IEntity $entity The entity.
      * @param   \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs The event arguments.
      * @return  void
-     * @throws  \Exception
      */
     public function postLoad($entity, $eventArgs);
 }

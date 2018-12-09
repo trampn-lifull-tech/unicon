@@ -2,24 +2,21 @@
 
 namespace Chaos\Common\Repository\Contract;
 
+use Chaos\Common\Support\Enumeration\JoinType;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Zend\Db\Sql\Predicate\PredicateInterface;
 use Zend\Db\Sql\Select;
-use Chaos\Common\Support\Enumeration\JoinType;
 
 /**
- * @todo
- *
- * Class BaseDoctrineRepositoryTrait
+ * Class DoctrineRepositoryTrait
  * @author ntd1712
  *
  * @property-read \Doctrine\ORM\EntityManager $_em
- * @method \Symfony\Component\DependencyInjection\ContainerBuilder __getContainer()
  */
-trait DoctrineRepositoryAware
+trait DoctrineRepositoryTrait
 {
     /**
      * @return  static
@@ -33,6 +30,7 @@ trait DoctrineRepositoryAware
 
     /**
      * @return  static
+     * @throws  \Doctrine\DBAL\ConnectionException
      */
     public function commit()
     {
@@ -45,6 +43,7 @@ trait DoctrineRepositoryAware
 
     /**
      * @return  static
+     * @throws  \Doctrine\DBAL\ConnectionException
      */
     public function rollback()
     {
@@ -57,6 +56,7 @@ trait DoctrineRepositoryAware
 
     /**
      * @return  static
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function flush()
     {
@@ -83,11 +83,13 @@ trait DoctrineRepositoryAware
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   \Doctrine\ORM\QueryBuilder $queryBuilder [optional] The <tt>QueryBuilder</tt> instance.
      * @return  \Doctrine\ORM\QueryBuilder
+     * @throws  \Doctrine\ORM\Query\QueryException
+     * @throws  \InvalidArgumentException
+     * @throws  \ReflectionException
      * @throws  \Exception
      */
     protected function getQueryBuilder($criteria, QueryBuilder $queryBuilder = null)
     {
-        // do some checks
         if ($criteria instanceof QueryBuilder) {
             return $criteria;
         }
@@ -123,18 +125,16 @@ trait DoctrineRepositoryAware
                     //          ['from' => 'Role', 'alias' => 'r'],
                     //          ['from' => $this->getRepository('Permission')]
                     //      ]]
-                    if ($v instanceof Contracts\IBaseRepository) {
-                        $v = [['from' => $v->getClassName()]];
+                    if ($v instanceof IRepository) {
+                        $v = [
+                            ['from' => $v->getClassName()]
+                        ];
                     } else if (is_string($v)) {
-                        $matches = preg_split(
-                            CHAOS_REPLACE_COMMA_SEPARATOR, $v, -1, PREG_SPLIT_NO_EMPTY
-                        );
+                        $matches = preg_split(CHAOS_REPLACE_COMMA_SEPARATOR, $v, -1, PREG_SPLIT_NO_EMPTY);
                         $v = [];
 
                         foreach ($matches as $m) {
-                            $parts = preg_split(
-                                CHAOS_REPLACE_SPACE_SEPARATOR, $m, -1, PREG_SPLIT_NO_EMPTY
-                            );
+                            $parts = preg_split(CHAOS_REPLACE_SPACE_SEPARATOR, $m, -1, PREG_SPLIT_NO_EMPTY);
                             $v[] = ['from' => $parts[0], 'alias' => @$parts[1], 'indexBy' => @$parts[4]];
                         }
                     } else if (!is_array($v)) {
@@ -152,12 +152,12 @@ trait DoctrineRepositoryAware
                             );
                         }
 
-                        if ($from['from'] instanceof Contracts\IBaseRepository) {
+                        if ($from['from'] instanceof IRepository) {
                             $from['from'] = $from['from']->getClassName();
                         }
 
                         if (false === strpos($from['from'], '\\')) {
-                            $from['from'] = guessNamespace($from['from'], $this->_class->namespace);
+                            $from['from'] = guessNs($from['from'], $this->_class->namespace);
                         }
 
                         if (in_array($from['from'], $queryBuilder->getRootEntities(), true)) {
@@ -186,7 +186,7 @@ trait DoctrineRepositoryAware
                     //          $this->getRepository('User'),
                     //          $this->getRepository('Role')
                     //      ]
-                    if ($v instanceof Contracts\IBaseRepository) {
+                    if ($v instanceof IRepository) {
                         $v = [$v->className];
                     } else if (is_string($v)) {
                         $v = preg_split(CHAOS_REPLACE_COMMA_SEPARATOR, $v, -1, PREG_SPLIT_NO_EMPTY);
@@ -199,7 +199,7 @@ trait DoctrineRepositoryAware
                             continue;
                         }
 
-                        if ($select instanceof Contracts\IBaseRepository) {
+                        if ($select instanceof IRepository) {
                             $select = $select->className;
                         }
 
@@ -245,7 +245,7 @@ trait DoctrineRepositoryAware
                             );
                         }
 
-                        if ($join[$type] instanceof Contracts\IBaseRepository) {
+                        if ($join[$type] instanceof IRepository) {
                             $join[$type] = $join[$type]->getClassName();
                             // $join['alias'] = $join[$type]->className;
                         }
@@ -402,10 +402,12 @@ trait DoctrineRepositoryAware
 
                                 $matches[1] = $aliases[0] . '.' . $matches[1];
                             } else if (false !== ($format = @vsprintf($matches[1], $aliases))) {
+                                /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
+                                $container = $this->getContainer();
                                 $parts = explode('.', $format);
 
-                                if (!$this->__getContainer()->has($parts[0])
-                                    || !property_exists($this->__getContainer()->get($parts[0]), $parts[1])
+                                if (!$container->has($parts[0])
+                                    || !property_exists($container->get($parts[0]), $parts[1])
                                 ) {
                                     continue;
                                 }
@@ -447,10 +449,11 @@ trait DoctrineRepositoryAware
      * Converts a <tt>Predicate</tt> to a <tt>QueryBuilder</tt>.
      *
      * @param   \Zend\Db\Sql\Predicate\PredicateSet|\Zend\Db\Sql\Predicate\PredicateInterface $predicateSet
-     *           The <tt>PredicateSet</tt> instance.
-     * @param   QueryBuilder $queryBuilder The <tt>QueryBuilder</tt> instance.
+     *          The <tt>PredicateSet</tt> instance.
+     * @param   \Doctrine\ORM\QueryBuilder $queryBuilder The <tt>QueryBuilder</tt> instance.
      * @param   array $aliases The aliases.
-     * @return  QueryBuilder
+     * @return  \Doctrine\ORM\QueryBuilder
+     * @throws  \ReflectionException
      */
     private function transformPredicate(PredicateInterface $predicateSet, QueryBuilder $queryBuilder, $aliases)
     {

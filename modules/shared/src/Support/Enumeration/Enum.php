@@ -29,7 +29,7 @@ class Enum
      * </code>
      *
      * @param   string $key The key.
-     * @return  boolean
+     * @return  bool
      * @throws  \ReflectionException
      */
     public static function has($key)
@@ -60,8 +60,8 @@ class Enum
      */
     private static function init()
     {
-        if (empty(self::$cache[$name = get_called_class()])) {
-            $reflectionClass = new \ReflectionClass($name);
+        if (empty(self::$cache[$name = static::class])) {
+            $reflectionClass = reflect($name);
             self::$cache[$name] = $reflectionClass->getConstants() + $reflectionClass->getStaticProperties();
         }
 

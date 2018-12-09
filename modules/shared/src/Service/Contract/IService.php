@@ -3,8 +3,6 @@
 namespace Chaos\Common\Service\Contract;
 
 /**
- * @todo
- *
  * Interface IService
  * @author ntd1712
  *
@@ -25,7 +23,7 @@ interface IService
      * The default `readAll` method, you can override this in the derived class.
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
-     * @param   boolean|array $paging The paging criteria; defaults to FALSE.
+     * @param   bool|array $paging The paging criteria; defaults to FALSE.
      * @return  array
      */
     public function readAll($criteria = [], $paging = false);
@@ -35,7 +33,7 @@ interface IService
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Foundation\Exceptions\ServiceException
+     * @throws  \Chaos\Common\Service\ServiceException
      */
     public function read($criteria);
 
@@ -44,8 +42,8 @@ interface IService
      *
      * @param   array $post The _POST variable.
      * @return  array
-     * @throws  \Chaos\Foundation\Exceptions\ServiceException
-     * @throws  \Chaos\Foundation\Exceptions\ValidateException
+     * @throws  \Chaos\Common\Service\ServiceException
+     * @throws  \Chaos\Common\Service\ValidateException
      */
     public function create(array $post = []);
 
@@ -55,8 +53,8 @@ interface IService
      * @param   array $post The _PUT variable.
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria
      * @return  array
-     * @throws  \Chaos\Foundation\Exceptions\ServiceException
-     * @throws  \Chaos\Foundation\Exceptions\ValidateException
+     * @throws  \Chaos\Common\Service\ServiceException
+     * @throws  \Chaos\Common\Service\ValidateException
      */
     public function update(array $post = [], $criteria = null);
 
@@ -65,7 +63,7 @@ interface IService
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Foundation\Exceptions\ServiceException
+     * @throws  \Chaos\Common\Service\ServiceException
      */
     public function delete($criteria);
 }
