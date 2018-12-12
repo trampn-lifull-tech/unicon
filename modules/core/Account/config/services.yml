@@ -1,42 +1,42 @@
 services:
-  Chaos\Module\Account\UserEntity:
-    class:  Chaos\Module\Account\UserEntity
+  Chaos\CoreModule\Account\Entity\UserEntity:
+    class:  Chaos\CoreModule\Account\Entity\UserEntity
     lazy:   true
     shared: false
-  Chaos\Module\Account\UserListener:
-    class:  Chaos\Module\Account\UserListener
+  Chaos\CoreModule\Account\Event\UserListener:
+    class:  Chaos\CoreModule\Account\Event\UserListener
     lazy:   true
     shared: false
-  Chaos\Module\Account\UserService:
-    class:  Chaos\Module\Account\UserService
+  Chaos\CoreModule\Account\Service\UserService:
+    class:  Chaos\CoreModule\Account\Service\UserService
     lazy:   true
-  User: '@Chaos\Module\Account\UserEntity'
-  UserService: '@Chaos\Module\Account\UserService'
+  UserEntity: '@Chaos\CoreModule\Account\Entity\UserEntity'
+  UserService: '@Chaos\CoreModule\Account\Service\UserService'
 
-  Chaos\Module\Account\RoleEntity:
-    class:  Chaos\Module\Account\RoleEntity
+  Chaos\CoreModule\Account\Entity\RoleEntity:
+    class:  Chaos\CoreModule\Account\Entity\RoleEntity
     lazy:   true
     shared: false
-  Chaos\Module\Account\RoleListener:
-    class:  Chaos\Module\Account\RoleListener
+  Chaos\CoreModule\Account\Event\RoleListener:
+    class:  Chaos\CoreModule\Account\Event\RoleListener
     lazy:   true
     shared: false
-  Chaos\Module\Account\RoleService:
-    class:  Chaos\Module\Account\RoleService
+  Chaos\CoreModule\Account\Service\RoleService:
+    class:  Chaos\CoreModule\Account\Service\RoleService
     lazy:   true
-  Role: '@Chaos\Module\Account\RoleEntity'
-  RoleService: '@Chaos\Module\Account\RoleService'
+  RoleEntity: '@Chaos\CoreModule\Account\Entity\RoleEntity'
+  RoleService: '@Chaos\CoreModule\Account\Service\RoleService'
 
-  Chaos\Module\Account\PermissionEntity:
-    class:  Chaos\Module\Account\PermissionEntity
+  Chaos\CoreModule\Account\Entity\PermissionEntity:
+    class:  Chaos\CoreModule\Account\Entity\PermissionEntity
     lazy:   true
     shared: false
-  Chaos\Module\Account\PermissionListener:
-    class:  Chaos\Module\Account\PermissionListener
+  Chaos\CoreModule\Account\Event\PermissionListener:
+    class:  Chaos\CoreModule\Account\Event\PermissionListener
     lazy:   true
     shared: false
-  Chaos\Module\Account\PermissionService:
-    class:  Chaos\Module\Account\PermissionService
+  Chaos\CoreModule\Account\Service\PermissionService:
+    class:  Chaos\CoreModule\Account\Service\PermissionService
     lazy:   true
-  Permission: '@Chaos\Module\Account\PermissionEntity'
-  PermissionService: '@Chaos\Module\Account\PermissionService'
+  PermissionEntity: '@Chaos\CoreModule\Account\Entity\PermissionEntity'
+  PermissionService: '@Chaos\CoreModule\Account\Service\PermissionService'

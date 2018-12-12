@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Object\Contract;
+namespace Chaos\SharedModule\Support\Object\Contract;
 
 /**
  * Interface IObject
@@ -11,7 +11,7 @@ interface IObject
     /**
      * Indicates whether other object is "equal to" this one.
      *
-     * @param   \Chaos\Common\Support\Object\Contract\IObject $other The reference object with which to compare.
+     * @param   \Chaos\SharedModule\Support\Object\Contract\IObject $other The reference object with which to compare.
      * @return  bool
      */
     public function equals(IObject $other);

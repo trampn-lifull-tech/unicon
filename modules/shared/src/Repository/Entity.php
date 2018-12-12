@@ -1,9 +1,9 @@
 <?php
 
-namespace Chaos\Common\Repository;
+namespace Chaos\SharedModule\Repository;
 
-use Chaos\Common\Support\Object\Model;
-use Chaos\Common\Support\Contract\ContainerAware;
+use Chaos\SharedModule\Support\Object\Model;
+use Chaos\SharedModule\Support\Contract\ContainerAware;
 
 /**
  * Class Entity

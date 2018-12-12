@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\ApiController;
-use Chaos\Core\System\Service\LookupService;
+use Chaos\CoreModule\System\Service\LookupService;
 
 /**
  * Class LookupController
@@ -37,6 +37,7 @@ class LookupController extends ApiController
         var_dump(
             $this->getRequest(),
             $this->service,
+            $this->getService('Chaos\FeatureModule\Bar\Service\BarService'),
             $this->getContainer()->get(VARS)->getContent(),
             $this->getContainer()->get(ENTITY_MANAGER)
         );

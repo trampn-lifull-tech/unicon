@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Service\Contract;
+namespace Chaos\SharedModule\Service\Contract;
 
 /**
  * Interface IService
@@ -8,7 +8,7 @@ namespace Chaos\Common\Service\Contract;
  *
  * @property-read string $className The short class name of the entity.
  * @property-read string $entityName The qualified class name of the entity.
- * @property-read \Chaos\Common\Repository\Contract\IEntity $entity The entity instance.
+ * @property-read \Chaos\SharedModule\Repository\Contract\IEntity $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
  *
@@ -33,7 +33,7 @@ interface IService
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
+     * @throws  \Chaos\SharedModule\Service\ServiceException
      */
     public function read($criteria);
 
@@ -42,8 +42,8 @@ interface IService
      *
      * @param   array $post The _POST variable.
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
-     * @throws  \Chaos\Common\Service\ValidateException
+     * @throws  \Chaos\SharedModule\Service\ServiceException
+     * @throws  \Chaos\SharedModule\Service\ValidateException
      */
     public function create(array $post = []);
 
@@ -53,8 +53,8 @@ interface IService
      * @param   array $post The _PUT variable.
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
-     * @throws  \Chaos\Common\Service\ValidateException
+     * @throws  \Chaos\SharedModule\Service\ServiceException
+     * @throws  \Chaos\SharedModule\Service\ValidateException
      */
     public function update(array $post = [], $criteria = null);
 
@@ -63,7 +63,7 @@ interface IService
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
+     * @throws  \Chaos\SharedModule\Service\ServiceException
      */
     public function delete($criteria);
 }

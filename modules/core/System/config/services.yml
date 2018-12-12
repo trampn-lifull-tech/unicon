@@ -1,14 +1,14 @@
 services:
-  Chaos\Core\System\Entity\LookupEntity:
-    class:  Chaos\Core\System\Entity\LookupEntity
+  Chaos\CoreModule\System\Entity\LookupEntity:
+    class:  Chaos\CoreModule\System\Entity\LookupEntity
     lazy:   true
     shared: false
-  Chaos\Core\System\Event\LookupListener:
-    class:  Chaos\Core\System\Event\LookupListener
+  Chaos\CoreModule\System\Event\LookupListener:
+    class:  Chaos\CoreModule\System\Event\LookupListener
     lazy:   true
     shared: false
-  Chaos\Core\System\Service\LookupService:
-    class:  Chaos\Core\System\Service\LookupService
+  Chaos\CoreModule\System\Service\LookupService:
+    class:  Chaos\CoreModule\System\Service\LookupService
     lazy:   true
-  Lookup: '@Chaos\Core\System\Entity\LookupEntity'
-  LookupService: '@Chaos\Core\System\Service\LookupService'
+  LookupEntity: '@Chaos\CoreModule\System\Entity\LookupEntity'
+  LookupService: '@Chaos\CoreModule\System\Service\LookupService'

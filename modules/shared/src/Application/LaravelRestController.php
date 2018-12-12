@@ -1,12 +1,12 @@
 <?php
 
-namespace Chaos\Common\Application;
+namespace Chaos\SharedModule\Application;
 
-use Chaos\Common\Service\Contract\ServiceAware;
-use Chaos\Common\Service\Contract\ServiceTrait;
-use Chaos\Common\Support\Contract\ConfigAware;
-use Chaos\Common\Support\Contract\ContainerAware;
-use Chaos\Common\Support\Doctrine\EntityManagerFactory;
+use Chaos\SharedModule\Service\Contract\ServiceAware;
+use Chaos\SharedModule\Service\Contract\ServiceTrait;
+use Chaos\SharedModule\Support\Contract\ConfigAware;
+use Chaos\SharedModule\Support\Contract\ContainerAware;
+use Chaos\SharedModule\Support\Doctrine\EntityManagerFactory;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 

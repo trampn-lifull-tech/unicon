@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Service\Contract;
+namespace Chaos\SharedModule\Service\Contract;
 
 /**
  * Trait ServiceAware
@@ -16,12 +16,12 @@ trait ServiceAware
      * <code>
      * $this->getService()->...
      * $this->getService('Lookup')->...
-     * $this->getService('Chaos\Module\System\LookupService')->...
+     * $this->getService('Chaos\CoreModule\System\LookupService')->...
      * </code>
      *
      * @param   null|string $name The service name.
      * @param   bool $cache [optional] Defaults to TRUE.
-     * @return  \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService
+     * @return  \Chaos\SharedModule\Service\Service|\Chaos\SharedModule\Service\Contract\IService
      */
     public function getService($name = null, $cache = true)
     {

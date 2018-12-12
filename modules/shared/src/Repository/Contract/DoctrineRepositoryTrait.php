@@ -1,8 +1,8 @@
 <?php
 
-namespace Chaos\Common\Repository\Contract;
+namespace Chaos\SharedModule\Repository\Contract;
 
-use Chaos\Common\Support\Enumeration\JoinType;
+use Chaos\SharedModule\Support\Enumeration\JoinType;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\Query\Expr\Join;

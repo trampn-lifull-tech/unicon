@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Object;
+namespace Chaos\SharedModule\Support\Object;
 
 /**
  * Class Model

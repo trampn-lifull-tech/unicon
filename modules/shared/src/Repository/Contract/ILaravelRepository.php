@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Repository\Contract;
+namespace Chaos\SharedModule\Repository\Contract;
 
 /**
  * Interface ILaravelRepository

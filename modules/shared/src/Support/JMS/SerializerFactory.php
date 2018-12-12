@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\JMS;
+namespace Chaos\SharedModule\Support\JMS;
 
 use JMS\Serializer\Construction;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
@@ -28,7 +28,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get(VARS);
+            $options = $container->get('M1\Vars\Vars');
         }
 
         $serializer = SerializerBuilder::create()

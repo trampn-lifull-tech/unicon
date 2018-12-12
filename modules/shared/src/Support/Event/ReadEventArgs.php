@@ -1,10 +1,12 @@
 <?php
 
-namespace Chaos\Common\Support\Event;
+namespace Chaos\SharedModule\Support\Event;
 
 /**
  * Class ReadEventArgs
  * @author ntd1712
+ *
+ * @todo
  */
 class ReadEventArgs extends EventArgs
 {

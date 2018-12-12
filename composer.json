@@ -18,7 +18,7 @@
         "zendframework/zend-db": "~2.9.3",
         "doctrine/orm": "~2.6.3",
         "doctrine/doctrine-module": "~2.1.7",
-        "jms/serializer": "~2.0.1",
+        "jms/serializer": "~2.0.2",
         "m1/vars": "~1.1.2",
         "prooph/common": "~4.3.0"
     },
@@ -45,8 +45,10 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Chaos\\Common\\": "modules/shared/src",
-            "Chaos\\Core\\System\\": "modules/core/System/src"
+            "Chaos\\SharedModule\\": "modules/shared/src",
+            "Chaos\\CoreModule\\Account\\": "modules/core/Account/src",
+            "Chaos\\CoreModule\\System\\": "modules/core/System/src",
+            "Chaos\\FeatureModule\\": "modules/features"
         },
         "classmap": [
             "database/seeds",

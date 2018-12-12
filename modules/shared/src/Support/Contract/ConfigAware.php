@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Contract;
+namespace Chaos\SharedModule\Support\Contract;
 
 use M1\Vars\Vars;
 

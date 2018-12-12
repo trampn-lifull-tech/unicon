@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Service;
+namespace Chaos\SharedModule\Service;
 
 /**
  * Class ValidateException

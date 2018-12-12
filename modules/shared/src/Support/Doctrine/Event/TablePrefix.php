@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Doctrine\Event;
+namespace Chaos\SharedModule\Support\Doctrine\Event;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
@@ -36,7 +36,9 @@ final class TablePrefix implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [Events::loadClassMetadata];
+        return [
+            Events::loadClassMetadata
+        ];
     }
 
     /**
@@ -45,7 +47,6 @@ final class TablePrefix implements EventSubscriber
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
     {
-        /** @var \Doctrine\ORM\Mapping\ClassMetadataInfo $metadata */
         $metadata = $args->getClassMetadata();
         $mappings = $metadata->getAssociationMappings();
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Enumeration;
+namespace Chaos\SharedModule\Support\Enumeration;
 
 /**
  * Class Enum
@@ -61,7 +61,7 @@ class Enum
     private static function init()
     {
         if (empty(self::$cache[$name = static::class])) {
-            $reflectionClass = reflect($name);
+            $reflectionClass = new \ReflectionClass($name);
             self::$cache[$name] = $reflectionClass->getConstants() + $reflectionClass->getStaticProperties();
         }
 

@@ -1,8 +1,7 @@
 <?php
 
-namespace Chaos\Common\Support\Doctrine;
+namespace Chaos\SharedModule\Support\Doctrine;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache;
 use Doctrine\Common\EventManager;
 use Doctrine\Common\Persistence\Mapping\Driver as PHPDriver;
@@ -10,7 +9,7 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM;
 use Doctrine\ORM\Mapping\Driver;
 use Psr\Container\ContainerInterface;
-use Chaos\Common\Support\Doctrine\Event\TablePrefix;
+use Chaos\SharedModule\Support\Doctrine\Event\TablePrefix;
 
 /**
  * Class EntityManagerFactory
@@ -31,7 +30,7 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
     public function __invoke(ContainerInterface $container = null, $requestedName = null, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get(VARS);
+            $options = $container->get('M1\Vars\Vars');
         }
 
         $entityManager = ORM\EntityManager::create(
@@ -42,7 +41,7 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
         $entityManager->getConfiguration()->setDefaultQueryHint('options', $options);
         $this->registerTypes($dbal, $entityManager);
 
-        /*AnnotationRegistry::registerLoader(function ($class) {
+        /*\Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(function ($class) {
             return (bool) class_exists($class); // ensure an attempt to autoload an annotation class is made
         });*/
 

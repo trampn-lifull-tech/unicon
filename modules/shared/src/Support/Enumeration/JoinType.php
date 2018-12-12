@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Support\Enumeration;
+namespace Chaos\SharedModule\Support\Enumeration;
 
 /**
  * Class JoinType

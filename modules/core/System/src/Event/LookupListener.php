@@ -1,14 +1,14 @@
 <?php
 
-namespace Chaos\Core\System\Event;
+namespace Chaos\CoreModule\System\Event;
 
-use Chaos\Common\Repository\EntityListener;
+// use Chaos\CoreModule\Repository\EntityListener;
 
 /**
  * Class LookupListener
  * @author ntd1712
  */
-class LookupListener extends EntityListener
+class LookupListener // extends EntityListener
 {
     //
 }

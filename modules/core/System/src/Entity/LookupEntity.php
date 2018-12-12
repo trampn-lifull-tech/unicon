@@ -1,21 +1,21 @@
 <?php
 
-namespace Chaos\Core\System\Entity;
+namespace Chaos\CoreModule\System\Entity;
 
-use Chaos\Common\Repository\Contract;
-use Chaos\Common\Repository\Entity;
+// use Chaos\CoreModule\Repository\Contract;
+// use Chaos\CoreModule\Repository\Entity;
 
 /**
  * Class LookupEntity
  * @author ntd1712
  *
- * @Doctrine\ORM\Mapping\Entity(repositoryClass="Chaos\Core\System\Repository\LookupRepository", readOnly=true)
- * @Doctrine\ORM\Mapping\EntityListeners({ "Chaos\Core\System\Event\LookupListener" })
+ * @Doctrine\ORM\Mapping\Entity(repositoryClass="Chaos\CoreModule\System\Repository\LookupRepository", readOnly=true)
+ * @Doctrine\ORM\Mapping\EntityListeners({ "Chaos\CoreModule\System\Event\LookupListener" })
  * @Doctrine\ORM\Mapping\Table(name="lookup")
  */
-class LookupEntity extends Entity
+class LookupEntity // extends Entity
 {
-    use Contract\EntityIdentityTrait, Contract\EntityAuditTrait;
+    // use Contract\EntityIdentityTrait, Contract\EntityAuditTrait;
 
     /**
      * @Doctrine\ORM\Mapping\Column(name="type", type="string")

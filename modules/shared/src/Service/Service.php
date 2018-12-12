@@ -1,11 +1,11 @@
 <?php
 
-namespace Chaos\Common\Service;
+namespace Chaos\SharedModule\Service;
 
-use Chaos\Common\Repository\Contract\RepositoryAware;
-use Chaos\Common\Support\Contract\ConfigAware;
-use Chaos\Common\Support\Contract\ContainerAware;
-use Chaos\Common\Support\Contract\EventTrait;
+use Chaos\SharedModule\Repository\Contract\RepositoryAware;
+use Chaos\SharedModule\Support\Contract\ConfigAware;
+use Chaos\SharedModule\Support\Contract\ContainerAware;
+use Chaos\SharedModule\Support\Contract\EventTrait;
 
 /**
  * Class Service

@@ -1,0 +1,14 @@
+services:
+  Chaos\FeatureModule\Bar\Entity\BarEntity:
+    class:  Chaos\FeatureModule\Bar\Entity\BarEntity
+    lazy:   true
+    shared: false
+  Chaos\FeatureModule\Bar\Event\BarListener:
+    class:  Chaos\FeatureModule\Bar\Event\BarListener
+    lazy:   true
+    shared: false
+  Chaos\FeatureModule\Bar\Service\BarService:
+    class:  Chaos\FeatureModule\Bar\Service\BarService
+    lazy:   true
+  BarEntity: '@Chaos\FeatureModule\Bar\Entity\BarEntity'
+  BarService: '@Chaos\FeatureModule\Bar\Service\BarService'

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Chaos\Common\Application\LaravelRestController;
+use Chaos\SharedModule\Application\LaravelRestController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -30,7 +30,7 @@ class ApiController extends LaravelRestController
 
         $configResources = array_merge(
             glob($basePath . '/modules/core/*/config/config.yml', GLOB_NOSORT),
-            // glob($basePath . '/modules/features/*/config/config.yml', GLOB_NOSORT),
+            glob($basePath . '/modules/features/*/config.yml', GLOB_NOSORT),
             [$basePath . '/modules/config.yml']
         );
         $configResources['__options__'] = [
@@ -48,8 +48,8 @@ class ApiController extends LaravelRestController
             ]
         ];
         $containerResources = array_merge(
-            glob($basePath . '/modules/core/*/config/services.yml', GLOB_NOSORT)
-            // glob($basePath . '/modules/features/*/config/services.yml', GLOB_NOSORT)
+            glob($basePath . '/modules/core/*/config/services.yml', GLOB_NOSORT),
+            glob($basePath . '/modules/features/*/services.yml', GLOB_NOSORT)
         );
 
         parent::__construct($containerResources, $configResources);
