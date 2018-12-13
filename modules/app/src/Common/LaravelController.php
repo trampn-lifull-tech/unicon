@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\AppModule;
+namespace Chaos\AppModule\Common;
 
 use Chaos\SharedModule\Service\Contract\ServiceAware;
 use Chaos\SharedModule\Service\Contract\ServiceTrait;
@@ -38,8 +38,8 @@ class LaravelController extends Controller
 
         $configResources = array_merge(
             glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
-            glob($basePath . '/modules/features/*/config.yml', GLOB_NOSORT),
-            [$basePath . '/modules/app/config.yml']
+            glob($basePath . '/modules/app/src/*/config.yml', GLOB_NOSORT),
+            [$basePath . '/modules/app/config/config.yml']
         );
         $configResources['__options__'] = [
             'cache' => 'production' === $config['app']['env'],
@@ -57,7 +57,7 @@ class LaravelController extends Controller
         ];
         $containerResources = array_merge(
             glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
-            glob($basePath . '/modules/features/*/services.yml', GLOB_NOSORT)
+            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
         );
 
         // init loaders

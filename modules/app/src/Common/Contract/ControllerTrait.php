@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\AppModule\Contract;
+namespace Chaos\AppModule\Common\Contract;
 
 use Chaos\SharedModule\Support\Enumeration\PredicateType;
 

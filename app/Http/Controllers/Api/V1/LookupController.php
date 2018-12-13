@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Chaos\AppModule\LaravelRestController;
+use Chaos\AppModule\Common\LaravelRestController;
 use Chaos\CoreModule\Lookup\Service\LookupService;
 
 /**
@@ -37,7 +37,7 @@ class LookupController extends LaravelRestController
         var_dump(
             $this->getRequest(),
             $this->service,
-            $this->getService('Chaos\FeatureModule\Bar\Service\BarService'),
+            $this->getService('Chaos\AppModule\Dashboard\Service\DashboardService'),
             $this->getContainer()->get(VARS)->getContent(),
             $this->getContainer()->get(ENTITY_MANAGER)
         );

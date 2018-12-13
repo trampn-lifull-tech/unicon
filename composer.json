@@ -47,11 +47,7 @@
             "App\\": "app/",
             "Chaos\\SharedModule\\": "modules/shared/src",
             "Chaos\\CoreModule\\": "modules/core/src",
-            "Chaos\\AppModule\\": "modules/app",
-
-            "Chaos\\CoreModule\\Account\\": "modules/core/Account/src",
-            "Chaos\\CoreModule\\System\\": "modules/core/System/src",
-            "Chaos\\FeatureModule\\": "modules/features"
+            "Chaos\\AppModule\\": "modules/app/src"
         },
         "classmap": [
             "database/seeds",
