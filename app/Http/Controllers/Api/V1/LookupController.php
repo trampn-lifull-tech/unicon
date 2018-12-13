@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\ApiController;
-use Chaos\CoreModule\System\Service\LookupService;
+use Chaos\AppModule\LaravelRestController;
+use Chaos\CoreModule\Lookup\Service\LookupService;
 
 /**
  * Class LookupController
  * @author ntd1712
  */
-class LookupController extends ApiController
+class LookupController extends LaravelRestController
 {
     /**
      * Constructor.

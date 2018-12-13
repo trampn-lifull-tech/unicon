@@ -1,0 +1,14 @@
+services:
+  Chaos\CoreModule\Account\Entity\UserEntity:
+    class:  Chaos\CoreModule\Account\Entity\UserEntity
+    lazy:   true
+    shared: false
+  Chaos\CoreModule\Account\Event\UserListener:
+    class:  Chaos\CoreModule\Account\Event\UserListener
+    lazy:   true
+    shared: false
+  Chaos\CoreModule\Account\Service\UserService:
+    class:  Chaos\CoreModule\Account\Service\UserService
+    lazy:   true
+  UserEntity: '@Chaos\CoreModule\Account\Entity\UserEntity'
+  UserService: '@Chaos\CoreModule\Account\Service\UserService'

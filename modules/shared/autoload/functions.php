@@ -86,6 +86,8 @@ if (!function_exists('traversableToArray')) {
      *
      * @param   \Traversable $var
      * @return  array
+     *
+     * @todo Have a look at iterator_to_array()
      */
     function traversableToArray(\Traversable $var)
     {

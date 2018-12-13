@@ -1,0 +1,3 @@
+module:
+  lookup:
+    foo: bar

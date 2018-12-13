@@ -1,0 +1,3 @@
+module:
+  permission:
+    foo: bar
