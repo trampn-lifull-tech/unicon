@@ -48,7 +48,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
             $serializer->addMetadataDirs($metadataDirs);
         }
 
-        if (null !== ($entityManager = $container->get('Doctrine\ORM\EntityManager'))) {
+        if (null !== ($entityManager = $container->get(DOCTRINE_ENTITY_MANAGER))) {
             if (null !== ($metadataCacheImpl = $entityManager->getConfiguration()->getMetadataCacheImpl())) {
                 if (is_subclass_of($metadataCacheImpl, 'Doctrine\Common\Cache\Cache')) {
                     /** @var \Doctrine\Common\Cache\CacheProvider $metadataCacheImpl */

@@ -2,11 +2,11 @@
 
 namespace Chaos\Module\Common;
 
-use Chaos\Common\Service\Contract\ServiceAware;
-use Chaos\Common\Service\Contract\ServiceTrait;
 use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
+use Chaos\Common\Contract\ControllerTrait;
 use Chaos\Common\Mapper\EntityManagerFactory;
+use Chaos\Common\Service\Contract\ServiceTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -18,9 +18,8 @@ use Ramsey\Uuid\Uuid;
  */
 class LaravelController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests,
-        ConfigAware, ContainerAware, ServiceAware,
-        Contract\ControllerTrait, ServiceTrait;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use ConfigAware, ContainerAware, ControllerTrait, ServiceTrait;
 
     /**
      * Constructor.
@@ -55,13 +54,14 @@ class LaravelController extends Controller
                 'SESSION_DOMAIN' => $config['session']['domain']
             ]
         ];
-        $containerResources = array_merge(
-            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
-            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
-        );
+//        $containerResources = array_merge(
+//            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
+//            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
+//        );
+//        $this->setContainer($containerResources)->setVars($configResources);
 
-        // init loaders
-        $this->setContainer($containerResources)->setVars($configResources);
+        // dependency injection
+        $this->setContainer([])->setVars($configResources);
         $this->getContainer()->set(M1_VARS, $this->getVars());
         $this->getContainer()->set(
             DOCTRINE_ENTITY_MANAGER,

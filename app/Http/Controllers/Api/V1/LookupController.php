@@ -37,8 +37,9 @@ class LookupController extends LaravelRestController
         var_dump(
             $this->getRequest(),
             $this->service,
-            $this->getService('Chaos\Module\Dashboard\Service\DashboardService'),
-            $this->getContainer()->get(M1_VARS)->getContent(),
+            $this->service->getVars()->getContent(),
+//            $this->getService('Chaos\Module\Dashboard\Service\DashboardService'),
+            $this->getContainer()->get(M1_VARS),
             $this->getContainer()->get(DOCTRINE_ENTITY_MANAGER)
         );
 

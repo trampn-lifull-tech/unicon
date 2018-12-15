@@ -1,10 +1,13 @@
 <?php
 
-namespace Chaos\Common\Service\Contract;
+namespace Chaos\Common\Contract;
 
 /**
  * Trait ServiceAware
  * @author ntd1712
+ *
+ * @method \Symfony\Component\DependencyInjection\ContainerBuilder|\Symfony\Component\DependencyInjection\ContainerInterface getContainer()
+ * @method \M1\Vars\Vars getVars()
  */
 trait ServiceAware
 {
@@ -16,7 +19,7 @@ trait ServiceAware
      * <code>
      * $this->getService()->...
      * $this->getService('Lookup')->...
-     * $this->getService('Chaos\Core\System\LookupService')->...
+     * $this->getService('Chaos\Module\Lookup\Service\LookupService')->...
      * </code>
      *
      * @param   null|string $name The service name.

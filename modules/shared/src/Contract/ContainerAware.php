@@ -38,7 +38,9 @@ trait ContainerAware
      */
     public function setContainer($container)
     {
-        if (!$container instanceof ContainerInterface) {
+        if (empty($container)) {
+            $container = new ContainerBuilder;
+        } else if (!$container instanceof ContainerInterface) {
             $paths = $container;
             $container = new ContainerBuilder;
             $loader = new YamlFileLoader($container, new FileLocator($paths));
