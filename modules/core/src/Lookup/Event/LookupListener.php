@@ -1,8 +1,8 @@
 <?php
 
-namespace Chaos\Core\Lookup\Event;
+namespace Chaos\Module\Lookup\Event;
 
-// use Chaos\Core\Repository\EntityListener;
+// use Chaos\Common\Repository\EntityListener;
 
 /**
  * Class LookupListener

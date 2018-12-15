@@ -46,8 +46,10 @@
         "psr-4": {
             "App\\": "app/",
             "Chaos\\Common\\": "modules/shared/src",
-            "Chaos\\Core\\": "modules/core/src",
-            "Chaos\\Module\\": "modules/app/src"
+            "Chaos\\Module\\": [
+                "modules/core/src",
+                "modules/app/src"
+            ]
         },
         "classmap": [
             "database/seeds",

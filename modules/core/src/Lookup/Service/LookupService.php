@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Core\Lookup\Service;
+namespace Chaos\Module\Lookup\Service;
 
 use Chaos\Common\Service\Service;
 
