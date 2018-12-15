@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use Chaos\Module\Common\LaravelRestController;
-use Chaos\Core\Lookup\Service\LookupService;
+use Chaos\Module\Lookup\Service\LookupService;
 
 /**
  * Class LookupController
