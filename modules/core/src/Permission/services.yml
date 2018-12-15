@@ -1,14 +1,14 @@
 services:
-  Chaos\CoreModule\Account\Entity\PermissionEntity:
-    class:  Chaos\CoreModule\Account\Entity\PermissionEntity
+  Chaos\Core\Account\Entity\PermissionEntity:
+    class:  Chaos\Core\Account\Entity\PermissionEntity
     lazy:   true
     shared: false
-  Chaos\CoreModule\Account\Event\PermissionListener:
-    class:  Chaos\CoreModule\Account\Event\PermissionListener
+  Chaos\Core\Account\Event\PermissionListener:
+    class:  Chaos\Core\Account\Event\PermissionListener
     lazy:   true
     shared: false
-  Chaos\CoreModule\Account\Service\PermissionService:
-    class:  Chaos\CoreModule\Account\Service\PermissionService
+  Chaos\Core\Account\Service\PermissionService:
+    class:  Chaos\Core\Account\Service\PermissionService
     lazy:   true
-  PermissionEntity: '@Chaos\CoreModule\Account\Entity\PermissionEntity'
-  PermissionService: '@Chaos\CoreModule\Account\Service\PermissionService'
+  PermissionEntity: '@Chaos\Core\Account\Entity\PermissionEntity'
+  PermissionService: '@Chaos\Core\Account\Service\PermissionService'

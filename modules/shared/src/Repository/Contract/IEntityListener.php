@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\SharedModule\Repository\Contract;
+namespace Chaos\Common\Repository\Contract;
 
 /**
  * Interface IEntityListener
@@ -13,7 +13,7 @@ interface IEntityListener
     /**
      * The `postLoad` event.
      *
-     * @param   \Chaos\SharedModule\Repository\Contract\IEntity $entity The entity.
+     * @param   \Chaos\Common\Repository\Contract\IEntity $entity The entity.
      * @param   \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs The event arguments.
      * @return  void
      */

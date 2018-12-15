@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\SharedModule\Repository\Contract;
+namespace Chaos\Common\Repository\Contract;
 
 use Doctrine\ORM\Events;
 
@@ -23,7 +23,7 @@ trait RepositoryAware
      *
      * @param   null|string $name The repository name.
      * @param   bool $cache [optional] Defaults to TRUE.
-     * @return  \Chaos\SharedModule\Repository\DoctrineRepository|\Chaos\SharedModule\Repository\Contract\IRepository
+     * @return  \Chaos\Common\Repository\DoctrineRepository|\Chaos\Common\Repository\Contract\IRepository
      */
     public function getRepository($name = null, $cache = true)
     {
@@ -42,7 +42,7 @@ trait RepositoryAware
         $container = $this->getContainer();
         $config = $this->getVars();
 
-        self::$mwnn3h3h[$repositoryName] = $container->get(ENTITY_MANAGER)
+        self::$mwnn3h3h[$repositoryName] = $container->get(DOCTRINE_ENTITY_MANAGER)
             ->getRepository(get_class($container->get($name)))
                 ->setContainer($container)
                 ->setVars($config);

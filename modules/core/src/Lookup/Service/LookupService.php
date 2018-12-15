@@ -1,8 +1,8 @@
 <?php
 
-namespace Chaos\CoreModule\Lookup\Service;
+namespace Chaos\Core\Lookup\Service;
 
-use Chaos\SharedModule\Service\Service;
+use Chaos\Common\Service\Service;
 
 /**
  * Class LookupService

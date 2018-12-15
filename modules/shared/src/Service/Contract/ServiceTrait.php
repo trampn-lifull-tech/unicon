@@ -1,10 +1,10 @@
 <?php
 
-namespace Chaos\SharedModule\Service\Contract;
+namespace Chaos\Common\Service\Contract;
 
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Filter\StaticFilter;
-use Chaos\SharedModule\Support\Enumeration\PredicateType;
+use Chaos\Common\Constant\PredicateType;
 
 /**
  * @todo

@@ -1,8 +1,8 @@
 <?php
 
-namespace Chaos\CoreModule\Lookup\Repository;
+namespace Chaos\Core\Lookup\Repository;
 
-// use Chaos\CoreModule\Repository\DoctrineRepository;
+// use Chaos\Core\Repository\DoctrineRepository;
 
 /**
  * Class LookupRepository

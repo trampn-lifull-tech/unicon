@@ -47,7 +47,7 @@ if (!function_exists('guessNs')) {
 
 if (!function_exists('reflect')) {
     /**
-     * Constructs a ReflectionClass.
+     * Gets a ReflectionClass (or ReflectionObject) if possible.
      *
      * @param   object|string $var Either a string containing the name of the class to reflect, or an object.
      * @return  ReflectionClass
@@ -55,6 +55,10 @@ if (!function_exists('reflect')) {
      */
     function reflect($var)
     {
+        if (is_object($var)) {
+            return new ReflectionObject($var);
+        }
+
         return new ReflectionClass($var);
     }
 }

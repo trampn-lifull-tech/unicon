@@ -1,14 +1,14 @@
 services:
-  Chaos\CoreModule\Account\Entity\RoleEntity:
-    class:  Chaos\CoreModule\Account\Entity\RoleEntity
+  Chaos\Core\Account\Entity\RoleEntity:
+    class:  Chaos\Core\Account\Entity\RoleEntity
     lazy:   true
     shared: false
-  Chaos\CoreModule\Account\Event\RoleListener:
-    class:  Chaos\CoreModule\Account\Event\RoleListener
+  Chaos\Core\Account\Event\RoleListener:
+    class:  Chaos\Core\Account\Event\RoleListener
     lazy:   true
     shared: false
-  Chaos\CoreModule\Account\Service\RoleService:
-    class:  Chaos\CoreModule\Account\Service\RoleService
+  Chaos\Core\Account\Service\RoleService:
+    class:  Chaos\Core\Account\Service\RoleService
     lazy:   true
-  RoleEntity: '@Chaos\CoreModule\Account\Entity\RoleEntity'
-  RoleService: '@Chaos\CoreModule\Account\Service\RoleService'
+  RoleEntity: '@Chaos\Core\Account\Entity\RoleEntity'
+  RoleService: '@Chaos\Core\Account\Service\RoleService'

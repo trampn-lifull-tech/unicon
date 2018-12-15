@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\SharedModule\Repository\Contract;
+namespace Chaos\Common\Repository\Contract;
 
 /**
  * Interface IRepository
@@ -8,7 +8,7 @@ namespace Chaos\SharedModule\Repository\Contract;
  *
  * @property-read string $className The short class name of the entity, e.g. User
  * @property-read string $entityName The qualified class name of the entity, e.g. Entities\User
- * @property-read \Chaos\SharedModule\Repository\Contract\IEntity $entity The entity instance.
+ * @property-read \Chaos\Common\Repository\Contract\IEntity $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
  *

@@ -1,14 +1,14 @@
 services:
-  Chaos\AppModule\Dashboard\Entity\DashboardEntity:
-    class:  Chaos\AppModule\Dashboard\Entity\DashboardEntity
+  Chaos\Module\Dashboard\Entity\DashboardEntity:
+    class:  Chaos\Module\Dashboard\Entity\DashboardEntity
     lazy:   true
     shared: false
-  Chaos\AppModule\Dashboard\Event\DashboardListener:
-    class:  Chaos\AppModule\Dashboard\Event\DashboardListener
+  Chaos\Module\Dashboard\Event\DashboardListener:
+    class:  Chaos\Module\Dashboard\Event\DashboardListener
     lazy:   true
     shared: false
-  Chaos\AppModule\Dashboard\Service\DashboardService:
-    class:  Chaos\AppModule\Dashboard\Service\DashboardService
+  Chaos\Module\Dashboard\Service\DashboardService:
+    class:  Chaos\Module\Dashboard\Service\DashboardService
     lazy:   true
-  DashboardEntity: '@Chaos\AppModule\Dashboard\Entity\DashboardEntity'
-  DashboardService: '@Chaos\AppModule\Dashboard\Service\DashboardService'
+  DashboardEntity: '@Chaos\Module\Dashboard\Entity\DashboardEntity'
+  DashboardService: '@Chaos\Module\Dashboard\Service\DashboardService'

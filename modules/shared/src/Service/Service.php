@@ -1,11 +1,10 @@
 <?php
 
-namespace Chaos\SharedModule\Service;
+namespace Chaos\Common\Service;
 
-use Chaos\SharedModule\Repository\Contract\RepositoryAware;
-use Chaos\SharedModule\Support\Contract\ConfigAware;
-use Chaos\SharedModule\Support\Contract\ContainerAware;
-use Chaos\SharedModule\Support\Contract\EventTrait;
+use Chaos\Common\Repository\Contract\RepositoryAware;
+use Chaos\Common\Contract\ConfigAware;
+use Chaos\Common\Contract\ContainerAware;
 
 /**
  * Class Service
@@ -13,7 +12,7 @@ use Chaos\SharedModule\Support\Contract\EventTrait;
  */
 abstract class Service implements Contract\IService
 {
-    use ConfigAware, ContainerAware, EventTrait,
+    use ConfigAware, ContainerAware, Contract\EventTrait,
         RepositoryAware, Contract\ServiceAware, Contract\ServiceTrait;
 
     /**
@@ -59,13 +58,13 @@ abstract class Service implements Contract\IService
                 $criteria = (int) $criteria;
 
                 if (1 > $criteria) {
-                    throw new Exceptions\ServiceException('Your request is invalid');
+                    throw new Exception\ServiceException('Your request is invalid');
                 }
             } else {
                 $criteria = $this->filter($criteria);
 
                 if (empty($criteria)) {
-                    throw new Exceptions\ServiceException('Your request is invalid');
+                    throw new Exception\ServiceException('Your request is invalid');
                 }
             }
 
@@ -79,7 +78,7 @@ abstract class Service implements Contract\IService
         }
 
         if (null === $entity) {
-            throw new Exceptions\ServiceException('Your request is invalid');
+            throw new Exception\ServiceException('Your request is invalid');
         }
 
         $this->trigger(self::ON_AFTER_READ, [CHAOS_READ_EVENT_ARGS, $criteria, $entity]);
@@ -104,7 +103,7 @@ abstract class Service implements Contract\IService
     public function update(array $post = [], $criteria = null, $isNew = false)
     {
         if (empty($post)) {
-            throw new Exceptions\ServiceException('Your request is invalid');
+            throw new Exception\ServiceException('Your request is invalid');
         }
 
         /** @var AbstractBaseEntity $entity */
@@ -145,7 +144,7 @@ abstract class Service implements Contract\IService
         // var_dump($form->isValid(), $form->getMessages(), $form->getData(), $post);die;
 
         // exchange array
-        $eventArgs = new Events\UpdateEventArgs($post, $entity, $isNew);
+        $eventArgs = new Event\UpdateEventArgs($post, $entity, $isNew);
         $eventArgs->setPost(array_intersect_key($post, reflect($entity)->getDefaultProperties()));
 
         $this->trigger(self::ON_EXCHANGE_ARRAY, $eventArgs);
@@ -173,7 +172,7 @@ abstract class Service implements Contract\IService
             }
 
             if (1 > $affectedRows) {
-                throw new Exceptions\ServiceException('Error saving data');
+                throw new Exception\ServiceException('Error saving data');
             }
 
             // commit current transaction
@@ -207,7 +206,7 @@ abstract class Service implements Contract\IService
 
         try {
             // start a transaction
-            $eventArgs = new Events\UpdateEventArgs($criteria, $entity, false);
+            $eventArgs = new Event\UpdateEventArgs($criteria, $entity, false);
 
             if ($this->enableTransaction) {
                 $this->getRepository()->beginTransaction();
@@ -219,7 +218,7 @@ abstract class Service implements Contract\IService
             $affectedRows = $this->getRepository()->delete($entity, false);
 
             if (1 > $affectedRows) {
-                throw new Exceptions\ServiceException('Error deleting data');
+                throw new Exception\ServiceException('Error deleting data');
             }
 
             // commit current transaction

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\AppModule\Common;
+namespace Chaos\Module\Common;
 
 /**
  * Class LaravelRestController

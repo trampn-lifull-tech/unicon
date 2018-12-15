@@ -1,20 +1,20 @@
 <?php
 
-namespace Chaos\AppModule\Common\Contract;
+namespace Chaos\Module\Common\Contract;
 
-use Chaos\SharedModule\Support\Enumeration\PredicateType;
+use Chaos\Common\Constant\PredicateType;
 
 /**
  * Trait ControllerTrait
  * @author ntd1712
  *
- * @method \Chaos\SharedModule\Service\Service|\Chaos\SharedModule\Service\Contract\IService getService($name = null, $cache = true)
+ * @method \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService getService($name = null, $cache = true)
  * @method \M1\Vars\Vars getVars()
  */
 trait ControllerTrait
 {
     /**
-     * @var \Chaos\SharedModule\Service\Service|\Chaos\SharedModule\Service\Contract\IService
+     * @var \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService
      */
     protected $service;
 

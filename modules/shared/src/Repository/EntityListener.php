@@ -1,9 +1,9 @@
 <?php
 
-namespace Chaos\SharedModule\Repository;
+namespace Chaos\Common\Repository;
 
-use Chaos\SharedModule\Support\Contract\ConfigAware;
-use Chaos\SharedModule\Support\Contract\ContainerAware;
+use Chaos\Common\Contract\ConfigAware;
+use Chaos\Common\Contract\ContainerAware;
 
 /**
  * Class EntityListener
@@ -16,7 +16,7 @@ abstract class EntityListener implements Contract\IEntityListener
     /**
      * {@inheritdoc}
      *
-     * @param   \Chaos\SharedModule\Repository\Entity|\Chaos\SharedModule\Repository\Contract\IEntity $entity The entity.
+     * @param   \Chaos\Common\Repository\Entity|\Chaos\Common\Repository\Contract\IEntity $entity The entity.
      * @param   \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs The event arguments.
      * @return  void
      * @throws  \Exception
@@ -24,7 +24,7 @@ abstract class EntityListener implements Contract\IEntityListener
     public function postLoad($entity, $eventArgs)
     {
         $entity->setContainer($this->getContainer());
-        $entity->getContainer()->get(VARS)
+        $entity->getContainer()->get(M1_VARS)
             ->set($entity->getClass(), $eventArgs->getEntityManager()->getUnitOfWork()->getEntityIdentifier($entity));
     }
 }

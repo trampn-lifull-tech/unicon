@@ -1,7 +1,7 @@
 <?php
 
-define('ENTITY_MANAGER', 'Doctrine\ORM\EntityManager');
-define('VARS', 'M1\Vars\Vars');
+define('DOCTRINE_ENTITY_MANAGER', 'Doctrine\ORM\EntityManager');
+define('M1_VARS', 'M1\Vars\Vars');
 
 define('CHAOS_MAX_QUERY', 10);
 

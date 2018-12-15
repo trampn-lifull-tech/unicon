@@ -1,8 +1,8 @@
 <?php
 
-namespace Chaos\AppModule\Dashboard\Service;
+namespace Chaos\Module\Dashboard\Service;
 
-use Chaos\SharedModule\Service\Service;
+use Chaos\Common\Service\Service;
 
 /**
  * Class DashboardService

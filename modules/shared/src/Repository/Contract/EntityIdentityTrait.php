@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\SharedModule\Repository\Contract;
+namespace Chaos\Common\Repository\Contract;
 
 /**
  * Trait EntityIdentityTrait
