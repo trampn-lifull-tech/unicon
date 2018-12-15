@@ -224,7 +224,7 @@ trait ControllerTrait
             if (!empty($v['nulls']) && PredicateType::has($nulls = 'NULLS ' . strtoupper($v['nulls']))) {
                 $orderSet[$v['property']] .= ' ' . (
                     PredicateType::NULLS_FIRST === $nulls ? PredicateType::NULLS_FIRST : PredicateType::NULLS_LAST
-                    );
+                );
             }
 
             if (CHAOS_SQL_LIMIT <= ++$count) {

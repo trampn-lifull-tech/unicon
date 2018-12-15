@@ -6,7 +6,7 @@ namespace Chaos\Module\Common;
  * Class LaravelRestController
  * @author ntd1712
  */
-abstract class LaravelRestController extends LaravelController
+class LaravelRestController extends LaravelController
 {
     /**
      * GET /lookup?filter=&sort=&start=&length=

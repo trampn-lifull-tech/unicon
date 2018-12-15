@@ -56,6 +56,7 @@ class LaravelController extends Controller
                 'SESSION_DOMAIN' => $config['session']['domain']
             ]
         ];
+
 //        $containerResources = array_merge(
 //            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
 //            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
@@ -90,7 +91,7 @@ class LaravelController extends Controller
     protected function getRequest($key = null, $default = null, $request = null)
     {
         if (empty($request)) {
-            $request = request();
+            $request = app('request');
         }
 
         if (isset($key)) {
@@ -99,9 +100,9 @@ class LaravelController extends Controller
 
         $params = $request->all();
 
-        if (null === $default) {
+        if (false !== $default) { // `false` is a hack to return `$params` without values below
             $params['CreatedAt'] = 'now';
-            $params['CreatedBy'] = session('loggedName');
+            $params['CreatedBy'] = app('session')->get('loggedName');
             $params['NotUse'] = 'false';
             $params['ApplicationKey'] = $this->getVars()->get('app.key');
 
@@ -110,8 +111,6 @@ class LaravelController extends Controller
             } catch (\Exception $ex) {
                 //
             }
-
-            return $params;
         }
 
         return $params;

@@ -22,10 +22,10 @@ class LookupController extends LaravelRestController
         parent::__construct($service);
     }
 
+
     /**
      * For testing purpose only.
      *
-     * {@inheritdoc} @override
      * @throws  \Exception
      */
     public function index()
@@ -37,7 +37,7 @@ class LookupController extends LaravelRestController
 //            $this->getService('Chaos\Module\Dashboard\Service\DashboardService'),
             $this->getContainer()->get(M1_VARS),
             $this->getContainer()->get(DOCTRINE_ENTITY_MANAGER),
-            $this->getContainer()->get('Chaos\Module\Lookup\Service\LookupService')
+            $this->getContainer()->get('Chaos\Module\Lookup\Service\LookupService'),
         );
 
         return ['data' => __FUNCTION__];
