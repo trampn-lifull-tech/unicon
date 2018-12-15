@@ -33,7 +33,7 @@ interface IService
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
+     * @throws  \Chaos\Common\Service\Exception\ServiceException
      */
     public function read($criteria);
 
@@ -42,8 +42,8 @@ interface IService
      *
      * @param   array $post The _POST variable.
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
-     * @throws  \Chaos\Common\Service\ValidateException
+     * @throws  \Chaos\Common\Service\Exception\ServiceException
+     * @throws  \Chaos\Common\Service\Exception\ValidateException
      */
     public function create(array $post = []);
 
@@ -53,8 +53,8 @@ interface IService
      * @param   array $post The _PUT variable.
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
-     * @throws  \Chaos\Common\Service\ValidateException
+     * @throws  \Chaos\Common\Service\Exception\ServiceException
+     * @throws  \Chaos\Common\Service\Exception\ValidateException
      */
     public function update(array $post = [], $criteria = null);
 
@@ -63,7 +63,7 @@ interface IService
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Common\Service\ServiceException
+     * @throws  \Chaos\Common\Service\Exception\ServiceException
      */
     public function delete($criteria);
 }

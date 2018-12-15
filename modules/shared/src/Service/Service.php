@@ -4,6 +4,7 @@ namespace Chaos\Common\Service;
 
 use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
+use Chaos\Common\Object\Contract\ObjectTrait;
 use Chaos\Common\Repository\Contract\RepositoryAware;
 
 /**
@@ -12,7 +13,7 @@ use Chaos\Common\Repository\Contract\RepositoryAware;
  */
 abstract class Service implements Contract\IService
 {
-    use ConfigAware, ContainerAware, Contract\EventTrait,
+    use ConfigAware, ContainerAware, ObjectTrait, Contract\EventTrait,
         RepositoryAware, /*Contract\ServiceAware, */Contract\ServiceTrait;
 
     /**

@@ -75,6 +75,7 @@ class LaravelController extends Controller
 
         if (isset($service)) {
             $this->service = $service->setContainer($container)->setVars($vars);
+            $container->set($this->service->getClass(), $this->service);
         }
     }
 
