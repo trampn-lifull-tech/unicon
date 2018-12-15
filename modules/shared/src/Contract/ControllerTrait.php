@@ -1,15 +1,12 @@
 <?php
 
-namespace Chaos\Module\Common\Contract;
+namespace Chaos\Common\Contract;
 
 use Chaos\Common\Constant\PredicateType;
 
 /**
  * Trait ControllerTrait
  * @author ntd1712
- *
- * @method \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService getService($name = null, $cache = true)
- * @method \M1\Vars\Vars getVars()
  */
 trait ControllerTrait
 {
@@ -85,7 +82,7 @@ trait ControllerTrait
             }
 
             /** @var \Zend\Db\Sql\Predicate\PredicateSet $filterSet */
-            $filterSet = $this->getService()->prepareFilterParams($filter);
+            $filterSet = $this->service->prepareFilterParams($filter);
 
             if (0 !== count($filterSet)) {
                 if (isset($binds['where'])) {
@@ -230,7 +227,7 @@ trait ControllerTrait
                     );
             }
 
-            if (CHAOS_MAX_QUERY <= ++$count) {
+            if (CHAOS_SQL_LIMIT <= ++$count) {
                 break;
             }
         }
@@ -255,11 +252,11 @@ trait ControllerTrait
 
             if (1 > $binds['ItemCountPerPage']) {
                 $binds['ItemCountPerPage'] = 1;
-            } else if (($maxPerPage = $this->getVars()->get('app.max_items_per_page')) < $binds['ItemCountPerPage']) {
+            } else if (($maxPerPage = CHAOS_SQL_MAX_LIMIT) < $binds['ItemCountPerPage']) {
                 $binds['ItemCountPerPage'] = $maxPerPage;
             }
         } else {
-            $binds['ItemCountPerPage'] = $this->getVars()->get('app.items_per_page');
+            $binds['ItemCountPerPage'] = CHAOS_SQL_LIMIT;
         }
 
         if ($hasCurrentPageNumber) {

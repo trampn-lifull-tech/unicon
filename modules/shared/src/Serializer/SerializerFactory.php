@@ -73,7 +73,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
 
         if (null !== ($handlers = $options['jms']['handlers'])) {
             /** @link https://jmsyst.com/libs/serializer/master/handlers */
-            foreach ((array) $handlers as $handler) {
+            foreach ((array)$handlers as $handler) {
                 $serializer->configureHandlers(function (HandlerRegistry $registry) use ($handler) {
                     $registry->registerSubscribingHandler(new $handler);
                 });
@@ -82,7 +82,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
 
         if (null !== ($events = $options['jms']['events'])) {
             /** @link https://jmsyst.com/libs/serializer/master/event_system */
-            foreach ((array) $events as $subscriber) {
+            foreach ((array)$events as $subscriber) {
                 $serializer->configureListeners(function (EventDispatcher $dispatcher) use ($subscriber) {
                     $dispatcher->addSubscriber(new $subscriber);
                 });
@@ -92,7 +92,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
         if (null !== ($propertyNamingStrategy = $options['jms']['property_naming_strategy'])) {
             $namingStrategy = @call_user_func_array(
                 $propertyNamingStrategy['class_name'],
-                (array) $propertyNamingStrategy['args']
+                (array)$propertyNamingStrategy['args']
             );
 
             if ($namingStrategy instanceof Naming\PropertyNamingStrategyInterface) {
@@ -100,13 +100,13 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
                 $serializer->setPropertyNamingStrategy($propertyNamingStrategy);
 
                 if (null !== ($serializationVisitors = $options['jms']['serialization_visitors'])) {
-                    foreach ((array) $serializationVisitors as $format => $visitor) {
+                    foreach ((array)$serializationVisitors as $format => $visitor) {
                         $serializer->setSerializationVisitor($format, new $visitor($propertyNamingStrategy));
                     }
                 }
 
                 if (null !== ($deserializationVisitors = $options['jms']['deserialization_visitors'])) {
-                    foreach ((array) $deserializationVisitors as $format => $visitor) {
+                    foreach ((array)$deserializationVisitors as $format => $visitor) {
                         $serializer->setDeserializationVisitor($format, new $visitor($propertyNamingStrategy));
                     }
                 }

@@ -56,7 +56,7 @@ abstract class Service implements Contract\IService
     {
         if (is_scalar($criteria)) {
             if (is_numeric($criteria)) {
-                $criteria = (int) $criteria;
+                $criteria = (int)$criteria;
 
                 if (1 > $criteria) {
                     throw new Exception\ServiceException('Your request is invalid');

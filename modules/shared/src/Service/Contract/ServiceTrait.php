@@ -246,7 +246,7 @@ trait ServiceTrait
                         ? $predicateSet->equalTo($k, $equalValue)
                         : $predicateSet->like($k, $likeValue);
 
-                    if (CHAOS_MAX_QUERY <= ++$count) {
+                    if (CHAOS_SQL_LIMIT <= ++$count) {
                         break;
                     }
                 }

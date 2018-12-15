@@ -87,15 +87,15 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
         }
 
         if (!empty($config['dql']['datetime_functions'])) {
-            $configuration->setCustomDatetimeFunctions((array) $config['dql']['datetime_functions']);
+            $configuration->setCustomDatetimeFunctions((array)$config['dql']['datetime_functions']);
         }
 
         if (!empty($config['dql']['numeric_functions'])) {
-            $configuration->setCustomNumericFunctions((array) $config['dql']['numeric_functions']);
+            $configuration->setCustomNumericFunctions((array)$config['dql']['numeric_functions']);
         }
 
         if (!empty($config['dql']['string_functions'])) {
-            $configuration->setCustomStringFunctions((array) $config['dql']['string_functions']);
+            $configuration->setCustomStringFunctions((array)$config['dql']['string_functions']);
         }
 
         if (!empty($config['ast'])) {
