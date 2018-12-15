@@ -2,9 +2,9 @@
 
 namespace Chaos\Common\Service;
 
-use Chaos\Common\Repository\Contract\RepositoryAware;
 use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
+use Chaos\Common\Repository\Contract\RepositoryAware;
 
 /**
  * Class Service
@@ -18,14 +18,15 @@ abstract class Service implements Contract\IService
     /**
      * The events being trigger.
      */
-    const ON_AFTER_READ_ALL = 'onAfterReadAll',
-          ON_AFTER_READ = 'onAfterRead',
-          ON_EXCHANGE_ARRAY = 'onExchangeArray',
-          ON_VALIDATE = 'onValidate',
-          ON_BEFORE_SAVE = 'onBeforeSave',
-          ON_AFTER_SAVE = 'onAfterSave',
-          ON_BEFORE_DELETE = 'onBeforeDelete',
-          ON_AFTER_DELETE = 'onAfterDelete';
+    const
+        ON_AFTER_READ_ALL = 'onAfterReadAll',
+        ON_AFTER_READ = 'onAfterRead',
+        ON_EXCHANGE_ARRAY = 'onExchangeArray',
+        ON_VALIDATE = 'onValidate',
+        ON_BEFORE_SAVE = 'onBeforeSave',
+        ON_AFTER_SAVE = 'onAfterSave',
+        ON_BEFORE_DELETE = 'onBeforeDelete',
+        ON_AFTER_DELETE = 'onAfterDelete';
 
     /**
      * {@inheritdoc}

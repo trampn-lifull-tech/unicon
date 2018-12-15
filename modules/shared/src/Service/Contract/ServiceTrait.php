@@ -2,9 +2,9 @@
 
 namespace Chaos\Common\Service\Contract;
 
+use Chaos\Common\Constant\PredicateType;
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Filter\StaticFilter;
-use Chaos\Common\Constant\PredicateType;
 
 /**
  * @todo
@@ -43,8 +43,10 @@ trait ServiceTrait
                 if (isset($v['nesting'])
                     && (PredicateType::NEST === $v['nesting'] || PredicateType::UNNEST === $v['nesting'])
                 ) {
-                    /** @see \Zend\Db\Sql\Predicate\Predicate::nest
-                      * @see \Zend\Db\Sql\Predicate\Predicate::unnest */
+                    /**
+                     * @see \Zend\Db\Sql\Predicate\Predicate::nest
+                     * @see \Zend\Db\Sql\Predicate\Predicate::unnest
+                     */
                     $predicate = $predicate->{$v['nesting']}();
                 }
 
@@ -63,8 +65,10 @@ trait ServiceTrait
                             continue;
                         }
 
-                        /** @see \Zend\Db\Sql\Predicate\Predicate::between
-                          * @see \Zend\Db\Sql\Predicate\Predicate::notBetween */
+                        /**
+                         * @see \Zend\Db\Sql\Predicate\Predicate::between
+                         * @see \Zend\Db\Sql\Predicate\Predicate::notBetween
+                         */
                         $predicate->{$v['predicate']}(
                             $v['identifier'],
                             "'" . $this->filter($v['minValue'], true) . "'",
@@ -112,12 +116,14 @@ trait ServiceTrait
                             continue;
                         }
 
-                        /** @see \Zend\Db\Sql\Predicate\Predicate::equalTo
-                          * @see \Zend\Db\Sql\Predicate\Predicate::notEqualTo
-                          * @see \Zend\Db\Sql\Predicate\Predicate::lessThan
-                          * @see \Zend\Db\Sql\Predicate\Predicate::greaterThan
-                          * @see \Zend\Db\Sql\Predicate\Predicate::lessThanOrEqualTo
-                          * @see \Zend\Db\Sql\Predicate\Predicate::greaterThanOrEqualTo */
+                        /**
+                         * @see \Zend\Db\Sql\Predicate\Predicate::equalTo
+                         * @see \Zend\Db\Sql\Predicate\Predicate::notEqualTo
+                         * @see \Zend\Db\Sql\Predicate\Predicate::lessThan
+                         * @see \Zend\Db\Sql\Predicate\Predicate::greaterThan
+                         * @see \Zend\Db\Sql\Predicate\Predicate::lessThanOrEqualTo
+                         * @see \Zend\Db\Sql\Predicate\Predicate::greaterThanOrEqualTo
+                         */
                         $predicate->{$v['predicate']}($v['left'], $v['right'], $v['leftType'], $v['rightType']);
                         break;
                     case PredicateType::EXPR:
@@ -174,8 +180,10 @@ trait ServiceTrait
                         }
                         unset($value);
 
-                        /** @see \Zend\Db\Sql\Predicate\Predicate::in
-                          * @see \Zend\Db\Sql\Predicate\Predicate::notIn */
+                        /**
+                         * @see \Zend\Db\Sql\Predicate\Predicate::in
+                         * @see \Zend\Db\Sql\Predicate\Predicate::notIn
+                         */
                         $predicate->{$v['predicate']}($v['identifier'], $v['valueSet']);
                         break;
                     case PredicateType::IS_NOT_NULL:
@@ -184,8 +192,10 @@ trait ServiceTrait
                             continue;
                         }
 
-                        /** @see \Zend\Db\Sql\Predicate\Predicate::isNull
-                          * @see \Zend\Db\Sql\Predicate\Predicate::isNotNull */
+                        /**
+                         * @see \Zend\Db\Sql\Predicate\Predicate::isNull
+                         * @see \Zend\Db\Sql\Predicate\Predicate::isNotNull
+                         */
                         $predicate->{$v['predicate']}($v['identifier']);
                         break;
                     case PredicateType::LIKE:
@@ -199,8 +209,10 @@ trait ServiceTrait
                         $value = str_replace('%', '%%', $this->filter($v[$v['predicate']]));
                         $v[$v['predicate']] = "'%$value%'";
 
-                        /** @see \Zend\Db\Sql\Predicate\Predicate::like
-                          * @see \Zend\Db\Sql\Predicate\Predicate::notLike */
+                        /**
+                         * @see \Zend\Db\Sql\Predicate\Predicate::like
+                         * @see \Zend\Db\Sql\Predicate\Predicate::notLike
+                         */
                         $predicate->{$v['predicate']}($v['identifier'], $v[$v['predicate']]);
                         break;
                     case Predicate::TYPE_LITERAL:

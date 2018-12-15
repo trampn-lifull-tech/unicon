@@ -2,8 +2,8 @@
 
 namespace Chaos\Common\Repository;
 
-use Chaos\Common\Object\Model;
 use Chaos\Common\Contract\ContainerAware;
+use Chaos\Common\Object\Model;
 
 /**
  * Class Entity

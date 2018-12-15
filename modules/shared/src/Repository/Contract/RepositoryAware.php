@@ -44,8 +44,8 @@ trait RepositoryAware
 
         self::$mwnn3h3h[$repositoryName] = $container->get(DOCTRINE_ENTITY_MANAGER)
             ->getRepository(get_class($container->get($name)))
-                ->setContainer($container)
-                ->setVars($config);
+            ->setContainer($container)
+            ->setVars($config);
 
         // register 'postLoad' listeners
         foreach (self::$mwnn3h3h[$repositoryName]->metadata->entityListeners as $event => $listeners) {
