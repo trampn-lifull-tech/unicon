@@ -6,6 +6,7 @@ use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
 use Chaos\Common\Contract\ControllerTrait;
 use Chaos\Common\Mapper\EntityManagerFactory;
+use Chaos\Common\Service\Contract\IService;
 use Chaos\Common\Service\Contract\ServiceTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -24,9 +25,10 @@ class LaravelController extends Controller
     /**
      * Constructor.
      *
+     * @param   \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService $service [optional]
      * @throws  \Exception
      */
-    public function __construct()
+    public function __construct(IService $service = null)
     {
         $basePath = base_path();
         $config = config();
@@ -62,11 +64,18 @@ class LaravelController extends Controller
 
         // dependency injection
         $this->setContainer([])->setVars($configResources);
-        $this->getContainer()->set(M1_VARS, $this->getVars());
-        $this->getContainer()->set(
+        $container = $this->getContainer();
+        $vars = $this->getVars();
+
+        $container->set(M1_VARS, $vars);
+        $container->set(
             DOCTRINE_ENTITY_MANAGER,
-            (new EntityManagerFactory)->__invoke(null, null, $this->getVars()->getContent())
+            (new EntityManagerFactory)->__invoke(null, null, $vars->getContent())
         );
+
+        if (isset($service)) {
+            $this->service = $service->setContainer($container)->setVars($vars);
+        }
     }
 
     /**

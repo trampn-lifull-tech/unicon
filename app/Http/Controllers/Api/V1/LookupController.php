@@ -19,11 +19,7 @@ class LookupController extends LaravelRestController
      */
     public function __construct(LookupService $service)
     {
-        parent::__construct();
-
-        $this->service = $service
-            ->setContainer($this->getContainer())
-            ->setVars($this->getVars());
+        parent::__construct($service);
     }
 
     /**
