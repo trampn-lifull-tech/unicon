@@ -19,7 +19,10 @@ class LaravelRestController extends LaravelController
      */
     public function index()
     {
-        return $this->service->readAll($this->getFilterParams(), $this->getPagerParams());
+        return $this->service->readAll(
+            $this->getFilterParams($request = $this->getRequest(null, false)),
+            $this->getPagerParams($request)
+        );
     }
 
     /**

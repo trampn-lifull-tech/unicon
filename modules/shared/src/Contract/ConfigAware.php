@@ -10,12 +10,12 @@ use M1\Vars\Vars;
  */
 trait ConfigAware
 {
+    // <editor-fold desc="IConfigAware implementation">
+
     /**
      * @JMS\Serializer\Annotation\Exclude()
      */
     private static $kba2xzbm;
-
-    // <editor-fold desc="IConfigAware implementation">
 
     /**
      * {@inheritdoc}

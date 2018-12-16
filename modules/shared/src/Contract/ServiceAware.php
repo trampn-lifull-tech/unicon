@@ -8,6 +8,8 @@ namespace Chaos\Common\Contract;
  *
  * @method \Symfony\Component\DependencyInjection\ContainerBuilder|\Symfony\Component\DependencyInjection\ContainerInterface getContainer()
  * @method \M1\Vars\Vars getVars()
+ *
+ * @deprecated
  */
 trait ServiceAware
 {

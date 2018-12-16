@@ -66,7 +66,7 @@ class LaravelController extends Controller
 
         // </editor-fold>
 
-        // <editor-fold desc="into container-managed objects" defaultstate="collapsed">
+        // <editor-fold desc="Inject into container-managed objects" defaultstate="collapsed">
 
         $vars = $this->setVars($configResources)->getVars();
         $container = $this->setContainer($containerResources)->getContainer();
@@ -94,7 +94,7 @@ class LaravelController extends Controller
      *
      * @param   null|string $key The request parameter key.
      * @param   mixed $default [optional] The default value.
-     * @param   \Illuminate\Http\Request $request [optional]
+     * @param   \Illuminate\Http\Request $request The request.
      * @return  array|mixed
      */
     protected function getRequest($key = null, $default = null, $request = null)

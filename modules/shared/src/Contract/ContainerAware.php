@@ -13,12 +13,12 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 trait ContainerAware
 {
+    // <editor-fold desc="IContainerAware implementation">
+
     /**
      * @JMS\Serializer\Annotation\Exclude()
      */
     private static $gbk9xbds;
-
-    // <editor-fold desc="IContainerAware implementation">
 
     /**
      * {@inheritdoc}

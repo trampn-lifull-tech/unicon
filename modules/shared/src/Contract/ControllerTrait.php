@@ -63,14 +63,15 @@ trait ControllerTrait
      *  'where' => $predicate
      * ]
      *
-     * @param   array $binds A bind variable array.
-     * @param   string $key The request parameter key; defaults to <b>filter</b>.
+     * @param   array $request The request.
+     * @param   array $binds [optional] A bind variable array.
+     * @param   string $key [optional] The request parameter key; defaults to <b>filter</b>.
      * @return  array
      * @throws  \ReflectionException
      */
-    protected function getFilterParams(array $binds = [], $key = 'filter')
+    protected function getFilterParams(array $request, array $binds = [], $key = 'filter')
     {
-        $filter = $this->getRequest($key);
+        $filter = $request[$key] ?? null;
 
         if (!isBlank($filter)) {
             if (is_string($filter)) {
@@ -81,7 +82,6 @@ trait ControllerTrait
                 }
             }
 
-            /** @var \Zend\Db\Sql\Predicate\PredicateSet $filterSet */
             $filterSet = $this->service->prepareFilterParams($filter);
 
             if (0 !== count($filterSet)) {
@@ -93,7 +93,7 @@ trait ControllerTrait
             }
         }
 
-        return $this->getOrderParams($binds);
+        return $this->getOrderParams($request, $binds);
     }
 
     /**
@@ -116,14 +116,15 @@ trait ControllerTrait
      *  'order' => ['Id' => 'DESC NULLS FIRST', 'Name' => 'ASC NULLS LAST']
      * ]
      *
+     * @param   array $request The request.
      * @param   array $binds A bind variable array.
-     * @param   string $key The request parameter key; defaults to <b>sort</b>.
+     * @param   array $keys [optional] The request parameter keys; defaults to <b>['sort', 'direction', 'nulls']</b>.
      * @return  array
      * @throws  \ReflectionException
      */
-    protected function getOrderParams(array $binds = [], $key = 'sort')
+    protected function getOrderParams(array $request, array $binds = [], array $keys = ['sort', 'direction', 'nulls'])
     {
-        $order = $this->getRequest($key);
+        $order = $request[@$keys[0]] ?? null;
 
         if (!isBlank($order)) {
             if (is_string($order)) {
@@ -134,8 +135,8 @@ trait ControllerTrait
                 } else {
                     $order = [[
                         'property' => $order,
-                        'direction' => $this->getRequest('direction'),
-                        'nulls' => $this->getRequest('nulls')
+                        'direction' => $request[@$keys[1]] ?? null,
+                        'nulls' => $request[@$keys[2]] ?? null
                     ]];
                 }
             }
@@ -183,16 +184,17 @@ trait ControllerTrait
      *  'ItemCountPerPage' => 10
      * ]
      *
-     * @param   array $binds A bind variable array.
-     * @param   array $keys The request parameter keys; defaults to <b>['page', 'length']</b>.
+     * @param   array $request The request.
+     * @param   array $binds [optional] A bind variable array.
+     * @param   array $keys [optional] The request parameter keys; defaults to <b>['start', 'page', 'length']</b>.
      * @return  bool|array
      */
-    protected function getPagerParams(array $binds = [], array $keys = ['page', 'length'])
+    protected function getPagerParams(array $request, array $binds = [], array $keys = ['start', 'page', 'length'])
     {
         $default = [
-            'CurrentPageStart' => $this->getRequest('start'),
-            'CurrentPageNumber' => $this->getRequest(@$keys[0]),
-            'ItemCountPerPage' => $this->getRequest(@$keys[1])
+            'CurrentPageStart' => $request[@$keys[0]] ?? null,
+            'CurrentPageNumber' => $request[@$keys[1]] ?? null,
+            'ItemCountPerPage' => $request[@$keys[2]] ?? null,
         ];
 
         return $this->preparePagerParams(empty($binds) ? $default : $binds + $default);
