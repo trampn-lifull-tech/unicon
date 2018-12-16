@@ -31,6 +31,7 @@ class LookupController extends LaravelRestController
     public function index()
     {
         var_dump(
+            $this->service->filter('10/29/2014', 86399),
 //            $this->getFilterParams($this->getRequest(null, false)),
             $this->getPagerParams($this->getRequest(null, false)),
             $this->getRequest(),

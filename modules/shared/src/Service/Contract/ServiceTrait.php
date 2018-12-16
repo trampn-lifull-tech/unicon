@@ -2,15 +2,16 @@
 
 namespace Chaos\Common\Service\Contract;
 
+use Carbon\Carbon;
 use Chaos\Common\Constant\PredicateType;
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Filter\StaticFilter;
 
 /**
- * @todo
- *
  * Class ServiceTrait
  * @author ntd1712
+ *
+ * @method \M1\Vars\Vars getVars()
  */
 trait ServiceTrait
 {
@@ -275,11 +276,14 @@ trait ServiceTrait
 
         $value = trim($value);
 
-        if (false !== $checkDate && 0 !== preg_match(CHAOS_MATCH_DATE, $value, $matches)) {
-            $filtered = date(
-                $this->getVars()->get('app.date_format'),
-                is_bool($checkDate) ? strtotime($matches[0]) : strtotime($matches[0]) + $checkDate
-            );
+        if (false !== $checkDate && false !== ($time = strtotime($value))) {
+            $carbon = Carbon::createFromTimestamp($time, $this->getVars()->get('app.timezone'));
+
+            if (is_int($checkDate)) {
+                $carbon->addSeconds($checkDate);
+            }
+
+            $filtered = $carbon->toDateTimeString();
         } else {
             $filtered = StaticFilter::execute(
                 $value, 'HtmlEntities', ['encoding' => $this->getVars()->get('app.charset')]

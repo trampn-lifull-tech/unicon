@@ -7,7 +7,6 @@ use Chaos\Common\Contract\ContainerAware;
 use Chaos\Common\Contract\ControllerTrait;
 use Chaos\Common\Mapper\EntityManagerFactory;
 use Chaos\Common\Service\Contract\IService;
-use Chaos\Common\Service\Contract\ServiceTrait;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -20,7 +19,7 @@ use Ramsey\Uuid\Uuid;
 class LaravelController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    use ConfigAware, ContainerAware, ControllerTrait, ServiceTrait;
+    use ConfigAware, ContainerAware, ControllerTrait;
 
     /**
      * Constructor.
