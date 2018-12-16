@@ -15,8 +15,10 @@ trait ConfigAware
      */
     private static $kba2xzbm;
 
+    // <editor-fold desc="IConfigAware implementation">
+
     /**
-     * Gets a reference to the configuration object. The object returned will be of type <tt>Vars</tt>.
+     * {@inheritdoc}
      *
      * @return  \M1\Vars\Vars
      */
@@ -26,26 +28,7 @@ trait ConfigAware
     }
 
     /**
-     * Sets a reference to the configuration object.
-     *
-     * <code>
-     * $this->setVars([
-     *     '/modules/core/src/Lookup/config.yml',
-     *     '/modules/app/src/Dashboard/config.yml',
-     *     '/modules/app/config/config.yml',
-     *     '__options__' => [
-     *         'cache' => false,
-     *         'cache_path' => '/storage/framework',
-     *         'loaders' => ['yaml'],
-     *         'merge_globals' => false,
-     *         'replacements' => [
-     *             'APP_DIR' => base_path(),
-     *             // ...
-     *         ]
-     *     ]
-     * ]);
-     * $this->setVars([]);
-     * </code>
+     * {@inheritdoc}
      *
      * @param   array|\M1\Vars\Vars $config Either be an array holding the paths to the config files
      *          or a <tt>Vars</tt> instance.
@@ -75,4 +58,6 @@ trait ConfigAware
 
         return $this;
     }
+
+    // </editor-fold>
 }

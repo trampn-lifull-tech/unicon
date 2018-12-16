@@ -2,6 +2,10 @@
 
 namespace Chaos\Common\Service\Contract;
 
+use Chaos\Common\Contract\IConfigAware;
+use Chaos\Common\Contract\IContainerAware;
+use Chaos\Common\Object\Contract\IObject;
+
 /**
  * Interface IService
  * @author ntd1712
@@ -17,7 +21,7 @@ namespace Chaos\Common\Service\Contract;
  * @property-read \Doctrine\ORM\EntityManager $entityManager The <tt>EntityManager</tt> instance.
  * @property-read \Doctrine\ORM\Mapping\ClassMetadata $metadata The <tt>ClassMetadata</tt> instance.
  */
-interface IService
+interface IService extends IObject, IConfigAware, IContainerAware
 {
     /**
      * The default `readAll` method, you can override this in the derived class.

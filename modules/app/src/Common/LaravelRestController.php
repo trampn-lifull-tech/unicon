@@ -9,7 +9,7 @@ namespace Chaos\Module\Common;
 class LaravelRestController extends LaravelController
 {
     /**
-     * GET /lookup?filter=&sort=&start=&length=
+     * GET /demo?filter=&sort=&start=&length=
      *
      * Displays a listing of the resource.
      * This is the default `index` action, you can override this in the derived class.
@@ -23,7 +23,7 @@ class LaravelRestController extends LaravelController
     }
 
     /**
-     * POST /lookup
+     * POST /demo
      *
      * Stores a newly created resource in storage.
      * This is the default `store` action, you can override this in the derived class.
@@ -37,7 +37,7 @@ class LaravelRestController extends LaravelController
     }
 
     /**
-     * GET /lookup/{lookup}
+     * GET /demo/{demo}
      *
      * Displays the specified resource.
      * This is the default `show` action, you can override this in the derived class.
@@ -51,7 +51,7 @@ class LaravelRestController extends LaravelController
     }
 
     /**
-     * PUT /lookup/{lookup}
+     * PUT /demo/{demo}
      *
      * Updates the specified resource in storage.
      * This is the default `update` action, you can override this in the derived class.
@@ -66,7 +66,7 @@ class LaravelRestController extends LaravelController
     }
 
     /**
-     * DELETE /lookup/{lookup}
+     * DELETE /demo/{demo}
      *
      * Removes the specified resource from storage.
      * This is the default `destroy` action, you can override this in the derived class.

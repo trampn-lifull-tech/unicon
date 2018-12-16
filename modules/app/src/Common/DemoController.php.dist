@@ -7,14 +7,12 @@ use Chaos\Module\Dashboard\Service\DashboardService;
 use Chaos\Module\Lookup\Service\LookupService;
 
 /**
- * Class LookupController
+ * Class DemoController
  * @author ntd1712
  */
-class LookupController extends LaravelRestController
+class DemoController extends LaravelRestController
 {
     /**
-     * Constructor.
-     *
      * @param   LookupService $lookupService
      * @param   DashboardService $dashboardService
      * @throws  \Exception

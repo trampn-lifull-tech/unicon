@@ -18,8 +18,10 @@ trait ContainerAware
      */
     private static $gbk9xbds;
 
+    // <editor-fold desc="IContainerAware implementation">
+
     /**
-     * Gets a reference to the container object. The object returned will be of type <tt>ContainerInterface</tt>.
+     * {@inheritdoc}
      *
      * @return  ContainerBuilder|\Symfony\Component\DependencyInjection\ContainerInterface
      */
@@ -29,15 +31,7 @@ trait ContainerAware
     }
 
     /**
-     * Sets a reference to the container object.
-     *
-     * <code>
-     * $this->setVars([
-     *     '/modules/core/src/Lookup/services.yml',
-     *     '/modules/app/src/Dashboard/services.yml'
-     * ]);
-     * $this->setContainer([]);
-     * </code>
+     * {@inheritdoc}
      *
      * @param   array|\Symfony\Component\DependencyInjection\ContainerInterface $container Either be
      *          an array holding the paths to the service files or a <tt>ContainerBuilder</tt> instance.
@@ -65,4 +59,6 @@ trait ContainerAware
 
         return $this;
     }
+
+    // </editor-fold>
 }

@@ -25,11 +25,12 @@ class LaravelController extends Controller
     /**
      * Constructor.
      *
-     * @param   \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService $service [optional]
      * @throws  \Exception
      */
-    public function __construct(IService $service = null)
+    public function __construct()
     {
+        // <editor-fold desc="Load resources" defaultstate="collapsed">
+
         $basePath = base_path();
         $config = config();
         $config = [
@@ -57,16 +58,18 @@ class LaravelController extends Controller
             ]
         ];
 
+        $containerResources = [];
 //        $containerResources = array_merge(
 //            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
 //            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
 //        );
-//        $this->setContainer($containerResources)->setVars($configResources);
 
-        // dependency injection
-        $this->setContainer([])->setVars($configResources);
-        $container = $this->getContainer();
-        $vars = $this->getVars();
+        // </editor-fold>
+
+        // <editor-fold desc="into container-managed objects" defaultstate="collapsed">
+
+        $vars = $this->setVars($configResources)->getVars();
+        $container = $this->setContainer($containerResources)->getContainer();
 
         $container->set(M1_VARS, $vars);
         $container->set(
@@ -74,10 +77,16 @@ class LaravelController extends Controller
             (new EntityManagerFactory)->__invoke(null, null, $vars->getContent())
         );
 
-        if (isset($service)) {
-            $this->service = $service->setContainer($container)->setVars($vars);
-            $container->set($this->service->getClass(), $this->service);
+        if (!empty($args = func_get_args())) {
+            foreach ($args as $arg) {
+                if ($arg instanceof IService) {
+                    $arg->setContainer($container)->setVars($vars);
+                    $container->set($arg->getClass(), $arg);
+                }
+            }
         }
+
+        // </editor-fold>
     }
 
     /**

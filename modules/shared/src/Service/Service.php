@@ -13,8 +13,8 @@ use Chaos\Common\Repository\Contract\RepositoryAware;
  */
 abstract class Service implements Contract\IService
 {
-    use ConfigAware, ContainerAware, ObjectTrait, Contract\EventTrait,
-        RepositoryAware, /*Contract\ServiceAware, */Contract\ServiceTrait;
+    use ConfigAware, ContainerAware, ObjectTrait,
+        Contract\EventTrait, RepositoryAware, /*Contract\ServiceAware, */Contract\ServiceTrait;
 
     /**
      * The events being trigger.
