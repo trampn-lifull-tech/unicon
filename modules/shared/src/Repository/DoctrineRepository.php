@@ -38,7 +38,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
         }
 
         if (null === $query->getMaxResults()) {
-            $query->setMaxResults(@$paging['ItemCountPerPage'] ?: CHAOS_SQL_LIMIT);
+            $query->setMaxResults(@$paging['ItemCountPerPage'] ?: CHAOS_QUERY_LIMIT);
         }
 
         return new Paginator($query, $fetchJoinCollection);
@@ -101,7 +101,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
         foreach ($entity as $v) {
             $isNew ? $this->_em->persist($v) : $v = $this->_em->merge($v);
 
-            if ((0 === ++$i % CHAOS_SQL_LIMIT) && $autoFlush) {
+            if ((0 === ++$i % CHAOS_QUERY_LIMIT) && $autoFlush) {
                 $this->_em->flush();
             }
         }
@@ -127,7 +127,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
             if ($this->_em->contains($v)) {
                 $this->_em->remove($v);
 
-                if ((0 === ++$i % CHAOS_SQL_LIMIT) && $autoFlush) {
+                if ((0 === ++$i % CHAOS_QUERY_LIMIT) && $autoFlush) {
                     $this->_em->flush();
                 }
             }

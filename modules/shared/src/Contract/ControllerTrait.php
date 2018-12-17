@@ -229,7 +229,7 @@ trait ControllerTrait
                 );
             }
 
-            if (CHAOS_SQL_LIMIT <= ++$count) {
+            if (CHAOS_QUERY_LIMIT <= ++$count) {
                 break;
             }
         }
@@ -254,11 +254,11 @@ trait ControllerTrait
 
             if (1 > $binds['ItemCountPerPage']) {
                 $binds['ItemCountPerPage'] = 1;
-            } else if (($maxPerPage = CHAOS_SQL_MAX_LIMIT) < $binds['ItemCountPerPage']) {
+            } else if (($maxPerPage = CHAOS_QUERY_MAX_PER_PAGE) < $binds['ItemCountPerPage']) {
                 $binds['ItemCountPerPage'] = $maxPerPage;
             }
         } else {
-            $binds['ItemCountPerPage'] = CHAOS_SQL_LIMIT;
+            $binds['ItemCountPerPage'] = CHAOS_QUERY_LIMIT;
         }
 
         if ($hasCurrentPageNumber) {

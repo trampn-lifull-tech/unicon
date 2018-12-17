@@ -39,8 +39,8 @@ class LaravelController extends Controller
 
         $configResources = array_merge(
             glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
-            glob($basePath . '/modules/app/src/*/config.yml', GLOB_NOSORT),
-            [$basePath . '/modules/app/config/config.yml']
+            glob($basePath . '/modules/app/*/config.yml', GLOB_NOSORT),
+            [$basePath . '/modules/app/config.yml']
         );
         $configResources['__options__'] = [
             'cache' => 'production' === $config['app']['env'],

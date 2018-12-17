@@ -48,7 +48,7 @@
             "Chaos\\Common\\": "modules/shared/src",
             "Chaos\\Module\\": [
                 "modules/core/src",
-                "modules/app/src"
+                "modules/app"
             ]
         },
         "classmap": [

@@ -4,6 +4,7 @@ namespace Chaos\Common\Service\Contract;
 
 use Carbon\Carbon;
 use Chaos\Common\Constant\PredicateType;
+use Chaos\Common\Type\Type;
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Filter\StaticFilter;
 
@@ -33,7 +34,8 @@ trait ServiceTrait
             $predicate = new Predicate;
         }
 
-        $fields = $this->getRepository()->fields;
+        // $fields = $this->getRepository()->fields;
+        $fields = []; // TODO
 
         if (is_array($binds)) {
             foreach ($binds as $v) {
@@ -239,7 +241,7 @@ trait ServiceTrait
             $count = 0;
 
             foreach ($fields as $k => $v) {
-                if ((Types\Type::STRING_TYPE === $v['type'] || Types\Type::TEXT_TYPE === $v['type'])
+                if ((Type::STRING_TYPE === $v['type'] || Type::TEXT_TYPE === $v['type'])
                     && ($searchable || ($isChar = isset($v['options']) && isset($v['options']['fixed'])))
                 ) {
                     $predicateSet->or;
@@ -247,7 +249,7 @@ trait ServiceTrait
                         ? $predicateSet->equalTo($k, $equalValue)
                         : $predicateSet->like($k, $likeValue);
 
-                    if (CHAOS_SQL_LIMIT <= ++$count) {
+                    if (CHAOS_QUERY_LIMIT <= ++$count) {
                         break;
                     }
                 }
