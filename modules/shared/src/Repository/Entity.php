@@ -11,7 +11,7 @@ use Chaos\Common\Object\Model;
  *
  * Entity Data Model is a model that describes entities and the relationships between them.
  */
-abstract class Entity extends Model implements Contract\IEntity
+class Entity extends Model implements Contract\IEntity
 {
     use ContainerAware;
 }

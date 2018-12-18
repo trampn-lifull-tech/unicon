@@ -22,6 +22,38 @@ trait ServiceTrait
     public $enableTransaction = false;
 
     /**
+     * Returns the string $value, converting characters to their corresponding HTML entity equivalents where they exist.
+     *
+     * @param   string $value The value.
+     * @param   bool $checkDate [optional].
+     * @return  string
+     */
+    public function filter($value, $checkDate = false)
+    {
+        if (isBlank($value) || !is_scalar($value)) {
+            return '';
+        }
+
+        $value = trim($value);
+
+        if (false !== $checkDate && false !== ($time = strtotime($value))) {
+            $carbon = Carbon::createFromTimestamp($time, $this->getVars()->get('app.timezone'));
+
+            if (is_int($checkDate)) {
+                $carbon->addSeconds($checkDate);
+            }
+
+            $filtered = $carbon->toDateTimeString();
+        } else {
+            $filtered = StaticFilter::execute(
+                $value, 'HtmlEntities', ['encoding' => $this->getVars()->get('app.charset')]
+            );
+        }
+
+        return $filtered;
+    }
+
+    /**
      * Prepares filter parameters.
      *
      * @param   array|string $binds A bind variable array.
@@ -34,8 +66,8 @@ trait ServiceTrait
             $predicate = new Predicate;
         }
 
-        // $fields = $this->getRepository()->fields;
-        $fields = []; // TODO
+        // $fields = $this->getRepository()->fields; // TODO
+        $fields = [];
 
         if (is_array($binds)) {
             foreach ($binds as $v) {
@@ -261,37 +293,5 @@ trait ServiceTrait
         }
 
         return $predicate;
-    }
-
-    /**
-     * Returns the string $value, converting characters to their corresponding HTML entity equivalents where they exist.
-     *
-     * @param   string $value The value.
-     * @param   bool $checkDate [optional].
-     * @return  string
-     */
-    public function filter($value, $checkDate = false)
-    {
-        if (isBlank($value) || !is_scalar($value)) {
-            return '';
-        }
-
-        $value = trim($value);
-
-        if (false !== $checkDate && false !== ($time = strtotime($value))) {
-            $carbon = Carbon::createFromTimestamp($time, $this->getVars()->get('app.timezone'));
-
-            if (is_int($checkDate)) {
-                $carbon->addSeconds($checkDate);
-            }
-
-            $filtered = $carbon->toDateTimeString();
-        } else {
-            $filtered = StaticFilter::execute(
-                $value, 'HtmlEntities', ['encoding' => $this->getVars()->get('app.charset')]
-            );
-        }
-
-        return $filtered;
     }
 }

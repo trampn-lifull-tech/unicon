@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Class LaravelController
  */
-class LaravelController extends Controller
+abstract class LaravelController extends Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     use ConfigAware, ContainerAware, ControllerTrait;
