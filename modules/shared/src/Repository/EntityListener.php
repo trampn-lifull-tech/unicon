@@ -2,7 +2,6 @@
 
 namespace Chaos\Common\Repository;
 
-use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
 
 /**
@@ -11,7 +10,7 @@ use Chaos\Common\Contract\ContainerAware;
  */
 abstract class EntityListener implements Contract\IEntityListener
 {
-    use ConfigAware, ContainerAware;
+    use ContainerAware;
 
     /**
      * {@inheritdoc}
@@ -24,7 +23,8 @@ abstract class EntityListener implements Contract\IEntityListener
     public function postLoad($entity, $eventArgs)
     {
         $entity->setContainer($this->getContainer());
-        $entity->getContainer()->get(M1_VARS)
+        $entity->getContainer()
+            ->get(M1_VARS)
             ->set($entity->getClass(), $eventArgs->getEntityManager()->getUnitOfWork()->getEntityIdentifier($entity));
     }
 }

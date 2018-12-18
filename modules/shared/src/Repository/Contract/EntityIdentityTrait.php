@@ -26,7 +26,7 @@ trait EntityIdentityTrait
     private $ApplicationKey;
 
     /**
-     * @return  integer
+     * @return  int
      */
     public function getId()
     {

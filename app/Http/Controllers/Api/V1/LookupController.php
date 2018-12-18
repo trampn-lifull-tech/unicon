@@ -36,12 +36,14 @@ class LookupController extends LaravelRestController
             $this->getPagerParams($this->getRequest(null, false)),
             $this->getRequest(),
             $this->service,
-            json_encode($this->service->getVars()->getContent()),
             serialize($this->getContainer()->get(M1_VARS)),
             serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER)),
             $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'),
             $this->getContainer()->get('Chaos\Module\Lookup\Service\LookupService')
         );
+
+        echo '<pre>';
+        var_export($this->service->getVars()->getContent());
 
         return [
             'data' => __FUNCTION__

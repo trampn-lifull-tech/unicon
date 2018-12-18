@@ -2,8 +2,9 @@
 
 namespace Chaos\Module\Lookup\Entity;
 
-// use Chaos\Common\Repository\Contract;
-// use Chaos\Common\Repository\Entity;
+use Chaos\Common\Repository\Contract\EntityAuditTrait;
+use Chaos\Common\Repository\Contract\EntityIdentityTrait;
+use Chaos\Common\Repository\Entity;
 
 /**
  * Class LookupEntity
@@ -13,9 +14,9 @@ namespace Chaos\Module\Lookup\Entity;
  * @Doctrine\ORM\Mapping\EntityListeners({ "Chaos\Module\Lookup\Event\LookupListener" })
  * @Doctrine\ORM\Mapping\Table(name="lookup")
  */
-class LookupEntity // extends Entity
+class LookupEntity extends Entity
 {
-    // use Contract\EntityIdentityTrait, Contract\EntityAuditTrait;
+    use EntityIdentityTrait, EntityAuditTrait;
 
     /**
      * @Doctrine\ORM\Mapping\Column(name="type", type="string")
