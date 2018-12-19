@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * Trait ContainerAware
  * @author ntd1712
  */
-trait ContainerAware
+trait ContainerAware // implements IContainerAware
 {
     // <editor-fold desc="IContainerAware implementation">
 

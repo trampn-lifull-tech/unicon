@@ -8,7 +8,7 @@ use M1\Vars\Vars;
  * Trait ConfigAware
  * @author ntd1712
  */
-trait ConfigAware
+trait ConfigAware // implements IConfigAware
 {
     // <editor-fold desc="IConfigAware implementation">
 

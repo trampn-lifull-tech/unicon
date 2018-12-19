@@ -8,17 +8,6 @@ namespace Chaos\Common\Object\Contract;
  */
 trait ObjectTrait
 {
-    /**
-     * Returns a string consisting of the name of the class of which the object is an instance,
-     * the at-sign character `@', and the unsigned hexadecimal representation of the hash code of the object.
-     *
-     * @return  string
-     */
-    public function __toString()
-    {
-        return $this->getClass() . '@' . bin2hex($this->getHashCode());
-    }
-
     // <editor-fold desc="IObject implementation">
 
     /**
@@ -50,6 +39,21 @@ trait ObjectTrait
     public function getHashCode()
     {
         return spl_object_hash($this);
+    }
+
+    // </editor-fold>
+
+    // <editor-fold desc="Magic methods" defaultstate="collapsed">
+
+    /**
+     * Returns a string consisting of the name of the class of which the object is an instance,
+     * the at-sign character `@', and the unsigned hexadecimal representation of the hash code of the object.
+     *
+     * @return  string
+     */
+    public function __toString()
+    {
+        return $this->getClass() . '@' . bin2hex($this->getHashCode());
     }
 
     // </editor-fold>

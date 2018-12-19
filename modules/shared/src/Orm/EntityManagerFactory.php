@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Mapper;
+namespace Chaos\Common\Orm;
 
 use Doctrine\Common\Cache;
 use Doctrine\Common\EventManager;

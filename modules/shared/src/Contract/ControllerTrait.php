@@ -12,6 +12,7 @@ trait ControllerTrait
 {
     /**
      * @var \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService
+     * @todo
      */
     protected $service;
 
@@ -82,7 +83,7 @@ trait ControllerTrait
                 }
             }
 
-            $filterSet = $this->service->prepareFilterParams($filter);
+            $filterSet = $this->service->prepareFilterParams($filter); // @todo
 
             if (0 !== count($filterSet)) {
                 if (isset($binds['where'])) {

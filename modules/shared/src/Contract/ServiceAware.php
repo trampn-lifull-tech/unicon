@@ -6,7 +6,7 @@ namespace Chaos\Common\Contract;
  * Trait ServiceAware
  * @author ntd1712
  *
- * @method \Symfony\Component\DependencyInjection\ContainerBuilder|\Symfony\Component\DependencyInjection\ContainerInterface getContainer()
+ * @method \Symfony\Component\DependencyInjection\ContainerInterface getContainer()
  * @method \M1\Vars\Vars getVars()
  *
  * @deprecated

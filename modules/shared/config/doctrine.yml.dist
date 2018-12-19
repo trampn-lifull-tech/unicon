@@ -1,6 +1,6 @@
 doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.html
   dbal:
-    default_connection: mysql
+    default_connection: default
     types:
       double:
         class: MyApplication\Doctrine\Type\DoubleType
@@ -15,7 +15,7 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
         class: MyApplication\Doctrine\Type\UuidType
     schema_filter: ~
     connections:
-      mysql:
+      default:
         dbname: ~
         host: 127.0.0.1
         port: 3306
@@ -78,7 +78,7 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
           class:
         entity_listeners:
           entities: ~
-        connection: mysql
+        connection: default
         class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
         default_repository_class: Doctrine\ORM\EntityRepository
         auto_mapping: false

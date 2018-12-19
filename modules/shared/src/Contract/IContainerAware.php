@@ -11,7 +11,7 @@ interface IContainerAware
     /**
      * Gets a reference to the container object. The object returned will be of type <tt>ContainerInterface</tt>.
      *
-     * @return  \Symfony\Component\DependencyInjection\ContainerBuilder|\Symfony\Component\DependencyInjection\ContainerInterface
+     * @return  \Symfony\Component\DependencyInjection\ContainerInterface
      */
     public function getContainer();
 

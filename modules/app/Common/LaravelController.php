@@ -5,7 +5,7 @@ namespace Chaos\Module\Common;
 use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
 use Chaos\Common\Contract\ControllerTrait;
-use Chaos\Common\Mapper\EntityManagerFactory;
+use Chaos\Common\Orm\EntityManagerFactory;
 use Chaos\Common\Service\Contract\IService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
