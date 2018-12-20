@@ -12,7 +12,7 @@ doctrine:
         password: '%^DB_PASSWORD%'
         charset: utf8
         unix_socket: ~
-        driver: pdo_mysql
+        driver: pdo_sqlite
         auto_commit: false
         logging: ~
         mapping_types: ~
