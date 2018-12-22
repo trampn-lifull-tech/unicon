@@ -21,16 +21,34 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
         port: 3306
         user: root
         password: ~
-        charset: utf8
+        charset: "UTF8"
+        path: ~
+        memory: ~
         unix_socket: ~
+        persistent: ~
+        protocol: ~
+        service: ~
+        servicename: ~
+        sessionMode: ~
+        server: ~
+        default_dbname: ~
+        sslmode: ~
+        sslrootcert: ~
+        sslcert: ~
+        sslkey: ~
+        sslcrl: ~
+        pooled: ~
+        MultipleActiveResultSets: ~
+        use_savepoints: true
         driver: pdo_mysql
         platform_service: ~
-        auto_commit: false
+        auto_commit: ~
+        schema_filter: ~
         logging: ~
         profiling: ~
         server_version: ~
         driver_class: ~
-        wrapperClass: ~
+        wrapper_class: ~
         shard_choser: ~
         shard_choser_service: ~
         keep_slave: ~
@@ -52,7 +70,7 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
         shards: ~
   orm:
     default_entity_manager: default
-    auto_generate_proxy_classes: 0
+    auto_generate_proxy_classes: false
     proxy_dir: /path/to/proxy/dir
     proxy_namespace: DoctrineProxies
     resolve_target_entities: []
@@ -60,30 +78,39 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
       default:
         query_cache_driver:
           type: array
-          host:
-          port:
-          instance_class:
-          class:
+          host: ~
+          port: ~
+          instance_class: ~
+          class: ~
+          id: ~
+          namesspace: ~
+          cache_provider: ~
         metadata_cache_driver:
           type: array
-          host:
-          port:
-          instance_class:
-          class:
+          host: ~
+          port: ~
+          instance_class: ~
+          class: ~
+          id: ~
+          namesspace: ~
+          cache_provider: ~
         result_cache_driver:
           type: array
-          host:
-          port:
-          instance_class:
-          class:
+          host: ~
+          port: ~
+          instance_class: ~
+          class: ~
+          id: ~
+          namesspace: ~
+          cache_provider: ~
         entity_listeners:
           entities: ~
         connection: default
         class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
         default_repository_class: Doctrine\ORM\EntityRepository
         auto_mapping: false
-        naming_strategy: ~
-        quote_strategy: ~
+        naming_strategy: doctrine.orm.naming_strategy.default
+        quote_strategy: doctrine.orm.quote_strategy.default
         entity_listener_resolver: ~
         repository_factory: ~
         second_level_cache: ~
@@ -93,6 +120,9 @@ doctrine: # http://symfony.com/doc/master/bundles/DoctrineBundle/configuration.h
             mapping: true
             type: annotation
             dir: /path/to/entity/dir
+            alias: ~
+            prefix: ~
+            is_bundle: ~
           yaml:
             mapping: false
             type: yaml

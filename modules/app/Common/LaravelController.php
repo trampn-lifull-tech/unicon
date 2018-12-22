@@ -15,6 +15,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Class LaravelController
+ * @author ntd1712
  */
 class LaravelController extends Controller
 {

@@ -40,7 +40,7 @@ abstract class LaravelRestController extends LaravelController
     }
 
     /**
-     * GET /demo/{demo}
+     * GET /demo/:id
      *
      * Displays the specified resource.
      * This is the default `show` action, you can override this in the derived class.
@@ -54,7 +54,7 @@ abstract class LaravelRestController extends LaravelController
     }
 
     /**
-     * PUT /demo/{demo}
+     * PUT /demo/:id
      *
      * Updates the specified resource in storage.
      * This is the default `update` action, you can override this in the derived class.
@@ -69,7 +69,7 @@ abstract class LaravelRestController extends LaravelController
     }
 
     /**
-     * DELETE /demo/{demo}
+     * DELETE /demo/:id
      *
      * Removes the specified resource from storage.
      * This is the default `destroy` action, you can override this in the derived class.

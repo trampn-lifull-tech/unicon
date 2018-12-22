@@ -29,13 +29,19 @@ class DemoController extends LaravelRestController
     public function index()
     {
         var_dump(
-            $this->getRequest(),
+            $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'),
+            $this->getContainer()->get('Chaos\Module\Lookup\Service\LookupService'),
             $this->service,
-            json_encode($this->service->getVars()->getContent()),
+            $this->filter('10/29/2014', 86399),
+            $this->getFilterParams($this->getRequest(null, false)),
+            $this->getPagerParams($this->getRequest(null, false)),
+            $this->getRequest(),
             serialize($this->getContainer()->get(M1_VARS)),
-            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER)),
-            $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService')
+            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER))
         );
+
+        echo '<pre>';
+        var_export($this->service->getVars()->getContent());
 
         return [
             'data' => __FUNCTION__

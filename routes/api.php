@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::apiResource('v1/demo', 'Api\V1\DemoController');
 Route::apiResource('v1/lookup', 'Api\V1\LookupController');
