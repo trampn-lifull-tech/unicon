@@ -20,7 +20,7 @@ trait ControllerTrait
     protected $service;
 
     /**
-     * Gets filter parameters.
+     * Gets the filter parameters.
      *
      * ?filter=[
      *  {"predicate":"equalTo","left":"Id","right":"1","leftType":"identifier","rightType":"value",
@@ -69,13 +69,12 @@ trait ControllerTrait
      *
      * @param   array $request The request.
      * @param   array $binds [optional] A bind variable array.
-     * @param   string $key [optional] The request parameter key; defaults to <b>filter</b>.
      * @return  array
      * @throws  \ReflectionException
      */
-    protected function getFilterParams(array $request, array $binds = [], $key = 'filter')
+    protected function getFilterParams(array $request, array $binds = [])
     {
-        $filter = $request[$key] ?? null;
+        $filter = $request['filter'] ?? null;
 
         if (!isBlank($filter)) {
             if (is_string($filter)) {
@@ -101,7 +100,7 @@ trait ControllerTrait
     }
 
     /**
-     * Gets sort order parameters.
+     * Gets the sort order parameters.
      *
      * Parameters allowed:
      *
@@ -121,14 +120,13 @@ trait ControllerTrait
      * ]
      *
      * @param   array $request The request.
-     * @param   array $binds A bind variable array.
-     * @param   array $keys [optional] The request parameter keys; defaults to <b>['sort', 'direction', 'nulls']</b>.
+     * @param   array $binds [optional] A bind variable array.
      * @return  array
      * @throws  \ReflectionException
      */
-    protected function getOrderParams(array $request, array $binds = [], array $keys = ['sort', 'direction', 'nulls'])
+    protected function getOrderParams(array $request, array $binds = [])
     {
-        $order = $request[@$keys[0]] ?? null;
+        $order = $request['sort'] ?? null;
 
         if (!isBlank($order)) {
             if (is_string($order)) {
@@ -137,11 +135,13 @@ trait ControllerTrait
                 if (false !== ($decodedValue = isJson($order, true))) {
                     $order = (array)$decodedValue;
                 } else {
-                    $order = [[
-                        'property' => $order,
-                        'direction' => $request[@$keys[1]] ?? null,
-                        'nulls' => $request[@$keys[2]] ?? null
-                    ]];
+                    $order = [
+                        [
+                            'property' => $order,
+                            'direction' => $request['direction'] ?? null,
+                            'nulls' => $request['nulls'] ?? null
+                        ]
+                    ];
                 }
             }
 
@@ -173,7 +173,7 @@ trait ControllerTrait
     }
 
     /**
-     * Gets pager parameters.
+     * Gets the pager parameters.
      *
      * Parameters allowed:
      *
@@ -190,15 +190,14 @@ trait ControllerTrait
      *
      * @param   array $request The request.
      * @param   array $binds [optional] A bind variable array.
-     * @param   array $keys [optional] The request parameter keys; defaults to <b>['start', 'page', 'length']</b>.
      * @return  bool|array
      */
-    protected function getPagerParams(array $request, array $binds = [], array $keys = ['start', 'page', 'length'])
+    protected function getPagerParams(array $request, array $binds = [])
     {
         $default = [
-            'CurrentPageStart' => $request[@$keys[0]] ?? null,
-            'CurrentPageNumber' => $request[@$keys[1]] ?? null,
-            'ItemCountPerPage' => $request[@$keys[2]] ?? null,
+            'CurrentPageStart' => $request['start'] ?? null,
+            'CurrentPageNumber' => $request['page'] ?? null,
+            'ItemCountPerPage' => $request['length'] ?? null,
         ];
 
         return $this->filterPagerParams(empty($binds) ? $default : $binds + $default);
@@ -233,7 +232,9 @@ trait ControllerTrait
             $filtered = $carbon->toDateTimeString();
         } else {
             $filtered = StaticFilter::execute(
-                $value, 'HtmlEntities', ['encoding' => $vars->get('app.charset')]
+                $value,
+                'HtmlEntities',
+                ['encoding' => $vars->get('app.charset')]
             );
         }
 
@@ -456,6 +457,7 @@ trait ControllerTrait
             $predicateSet = new Predicate;
             $searchable = $vars->get('app.min_search_chars') <= strlen($binds);
             $binds = $this->filter($binds);
+
             $equalValue = "'" . $binds . "'";
             $likeValue = "'%" . str_replace('%', '%%', $binds) . "%'";
             $count = 0;
@@ -484,7 +486,7 @@ trait ControllerTrait
     }
 
     /**
-     * Filters order parameters.
+     * Filters the order parameters.
      *
      * @param   array $binds A bind variable array.
      * @return  array
@@ -519,7 +521,7 @@ trait ControllerTrait
     }
 
     /**
-     * Filters pager parameters.
+     * Filters the pager parameters.
      *
      * @param   array $binds A bind variable array.
      * @return  bool|array

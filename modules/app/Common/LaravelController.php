@@ -92,8 +92,8 @@ class LaravelController extends Controller
     /**
      * Either gets a query value or all of the input and files.
      *
-     * @param   null|string $key The request parameter key.
-     * @param   mixed $default [optional] The default value.
+     * @param   null|string $key The key.
+     * @param   mixed $default [optional] The default value if the parameter key does not exist.
      * @param   \Illuminate\Http\Request $request The request.
      * @return  array|mixed
      */
@@ -123,5 +123,26 @@ class LaravelController extends Controller
         }
 
         return $params;
+    }
+
+    /**
+     * Gets a session value or all of the session values.
+     *
+     * @param   null|string $key The key.
+     * @param   mixed $default [optional] The default value.
+     * @param   \Illuminate\Session\Store $session The session.
+     * @return  array|mixed
+     */
+    protected function getSession($key = null, $default = null, $session = null)
+    {
+        if (empty($session)) {
+            $session = app('session');
+        }
+
+        if (isset($key)) {
+            return $session->get($key, $default);
+        }
+
+        return $session->all();
     }
 }
