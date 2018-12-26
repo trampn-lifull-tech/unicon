@@ -2,6 +2,10 @@
 
 namespace Chaos\Common\Repository\Contract;
 
+use Chaos\Common\Contract\IConfigAware;
+use Chaos\Common\Contract\IContainerAware;
+use Chaos\Common\Object\Contract\IObject;
+
 /**
  * Interface IRepository
  * @author ntd1712
@@ -19,7 +23,7 @@ namespace Chaos\Common\Repository\Contract;
  * @method self close() Closes the connection.
  * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
  */
-interface IRepository
+interface IRepository extends IConfigAware, IContainerAware, IObject
 {
     /**
      * The default `paginate` method, you can override this in the derived class.

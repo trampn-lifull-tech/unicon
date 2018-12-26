@@ -16,6 +16,8 @@ use Ramsey\Uuid\Uuid;
 /**
  * Class LaravelController
  * @author ntd1712
+ *
+ * @property IService $service
  */
 class LaravelController extends Controller
 {
@@ -29,7 +31,7 @@ class LaravelController extends Controller
      */
     public function __construct()
     {
-        // <editor-fold desc="Load resources" defaultstate="collapsed">
+        // <editor-fold desc="Loads resources" defaultstate="collapsed">
 
         $basePath = base_path();
         $config = config();
@@ -66,7 +68,7 @@ class LaravelController extends Controller
 
         // </editor-fold>
 
-        // <editor-fold desc="Inject into container-managed objects" defaultstate="collapsed">
+        // <editor-fold desc="Initializes container-managed objects" defaultstate="collapsed">
 
         $vars = $this->setVars($configResources)->getVars();
         $container = $this->setContainer($containerResources)->getContainer();

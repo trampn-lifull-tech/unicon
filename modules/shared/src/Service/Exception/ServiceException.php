@@ -6,7 +6,7 @@ namespace Chaos\Common\Service\Exception;
  * Class ServiceException
  * @author ntd1712
  */
-class ServiceException extends \RuntimeException
+class ServiceException extends \Exception
 {
     /**
      * @var mixed|int

@@ -2,9 +2,12 @@
 
 namespace Chaos\Common\Service;
 
+use Chaos\Common\Constant\ErrorCode;
+use Chaos\Common\Constant\EventType;
 use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
 use Chaos\Common\Object\Contract\ObjectTrait;
+use Chaos\Common\Repository\Contract\IRepository;
 use Chaos\Common\Repository\Contract\RepositoryAware;
 
 /**
@@ -14,36 +17,51 @@ use Chaos\Common\Repository\Contract\RepositoryAware;
 abstract class Service implements Contract\IService
 {
     use ConfigAware, ContainerAware, ObjectTrait,
-        Contract\EventTrait, RepositoryAware, /*Contract\ServiceAware, */Contract\ServiceTrait;
+        RepositoryAware, /*Contract\ServiceAware, */Contract\ServiceTrait;
 
     /**
-     * The events being trigger.
+     * Constructor.
+     *
+     * @throws  \Exception
      */
-    const
-        ON_AFTER_READ_ALL = 'onAfterReadAll',
-        ON_AFTER_READ = 'onAfterRead',
-        ON_EXCHANGE_ARRAY = 'onExchangeArray',
-        ON_VALIDATE = 'onValidate',
-        ON_BEFORE_SAVE = 'onBeforeSave',
-        ON_AFTER_SAVE = 'onAfterSave',
-        ON_BEFORE_DELETE = 'onBeforeDelete',
-        ON_AFTER_DELETE = 'onAfterDelete';
+    public function __construct()
+    {
+        // <editor-fold desc="Initializes container-managed objects" defaultstate="collapsed">
+
+        $vars = $this->getVars();
+        $container = $this->getContainer();
+
+        if (!empty($args = func_get_args())) {
+            foreach ($args as $arg) {
+                if ($arg instanceof IRepository) {
+                    $arg->setContainer($container)->setVars($vars);
+                    $container->set($arg->getClass(), $arg);
+                }
+            }
+        }
+
+        // </editor-fold>
+    }
 
     /**
      * {@inheritdoc}
+     *
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   bool|array $paging The paging criteria; defaults to FALSE.
+     * @return  array
      */
     public function readAll($criteria = [], $paging = false)
     {
         if (false !== $paging) {
-            $entities = $this->getRepository()->paginate($criteria, $paging);
+            $entities = $this->repository->paginate($criteria, $paging);
         } else {
-            $entities = $this->getRepository()->readAll($criteria);
+            $entities = $this->repository->readAll($criteria);
         }
 
         $result = ['data' => [], 'count' => count($entities), 'success' => true];
 
         if (0 !== $result['count']) {
-            $this->trigger(self::ON_AFTER_READ_ALL, [CHAOS_READ_EVENT_ARGS, func_get_args(), $entities]);
+            $this->trigger(EventType::ON_AFTER_READ_ALL, [CHAOS_READ_EVENT_ARGS, func_get_args(), $entities]);
             $result['data'] = $entities instanceof \Traversable ? iterator_to_array($entities) : $entities;
         }
 
@@ -52,6 +70,9 @@ abstract class Service implements Contract\IService
 
     /**
      * {@inheritdoc}
+     *
+     * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @return  array
      */
     public function read($criteria)
     {
@@ -60,30 +81,30 @@ abstract class Service implements Contract\IService
                 $criteria = (int)$criteria;
 
                 if (1 > $criteria) {
-                    throw new Exception\ServiceException('Your request is invalid');
+                    throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
                 }
             } else {
-                $criteria = $this->filter($criteria);
+                // $criteria = $this->filter($criteria); // TODO
 
                 if (empty($criteria)) {
-                    throw new Exception\ServiceException('Your request is invalid');
+                    throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
                 }
             }
 
-            $entity = $this->getRepository()->find($criteria);
+            $entity = $this->repository->find($criteria);
         } else {
             if (empty($criteria)) {
                 throw new \InvalidArgumentException(__METHOD__ . ' expects "$criteria" in array format');
             }
 
-            $entity = $this->getRepository()->read($criteria);
+            $entity = $this->repository->read($criteria);
         }
 
         if (null === $entity) {
-            throw new Exception\ServiceException('Your request is invalid');
+            throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
         }
 
-        $this->trigger(self::ON_AFTER_READ, [CHAOS_READ_EVENT_ARGS, $criteria, $entity]);
+        $this->trigger(EventType::ON_AFTER_READ, [CHAOS_READ_EVENT_ARGS, $criteria, $entity]);
         $result = ['data' => $entity, 'success' => true];
 
         return $result;
@@ -91,6 +112,9 @@ abstract class Service implements Contract\IService
 
     /**
      * {@inheritdoc}
+     *
+     * @param   array $post The _POST variable.
+     * @return  array
      */
     public function create(array $post = [])
     {
@@ -100,30 +124,32 @@ abstract class Service implements Contract\IService
     /**
      * {@inheritdoc}
      *
+     * @param   array $post The _PUT variable.
+     * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria
      * @param   bool $isNew A flag indicates we are creating or updating a record.
+     * @return  array
      */
     public function update(array $post = [], $criteria = null, $isNew = false)
     {
         if (empty($post)) {
-            throw new Exception\ServiceException('Your request is invalid');
+            throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
         }
 
-        /** @var AbstractBaseEntity $entity */
         if ($isNew) {
-            if (isset($post['EditedAt'])) {
-                $post['AddedAt'] = $post['EditedAt'];
+            if (isset($post['UpdatedAt'])) {
+                $post['CreatedAt'] = $post['UpdatedAt'];
             }
 
-            if (isset($post['EditedBy'])) {
-                $post['AddedBy'] = $post['EditedBy'];
+            if (isset($post['UpdatedBy'])) {
+                $post['CreatedBy'] = $post['UpdatedBy'];
             }
 
-            $entity = $this->getRepository()->entity;
+            $entity = $this->repository->entity;
         } else {
             if (null === $criteria) {
                 $where = [];
 
-                foreach ($this->getRepository()->pk as $v) {
+                foreach ($this->repository->pk as $v) {
                     if (isset($post[$v])) {
                         $where[$v] = $post[$v];
                     }
@@ -138,7 +164,7 @@ abstract class Service implements Contract\IService
             $entity = $result['data'];
         }
 
-        // @todo
+        // TODO
         // $builder = new \Zend\Form\Annotation\AnnotationBuilder;
         // $form = $builder->createForm($entity);
         // //$form->bind($entity);
@@ -149,11 +175,11 @@ abstract class Service implements Contract\IService
         $eventArgs = new Event\UpdateEventArgs($post, $entity, $isNew);
         $eventArgs->setPost(array_intersect_key($post, reflect($entity)->getDefaultProperties()));
 
-        $this->trigger(self::ON_EXCHANGE_ARRAY, $eventArgs);
+        $this->trigger(EventType::ON_EXCHANGE_ARRAY, $eventArgs);
         $eventArgs->setEntity($entity->exchangeArray($eventArgs->getPost()));
-        $this->trigger(self::ON_VALIDATE, $eventArgs);
+        $this->trigger(EventType::ON_VALIDATE, $eventArgs);
 
-        // @todo: validate 'em
+        // TODO: validate
         // if (false !== ($errors = $entity->validate())) {
         //     throw new Exceptions\ValidateException(implode(' ', $errors));
         // }
@@ -161,30 +187,30 @@ abstract class Service implements Contract\IService
         try {
             // start a transaction
             if ($this->enableTransaction) {
-                $this->getRepository()->beginTransaction();
+                $this->repository->beginTransaction();
             }
 
-            $this->trigger(self::ON_BEFORE_SAVE, $eventArgs);
+            $this->trigger(EventType::ON_BEFORE_SAVE, $eventArgs);
 
             // create or update entity
             if ($isNew) {
-                $affectedRows = $this->getRepository()->create($entity, false);
+                $affectedRows = $this->repository->create($entity, false);
             } else {
-                $affectedRows = $this->getRepository()->update($entity, null, false);
+                $affectedRows = $this->repository->update($entity, null, false);
             }
 
             if (1 > $affectedRows) {
-                throw new Exception\ServiceException('Error saving data');
+                throw new Exception\ServiceException('ERROR_SAVING_ITEM');
             }
 
             // commit current transaction
-            $this->trigger(self::ON_AFTER_SAVE, $eventArgs);
-            $this->getRepository()->flush()->commit();
+            $this->trigger(EventType::ON_AFTER_SAVE, $eventArgs);
+            $this->repository->flush()->commit();
 
             if ($isNew) {
                 $where = [];
 
-                foreach ($this->getRepository()->pk as $v) {
+                foreach ($this->repository->pk as $v) {
                     $where[$v] = $entity->$v;
                 }
 
@@ -193,13 +219,16 @@ abstract class Service implements Contract\IService
 
             return $this->read($criteria);
         } catch (\Exception $ex) {
-            $this->getRepository()->close()->rollback();
+            $this->repository->close()->rollback();
             throw $ex;
         }
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @return  array
      */
     public function delete($criteria)
     {
@@ -211,38 +240,42 @@ abstract class Service implements Contract\IService
             $eventArgs = new Event\UpdateEventArgs($criteria, $entity, false);
 
             if ($this->enableTransaction) {
-                $this->getRepository()->beginTransaction();
+                $this->repository->beginTransaction();
             }
 
-            $this->trigger(self::ON_BEFORE_DELETE, $eventArgs);
+            $this->trigger(EventType::ON_BEFORE_DELETE, $eventArgs);
 
             // delete entity
-            $affectedRows = $this->getRepository()->delete($entity, false);
+            $affectedRows = $this->repository->delete($entity, false);
 
             if (1 > $affectedRows) {
-                throw new Exception\ServiceException('Error deleting data');
+                throw new Exception\ServiceException('ERROR_DELETING_ITEM');
             }
 
             // commit current transaction
-            $this->trigger(self::ON_AFTER_DELETE, $eventArgs);
-            $this->getRepository()->flush()->commit();
+            $this->trigger(EventType::ON_AFTER_DELETE, $eventArgs);
+            $this->repository->flush()->commit();
 
-            return ['success' => true];
+            return [
+                'success' => true
+            ];
         } catch (\Exception $ex) {
-            $this->getRepository()->close()->rollback();
+            $this->repository->close()->rollback();
             throw $ex;
         }
     }
 
-    // <editor-fold desc="MAGIC METHODS" defaultstate="collapsed">
+    // <editor-fold desc="Magic methods" defaultstate="collapsed">
 
     /**
      * @param   string $name The name of the property being interacted with.
      * @return  mixed
+     *
+     * @deprecated We should remove this
      */
     public function __get($name)
     {
-        return property_exists($this, $name) ? $this->$name : $this->getRepository()->$name;
+        return property_exists($this, $name) ? $this->$name : $this->repository->$name;
     }
 
     // </editor-fold>

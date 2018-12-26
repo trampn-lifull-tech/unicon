@@ -30,10 +30,10 @@ class DemoController extends LaravelRestController
     {
         var_dump(
             $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'),
-            $this->getContainer()->get('Chaos\Module\Lookup\Service\LookupService'),
             $this->service,
+            $this->service->repository,
             $this->filter('10/29/2014', 86399),
-            $this->getFilterParams($this->getRequest(null, false)),
+//            $this->getFilterParams($this->getRequest(null, false)),
             $this->getPagerParams($this->getRequest(null, false)),
             $this->getRequest(),
             serialize($this->getContainer()->get(M1_VARS)),

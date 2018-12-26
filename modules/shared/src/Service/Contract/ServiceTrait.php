@@ -2,14 +2,9 @@
 
 namespace Chaos\Common\Service\Contract;
 
-use Carbon\Carbon;
-use Zend\Filter\StaticFilter;
-
 /**
  * Class ServiceTrait
  * @author ntd1712
- *
- * @deprecated
  */
 trait ServiceTrait
 {
@@ -19,34 +14,26 @@ trait ServiceTrait
     public $enableTransaction = false;
 
     /**
-     * Returns the string $value, converting characters to their corresponding HTML entity equivalents where they exist.
+     * Triggers a specified event.
      *
-     * @param   string $value The value.
-     * @param   bool $checkDate [optional].
-     * @return  string
+     * @param   string $event The event name.
+     * @param   \Chaos\Common\Service\Event\EventArgs|array $eventArgs The event arguments.
+     * @param   object $instance To trigger events in another.
+     * @return  static
+     * @throws  \ReflectionException
      */
-    public function filter($value, $checkDate = false)
+    public function trigger($event, $eventArgs = null, $instance = null)
     {
-        if (isBlank($value) || !is_scalar($value)) {
-            return '';
-        }
-
-        $value = trim($value);
-
-        if (false !== $checkDate && false !== ($time = strtotime($value))) {
-            $carbon = Carbon::createFromTimestamp($time, $this->getVars()->get('app.timezone'));
-
-            if (is_int($checkDate)) {
-                $carbon->addSeconds($checkDate);
+        if (method_exists($instance ?: $instance = $this, $event)) {
+            if (is_array($eventArgs)) {
+                $eventArgs = reflect(array_shift($eventArgs))->newInstanceArgs($eventArgs);
             }
 
-            $filtered = $carbon->toDateTimeString();
-        } else {
-            $filtered = StaticFilter::execute(
-                $value, 'HtmlEntities', ['encoding' => $this->getVars()->get('app.charset')]
-            );
+            if (null !== ($result = call_user_func([$instance, $event], $eventArgs)) && null !== $eventArgs) {
+                $eventArgs->addResult($event, $result);
+            }
         }
 
-        return $filtered;
+        return $this;
     }
 }

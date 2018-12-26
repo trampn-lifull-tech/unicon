@@ -3,6 +3,7 @@
 namespace Chaos\Module\Lookup\Service;
 
 use Chaos\Common\Service\Service;
+use Chaos\Module\Lookup\Repository\LookupRepository;
 
 /**
  * Class LookupService
@@ -10,5 +11,13 @@ use Chaos\Common\Service\Service;
  */
 class LookupService extends Service
 {
-    //
+    /**
+     * @param   LookupRepository $lookupRepository
+     * @throws  \Exception
+     */
+    public function __construct(LookupRepository $lookupRepository)
+    {
+        parent::__construct($lookupRepository);
+        $this->repository = $lookupRepository;
+    }
 }

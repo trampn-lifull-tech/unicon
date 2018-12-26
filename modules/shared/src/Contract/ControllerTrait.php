@@ -15,11 +15,6 @@ use Zend\Filter\StaticFilter;
 trait ControllerTrait
 {
     /**
-     * @var \Chaos\Common\Service\Contract\IService
-     */
-    protected $service;
-
-    /**
      * Gets the filter parameters.
      *
      * ?filter=[
@@ -68,11 +63,12 @@ trait ControllerTrait
      * ]
      *
      * @param   array $request The request.
+     * @param   array $permit [optional] This is useful for limiting which scalars should be allowed.
      * @param   array $binds [optional] A bind variable array.
      * @return  array
      * @throws  \ReflectionException
      */
-    protected function getFilterParams(array $request, array $binds = [])
+    protected function getFilterParams(array $request, array $permit = [], array $binds = [])
     {
         $filter = $request['filter'] ?? null;
 
@@ -85,7 +81,7 @@ trait ControllerTrait
                 }
             }
 
-            $filterSet = $this->filterParams($filter);
+            $filterSet = $this->filterParams($filter, $permit);
 
             if (0 !== count($filterSet)) {
                 if (isset($binds['where'])) {
@@ -203,7 +199,7 @@ trait ControllerTrait
         return $this->filterPagerParams(empty($binds) ? $default : $binds + $default);
     }
 
-    // <editor-fold desc="Query filter methods" defaultstate="collapsed">
+    // <editor-fold desc="Filter methods" defaultstate="collapsed">
 
     /**
      * Returns the string $value, converting characters to their corresponding HTML entity equivalents where they exist.
@@ -245,10 +241,11 @@ trait ControllerTrait
      * Filters parameters.
      *
      * @param   array|string $binds A bind variable array.
+     * @param   array $permit [optional] This is useful for limiting which scalars should be allowed.
      * @param   null|\Zend\Db\Sql\Predicate\PredicateInterface $predicate [optional] The <tt>Predicate</tt> instance.
      * @return  Predicate|\Zend\Db\Sql\Predicate\PredicateInterface
      */
-    protected function filterParams($binds = [], $predicate = null)
+    protected function filterParams($binds = [], $permit = [], $predicate = null)
     {
         if (null === $predicate) {
             $predicate = new Predicate;
@@ -256,7 +253,6 @@ trait ControllerTrait
 
         /** @var \M1\Vars\Vars $vars */
         $vars = $this->getVars();
-        $fields = $this->service->fields;
 
         if (is_array($binds)) {
             foreach ($binds as $v) {
@@ -268,8 +264,8 @@ trait ControllerTrait
                     && (PredicateType::NEST === $v['nesting'] || PredicateType::UNNEST === $v['nesting'])
                 ) {
                     /**
-                     * @see \Zend\Db\Sql\Predicate\Predicate::nest
-                     * @see \Zend\Db\Sql\Predicate\Predicate::unnest
+                     * @see Predicate::nest
+                     * @see Predicate::unnest
                      */
                     $predicate = $predicate->{$v['nesting']}();
                 }
@@ -284,14 +280,14 @@ trait ControllerTrait
                     case PredicateType::BETWEEN:
                     case PredicateType::NOT_BETWEEN:
                         if (empty($v['identifier']) || !isset($v['minValue']) || !isset($v['maxValue'])
-                            || !isset($fields[$v['identifier']])
+                            || !isset($permit[$v['identifier']])
                         ) {
                             continue;
                         }
 
                         /**
-                         * @see \Zend\Db\Sql\Predicate\Predicate::between
-                         * @see \Zend\Db\Sql\Predicate\Predicate::notBetween
+                         * @see Predicate::between
+                         * @see Predicate::notBetween
                          */
                         $predicate->{$v['predicate']}(
                             $v['identifier'],
@@ -330,23 +326,23 @@ trait ControllerTrait
 
                         if (Predicate::TYPE_IDENTIFIER !== $v['leftType']) {
                             $v['left'] = "'" . $this->filter($v['left'], true) . "'";
-                        } else if (!isset($fields[$v['left']])) {
+                        } else if (!isset($permit[$v['left']])) {
                             continue;
                         }
 
                         if (Predicate::TYPE_IDENTIFIER !== $v['rightType']) {
                             $v['right'] = "'" . $this->filter($v['right'], true) . "'";
-                        } else if (!isset($fields[$v['right']])) {
+                        } else if (!isset($permit[$v['right']])) {
                             continue;
                         }
 
                         /**
-                         * @see \Zend\Db\Sql\Predicate\Predicate::equalTo
-                         * @see \Zend\Db\Sql\Predicate\Predicate::notEqualTo
-                         * @see \Zend\Db\Sql\Predicate\Predicate::lessThan
-                         * @see \Zend\Db\Sql\Predicate\Predicate::greaterThan
-                         * @see \Zend\Db\Sql\Predicate\Predicate::lessThanOrEqualTo
-                         * @see \Zend\Db\Sql\Predicate\Predicate::greaterThanOrEqualTo
+                         * @see Predicate::equalTo
+                         * @see Predicate::notEqualTo
+                         * @see Predicate::lessThan
+                         * @see Predicate::greaterThan
+                         * @see Predicate::lessThanOrEqualTo
+                         * @see Predicate::greaterThanOrEqualTo
                          */
                         $predicate->{$v['predicate']}($v['left'], $v['right'], $v['leftType'], $v['rightType']);
                         break;
@@ -364,7 +360,7 @@ trait ControllerTrait
                             foreach ($v['parameters'] as $key => &$value) {
                                 if (!is_scalar($value)) {
                                     unset($v['parameters'][$key]);
-                                } else if (!isset($fields[$value])) {
+                                } else if (!isset($permit[$value])) {
                                     $value = "'" . str_replace('%', '%%', $this->filter($value)) . "'";
                                 }
                             }
@@ -385,7 +381,7 @@ trait ControllerTrait
 
                         if (is_array($v['identifier'])) {
                             foreach ($v['identifier'] as $key => $value) {
-                                if (!isset($fields[$value])) {
+                                if (!isset($permit[$value])) {
                                     unset($v['identifier'][$key]);
                                 }
                             }
@@ -395,7 +391,7 @@ trait ControllerTrait
                             }
 
                             $v['identifier'] = array_values($v['identifier']);
-                        } else if (!isset($fields[$v['identifier']])) {
+                        } else if (!isset($permit[$v['identifier']])) {
                             continue;
                         }
 
@@ -405,27 +401,27 @@ trait ControllerTrait
                         unset($value);
 
                         /**
-                         * @see \Zend\Db\Sql\Predicate\Predicate::in
-                         * @see \Zend\Db\Sql\Predicate\Predicate::notIn
+                         * @see Predicate::in
+                         * @see Predicate::notIn
                          */
                         $predicate->{$v['predicate']}($v['identifier'], $v['valueSet']);
                         break;
                     case PredicateType::IS_NOT_NULL:
                     case PredicateType::IS_NULL:
-                        if (empty($v['identifier']) || !isset($fields[$v['identifier']])) {
+                        if (empty($v['identifier']) || !isset($permit[$v['identifier']])) {
                             continue;
                         }
 
                         /**
-                         * @see \Zend\Db\Sql\Predicate\Predicate::isNull
-                         * @see \Zend\Db\Sql\Predicate\Predicate::isNotNull
+                         * @see Predicate::isNull
+                         * @see Predicate::isNotNull
                          */
                         $predicate->{$v['predicate']}($v['identifier']);
                         break;
                     case PredicateType::LIKE:
                     case PredicateType::NOT_LIKE:
                         if (empty($v['identifier']) || empty($v[$v['predicate']])
-                            || !isset($fields[$v['identifier']]) || !is_string($v[$v['predicate']])
+                            || !isset($permit[$v['identifier']]) || !is_string($v[$v['predicate']])
                         ) {
                             continue;
                         }
@@ -434,8 +430,8 @@ trait ControllerTrait
                         $v[$v['predicate']] = "'%$value%'";
 
                         /**
-                         * @see \Zend\Db\Sql\Predicate\Predicate::like
-                         * @see \Zend\Db\Sql\Predicate\Predicate::notLike
+                         * @see Predicate::like
+                         * @see Predicate::notLike
                          */
                         $predicate->{$v['predicate']}($v['identifier'], $v[$v['predicate']]);
                         break;
@@ -462,7 +458,7 @@ trait ControllerTrait
             $likeValue = "'%" . str_replace('%', '%%', $binds) . "%'";
             $count = 0;
 
-            foreach ($fields as $k => $v) {
+            foreach ($permit as $k => $v) {
                 if ((Type::STRING_TYPE === $v['type'] || Type::TEXT_TYPE === $v['type'])
                     && ($searchable || ($isChar = isset($v['options']) && isset($v['options']['fixed'])))
                 ) {

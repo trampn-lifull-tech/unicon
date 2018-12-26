@@ -20,7 +20,7 @@ abstract class LaravelRestController extends LaravelController
     public function index()
     {
         return $this->service->readAll(
-            $this->getFilterParams($request = $this->getRequest(null, false)),
+            $this->getFilterParams($request = $this->getRequest(null, false), $this->service->repository->fields),
             $this->getPagerParams($request)
         );
     }
