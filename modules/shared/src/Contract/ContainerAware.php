@@ -36,23 +36,26 @@ trait ContainerAware // implements IContainerAware
      * @param   array|\Symfony\Component\DependencyInjection\ContainerInterface $container Either be
      *          an array holding the paths to the service files or a <tt>ContainerBuilder</tt> instance.
      * @return  static
-     * @throws  \Exception
      */
     public function setContainer($container)
     {
         if (empty($container)) {
             $container = new ContainerBuilder;
         } else if (!$container instanceof ContainerInterface) {
-            $paths = $container;
-            $container = new ContainerBuilder;
-            $loader = new YamlFileLoader($container, new FileLocator($paths));
+            try {
+                $paths = $container;
+                $container = new ContainerBuilder;
+                $loader = new YamlFileLoader($container, new FileLocator($paths));
 
-            foreach ($paths as $resource) {
-                $loader->load($resource);
+                foreach ($paths as $resource) {
+                    $loader->load($resource);
+                }
+
+                // https://symfony.com/doc/master/components/dependency_injection/compilation.html
+                // $container->compile();
+            } catch (\Exception $ex) {
+                $container = new ContainerBuilder;
             }
-
-            // https://symfony.com/doc/master/components/dependency_injection/compilation.html
-            // $container->compile();
         }
 
         self::$gbk9xbds = $container;

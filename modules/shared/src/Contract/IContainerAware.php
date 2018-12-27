@@ -29,7 +29,6 @@ interface IContainerAware
      * @param   array|\Symfony\Component\DependencyInjection\ContainerInterface $container Either be
      *          an array holding the paths to the service files or a <tt>ContainerBuilder</tt> instance.
      * @return  static
-     * @throws  \Exception
      */
     public function setContainer($container);
 }

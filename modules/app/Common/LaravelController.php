@@ -60,7 +60,7 @@ class LaravelController extends Controller
             ]
         ];
 
-        $vars = $this->setVars($configResources)->getVars();
+        $this->setVars($configResources);
 
         // </editor-fold>
 
@@ -72,17 +72,14 @@ class LaravelController extends Controller
 //        );
         $containerResources = [];
 
-        $container = $this->setContainer($containerResources)->getContainer();
+        $this->setContainer($containerResources);
 
         // </editor-fold>
 
         // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
 
-        $container->set(M1_VARS, $vars);
-        $container->set(
-            DOCTRINE_ENTITY_MANAGER,
-            (new EntityManagerFactory)->__invoke(null, null, $vars->getContent())
-        );
+        $vars = $this->getVars();
+        $container = $this->getContainer();
 
         if (!empty($args = func_get_args())) {
             foreach ($args as $arg) {
@@ -92,6 +89,12 @@ class LaravelController extends Controller
                 }
             }
         }
+
+        $container->set(M1_VARS, $vars);
+        $container->set(
+            DOCTRINE_ENTITY_MANAGER,
+            (new EntityManagerFactory)->__invoke(null, null, $vars->getContent())
+        );
 
         // </editor-fold>
     }

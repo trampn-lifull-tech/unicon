@@ -23,8 +23,6 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
      * @return  \Doctrine\ORM\EntityManager|\Doctrine\ORM\EntityManagerInterface
      * @throws  \Doctrine\DBAL\DBALException
      * @throws  \Doctrine\ORM\ORMException
-     * @throws  \Psr\Container\NotFoundExceptionInterface If unable to resolve the service.
-     * @throws  \Psr\Container\ContainerExceptionInterface If any other error occurs.
      */
     public function __invoke(ContainerInterface $container = null, $requestedName = null, array $options = null)
     {

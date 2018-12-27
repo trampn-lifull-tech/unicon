@@ -21,12 +21,10 @@ abstract class Service implements Contract\IService
 
     /**
      * Constructor.
-     *
-     * @throws  \Exception
      */
     public function __construct()
     {
-        // <editor-fold desc="Initializes container-managed objects" defaultstate="collapsed">
+        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
 
         $vars = $this->getVars();
         $container = $this->getContainer();
