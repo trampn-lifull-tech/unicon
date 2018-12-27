@@ -30,7 +30,6 @@ class Reflector
      *
      * @param   string $key The key.
      * @return  bool
-     * @throws  \ReflectionException
      */
     public static function has($key)
     {
@@ -43,7 +42,6 @@ class Reflector
      * Returns all of the constants.
      *
      * @return  array
-     * @throws  \ReflectionException
      */
     public static function values()
     {
@@ -56,13 +54,16 @@ class Reflector
      * Should be called after your class definition.
      *
      * @return  string
-     * @throws  \ReflectionException
      */
     private static function init()
     {
         if (empty(self::$cache[$name = static::class])) {
-            $reflection = reflect($name);
-            self::$cache[$name] = array_flip($reflection->getConstants() + $reflection->getStaticProperties());
+            try {
+                $reflection = reflect($name);
+                self::$cache[$name] = array_flip($reflection->getConstants() + $reflection->getStaticProperties());
+            } catch (\ReflectionException $ex) {
+                self::$cache[$name] = [];
+            }
         }
 
         return $name;

@@ -66,7 +66,6 @@ trait ControllerTrait
      * @param   array $permit [optional] This is useful for limiting which scalars should be allowed.
      * @param   array $binds [optional] A bind variable array.
      * @return  array
-     * @throws  \ReflectionException
      */
     protected function getFilterParams(array $request, array $permit = [], array $binds = [])
     {
@@ -118,7 +117,6 @@ trait ControllerTrait
      * @param   array $request The request.
      * @param   array $binds [optional] A bind variable array.
      * @return  array
-     * @throws  \ReflectionException
      */
     protected function getOrderParams(array $request, array $binds = [])
     {
@@ -486,7 +484,6 @@ trait ControllerTrait
      *
      * @param   array $binds A bind variable array.
      * @return  array
-     * @throws  \ReflectionException
      */
     protected function filterOrderParams(array $binds = [])
     {
