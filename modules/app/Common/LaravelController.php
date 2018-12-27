@@ -31,7 +31,7 @@ class LaravelController extends Controller
      */
     public function __construct()
     {
-        // <editor-fold desc="Loads resources" defaultstate="collapsed">
+        // <editor-fold desc="Initializes config loader" defaultstate="collapsed">
 
         $basePath = base_path();
         $config = config();
@@ -60,18 +60,23 @@ class LaravelController extends Controller
             ]
         ];
 
-        $containerResources = [];
+        $vars = $this->setVars($configResources)->getVars();
+
+        // </editor-fold>
+
+        // <editor-fold desc="Initializes service container" defaultstate="collapsed">
+
 //        $containerResources = array_merge(
 //            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
 //            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
 //        );
+        $containerResources = [];
+
+        $container = $this->setContainer($containerResources)->getContainer();
 
         // </editor-fold>
 
-        // <editor-fold desc="Initializes container-managed objects" defaultstate="collapsed">
-
-        $vars = $this->setVars($configResources)->getVars();
-        $container = $this->setContainer($containerResources)->getContainer();
+        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
 
         $container->set(M1_VARS, $vars);
         $container->set(

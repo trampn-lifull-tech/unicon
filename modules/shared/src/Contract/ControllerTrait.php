@@ -218,20 +218,20 @@ trait ControllerTrait
         $vars = $this->getVars();
         $value = trim($value);
 
-        if (false !== $checkDate && false !== ($time = strtotime($value))) {
-            $carbon = Carbon::createFromTimestamp($time, $vars->get('app.timezone'));
+        if (false !== $checkDate) {
+            if (false !== ($time = strtotime($value))) {
+                $carbon = Carbon::createFromTimestamp($time, $vars->get('app.timezone'));
 
-            if (is_int($checkDate)) {
-                $carbon->addSeconds($checkDate);
+                if (is_int($checkDate)) {
+                    $carbon->addSeconds($checkDate);
+                }
+
+                $filtered = $carbon->toDateTimeString();
+            } else {
+                $filtered = '';
             }
-
-            $filtered = $carbon->toDateTimeString();
         } else {
-            $filtered = StaticFilter::execute(
-                $value,
-                'HtmlEntities',
-                ['encoding' => $vars->get('app.charset')]
-            );
+            $filtered = StaticFilter::execute($value, 'HtmlEntities', ['encoding' => $vars->get('app.charset')]);
         }
 
         return $filtered;
