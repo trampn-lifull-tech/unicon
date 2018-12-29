@@ -11,7 +11,7 @@ $kernel = $app->make('Illuminate\Contracts\Console\Kernel');
 $kernel->bootstrap();
 
 try {
-    $controller = new Chaos\Module\Common\LaravelController;
+    $controller = new Chaos\Module\Controller;
     $entityManager = (new \Chaos\Common\Orm\EntityManagerFactory)
         ->__invoke(null, null, $controller->getVars()->getContent());
 

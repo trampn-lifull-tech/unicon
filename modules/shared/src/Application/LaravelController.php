@@ -1,15 +1,12 @@
 <?php
 
-namespace Chaos\Module\Common;
+namespace Chaos\Common\Application;
 
 use Chaos\Common\Contract\ConfigAware;
 use Chaos\Common\Contract\ContainerAware;
 use Chaos\Common\Contract\ControllerTrait;
 use Chaos\Common\Orm\EntityManagerFactory;
 use Chaos\Common\Service\Contract\IService;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -19,73 +16,26 @@ use Ramsey\Uuid\Uuid;
  *
  * @property IService $service
  */
-class LaravelController extends Controller
+abstract class LaravelController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     use ConfigAware, ContainerAware, ControllerTrait;
 
     /**
      * Constructor.
      *
+     * @param   array $services An array of service containers that should be initialized.
      * @throws  \Exception
      */
-    public function __construct()
+    public function __construct(array $services)
     {
-        // <editor-fold desc="Initializes config loader" defaultstate="collapsed">
-
-        $basePath = base_path();
-        $config = config();
-        $config = [
-            'app' => $config->get('app'),
-            'session' => $config->get('session')
-        ];
-
-        $configResources = array_merge(
-            glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
-            glob($basePath . '/modules/app/*/config.yml', GLOB_NOSORT),
-            [$basePath . '/modules/app/config.yml']
-        );
-        $configResources['__options__'] = [
-            'cache' => 'production' === $config['app']['env'],
-            'cache_path' => $basePath . '/storage/framework', #/vars
-            'loaders' => ['yaml'],
-            'merge_globals' => false,
-            'replacements' => [
-                'APP_DIR' => $basePath,
-                'APP_FALLBACK_LOCALE' => $config['app']['fallback_locale'],
-                'APP_LOCALE' => $config['app']['locale'],
-                'SESSION_COOKIE' => $config['session']['cookie'],
-                'SESSION_PATH' => $config['session']['path'],
-                'SESSION_DOMAIN' => $config['session']['domain']
-            ]
-        ];
-
-        $this->setVars($configResources);
-
-        // </editor-fold>
-
-        // <editor-fold desc="Initializes service container" defaultstate="collapsed">
-
-//        $containerResources = array_merge(
-//            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
-//            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
-//        );
-        $containerResources = [];
-
-        $this->setContainer($containerResources);
-
-        // </editor-fold>
-
-        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
-
         $vars = $this->getVars();
         $container = $this->getContainer();
 
-        if (!empty($args = func_get_args())) {
-            foreach ($args as $arg) {
-                if ($arg instanceof IService) {
-                    $arg->setContainer($container)->setVars($vars);
-                    $container->set($arg->getClass(), $arg);
+        if (!empty($services)) {
+            foreach ($services as $service) {
+                if ($service instanceof IService) {
+                    $service->setContainer($container)->setVars($vars);
+                    $container->set($service->getClass(), $service);
                 }
             }
         }
@@ -95,8 +45,6 @@ class LaravelController extends Controller
             DOCTRINE_ENTITY_MANAGER,
             (new EntityManagerFactory)->__invoke(null, null, $vars->getContent())
         );
-
-        // </editor-fold>
     }
 
     /**

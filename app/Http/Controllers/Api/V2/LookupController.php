@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V2;
 
-use Chaos\Module\Common\LaravelRestController;
+use Chaos\Module\Controller;
 use Chaos\Module\Dashboard\Service\DashboardService;
 use Chaos\Module\Lookup\Service\LookupService;
 
 /**
- * Class DemoController
+ * Class LookupController
  * @author ntd1712
  */
-class DemoController extends LaravelRestController
+class LookupController extends Controller
 {
     /**
+     * GET /api/v2/lookup
+     *
      * @param   LookupService $lookupService
      * @param   DashboardService $dashboardService
      * @throws  \Exception
@@ -24,6 +26,8 @@ class DemoController extends LaravelRestController
     }
 
     /**
+     * For testing purpose only.
+     *
      * @throws  \Exception
      */
     public function index()

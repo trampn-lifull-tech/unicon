@@ -24,21 +24,17 @@ abstract class Service implements Contract\IService
      */
     public function __construct()
     {
-        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
-
         $vars = $this->getVars();
         $container = $this->getContainer();
 
-        if (!empty($args = func_get_args())) {
-            foreach ($args as $arg) {
-                if ($arg instanceof IRepository) {
-                    $arg->setContainer($container)->setVars($vars);
-                    $container->set($arg->getClass(), $arg);
+        if (!empty($repositories = func_get_args())) {
+            foreach ($repositories as $repository) {
+                if ($repository instanceof IRepository) {
+                    $repository->setContainer($container)->setVars($vars);
+                    $container->set($repository->getClass(), $repository);
                 }
             }
         }
-
-        // </editor-fold>
     }
 
     /**
