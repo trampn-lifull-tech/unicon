@@ -1,9 +1,9 @@
 <?php
 
-namespace Chaos\Common\Repository;
+namespace Chaos\Repository;
 
-use Chaos\Common\Contract\ConfigAware;
-use Chaos\Common\Contract\ContainerAware;
+use Chaos\Infrastructure\Contract\ConfigAware;
+use Chaos\Infrastructure\Contract\ContainerAware;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;

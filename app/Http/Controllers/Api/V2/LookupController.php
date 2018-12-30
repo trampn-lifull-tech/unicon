@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V2;
 
-use Chaos\Module\Controller;
+use App\Http\Controllers\ApiController;
 use Chaos\Module\Dashboard\Service\DashboardService;
 use Chaos\Module\Lookup\Service\LookupService;
 
@@ -10,7 +10,7 @@ use Chaos\Module\Lookup\Service\LookupService;
  * Class LookupController
  * @author ntd1712
  */
-class LookupController extends Controller
+class LookupController extends ApiController
 {
     /**
      * GET /api/v2/lookup

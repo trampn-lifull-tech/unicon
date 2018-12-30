@@ -1,12 +1,11 @@
 <?php
 
-namespace Chaos\Common\Application;
+namespace Chaos\Application;
 
-use Chaos\Common\Contract\ConfigAware;
-use Chaos\Common\Contract\ContainerAware;
-use Chaos\Common\Contract\ControllerTrait;
-use Chaos\Common\Orm\EntityManagerFactory;
-use Chaos\Common\Service\Contract\IService;
+use Chaos\Infrastructure\Contract\ConfigAware;
+use Chaos\Infrastructure\Contract\ContainerAware;
+use Chaos\Infrastructure\Orm\EntityManagerFactory;
+use Chaos\Service\Contract\IService;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -18,7 +17,7 @@ use Ramsey\Uuid\Uuid;
  */
 abstract class LaravelController extends Controller
 {
-    use ConfigAware, ContainerAware, ControllerTrait;
+    use ConfigAware, ContainerAware, Contract\ControllerTrait;
 
     /**
      * Constructor.
@@ -28,6 +27,8 @@ abstract class LaravelController extends Controller
      */
     public function __construct(array $services)
     {
+        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
+
         $vars = $this->getVars();
         $container = $this->getContainer();
 
@@ -45,6 +46,8 @@ abstract class LaravelController extends Controller
             DOCTRINE_ENTITY_MANAGER,
             (new EntityManagerFactory)->__invoke(null, null, $vars->getContent())
         );
+
+        // </editor-fold>
     }
 
     /**

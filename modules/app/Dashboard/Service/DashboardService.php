@@ -2,7 +2,7 @@
 
 namespace Chaos\Module\Dashboard\Service;
 
-use Chaos\Common\Service\Service;
+use Chaos\Service\Service;
 
 /**
  * Class DashboardService

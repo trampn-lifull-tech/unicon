@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Application;
+namespace Chaos\Application;
 
 /**
  * Class LaravelRestController
@@ -9,13 +9,12 @@ namespace Chaos\Common\Application;
 abstract class LaravelRestController extends LaravelController
 {
     /**
-     * GET /lookup?filter=&sort=&start=&length=
+     * GET /api/v1/lookup?filter=&sort=&start=&length=
      *
      * Displays a listing of the resource.
      * This is the default `index` action, you can override this in the derived class.
      *
      * @return  array|\Illuminate\Http\Response
-     * @throws  \ReflectionException
      */
     public function index()
     {
@@ -26,7 +25,7 @@ abstract class LaravelRestController extends LaravelController
     }
 
     /**
-     * POST /lookup
+     * POST /api/v1/lookup
      *
      * Stores a newly created resource in storage.
      * This is the default `store` action, you can override this in the derived class.
@@ -40,7 +39,7 @@ abstract class LaravelRestController extends LaravelController
     }
 
     /**
-     * GET /lookup/:id
+     * GET /api/v1/lookup/:id
      *
      * Displays the specified resource.
      * This is the default `show` action, you can override this in the derived class.
@@ -54,7 +53,7 @@ abstract class LaravelRestController extends LaravelController
     }
 
     /**
-     * PUT /lookup/:id
+     * PUT /api/v1/lookup/:id
      *
      * Updates the specified resource in storage.
      * This is the default `update` action, you can override this in the derived class.
@@ -69,7 +68,7 @@ abstract class LaravelRestController extends LaravelController
     }
 
     /**
-     * DELETE /lookup/:id
+     * DELETE /api/v1/lookup/:id
      *
      * Removes the specified resource from storage.
      * This is the default `destroy` action, you can override this in the derived class.

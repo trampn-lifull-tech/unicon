@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Contract;
+namespace Chaos\Infrastructure\Contract;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

@@ -2,7 +2,7 @@
 
 namespace Chaos\Module\Lookup\Repository;
 
-// use Chaos\Common\Repository\DoctrineRepository;
+// use Chaos\Repository\DoctrineRepository;
 
 /**
  * Class LookupRepository

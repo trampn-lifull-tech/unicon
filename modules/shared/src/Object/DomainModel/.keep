@@ -1,0 +1,26 @@
+https://study.com/academy/lesson/domain-model-vs-data-model.html
+
+What Is a Domain Model?
+A domain model is used in software engineering.
+It is a common tool for object-oriented programming languages like Java.
+It's a representation of the organization's data, independent of the way the data is stored in the database.
+
+A domain model is a structural model of basic domain concepts and the relationships between them.
+A domain model may contain domain objects, conceptual classes, associations, or attributes.
+
+Key Terms for Domain Modeling
+The domain in a domain model is the collection of all of the objects in that system.
+This domain contains all of the data and a representation of how that data behaves and interacts with each other.
+
+A class is any set of objects that behave in the same way or have the same properties.
+
+A conceptual class is a thing, behavior, or object within the domain.
+
+Attributes describe the class. They are the individual pieces of information you want to store about the classes.
+
+Associations record the relationships between the conceptual classes.
+
+How to Build a Domain Model
+To construct a domain model, we first identify all our conceptual classes.
+Then we add associations between the conceptual models to represent the relationships between them.
+We then add the attributes we need to store the information we want to use.

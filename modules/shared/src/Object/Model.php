@@ -1,12 +1,12 @@
 <?php
 
-namespace Chaos\Common\Object;
+namespace Chaos\Object;
 
 /**
  * Class Model
  * @author ntd1712
  *
- * We use models to transport data between the layers.
+ * We use Model to transport Data between Layers.
  */
 class Model extends \stdClass implements Contract\IModel
 {

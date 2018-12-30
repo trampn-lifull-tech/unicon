@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Orm;
+namespace Chaos\Infrastructure\Orm;
 
 use Doctrine\Common\Cache;
 use Doctrine\Common\EventManager;

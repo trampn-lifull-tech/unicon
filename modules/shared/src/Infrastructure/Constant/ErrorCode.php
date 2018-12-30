@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Constant;
+namespace Chaos\Infrastructure\Constant;
 
 /**
  * Class ErrorCode

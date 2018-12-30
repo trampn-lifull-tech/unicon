@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Contract;
+namespace Chaos\Infrastructure\Contract;
 
 use M1\Vars\Vars;
 
@@ -38,7 +38,7 @@ trait ConfigAware // implements IConfigAware
     public function setVars($config, $optionKey = '__options__')
     {
         if (!$config instanceof Vars) {
-            $resource = __DIR__ . '/../../config/config.yml';
+            $resource = __DIR__ . '/../../../config/config.yml';
             $options = ['cache' => false, 'loaders' => ['yaml'], 'merge_globals' => false];
 
             if (empty($config)) {

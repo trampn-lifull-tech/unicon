@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Service\Exception;
+namespace Chaos\Service\Exception;
 
 /**
  * Class ServiceException

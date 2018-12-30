@@ -1,17 +1,17 @@
 <?php
 
-namespace Chaos\Module;
+namespace App\Http\Controllers;
 
-use Chaos\Common\Application\LaravelRestController;
+use Chaos\Application\LaravelRestController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 /**
- * Class Controller
+ * Class ApiController
  * @author ntd1712
  */
-class Controller extends LaravelRestController
+class ApiController extends LaravelRestController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
@@ -59,7 +59,7 @@ class Controller extends LaravelRestController
 
 //        $containerResources = array_merge(
 //            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
-//            glob($basePath . '/modules/app/src/*/services.yml', GLOB_NOSORT)
+//            glob($basePath . '/modules/app/*/services.yml', GLOB_NOSORT)
 //        );
         $containerResources = [];
 

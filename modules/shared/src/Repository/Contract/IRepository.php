@@ -1,10 +1,10 @@
 <?php
 
-namespace Chaos\Common\Repository\Contract;
+namespace Chaos\Repository\Contract;
 
-use Chaos\Common\Contract\IConfigAware;
-use Chaos\Common\Contract\IContainerAware;
-use Chaos\Common\Object\Contract\IObject;
+use Chaos\Infrastructure\Contract\IConfigAware;
+use Chaos\Infrastructure\Contract\IContainerAware;
+use Chaos\Object\Contract\IObject;
 
 /**
  * Interface IRepository
@@ -12,7 +12,7 @@ use Chaos\Common\Object\Contract\IObject;
  *
  * @property-read string $className The short class name of the entity, e.g. User
  * @property-read string $entityName The qualified class name of the entity, e.g. Entities\User
- * @property-read \Chaos\Common\Repository\Contract\IEntity $entity The entity instance.
+ * @property-read \Chaos\Repository\Contract\IEntity $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
  *

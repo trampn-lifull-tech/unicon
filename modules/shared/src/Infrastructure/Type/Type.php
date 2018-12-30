@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Type;
+namespace Chaos\Infrastructure\Type;
 
 /**
  * Class Type

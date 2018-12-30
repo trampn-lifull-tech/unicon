@@ -2,7 +2,7 @@
 
 namespace Chaos\Module\Lookup\Service;
 
-use Chaos\Common\Service\Service;
+use Chaos\Service\Service;
 use Chaos\Module\Lookup\Repository\LookupRepository;
 
 /**

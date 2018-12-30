@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Object\Contract;
+namespace Chaos\Object\Contract;
 
 /**
  * Trait ObjectTrait
@@ -13,7 +13,7 @@ trait ObjectTrait
     /**
      * {@inheritdoc}
      *
-     * @param   \Chaos\Common\Object\Contract\IObject $other The reference object with which to compare.
+     * @param   \Chaos\Object\Contract\IObject $other The reference object with which to compare.
      * @return  bool
      */
     public function equals(IObject $other)

@@ -2,9 +2,9 @@
 
 namespace Chaos\Module\Lookup\Entity;
 
-use Chaos\Common\Repository\Contract\EntityAuditTrait;
-use Chaos\Common\Repository\Contract\EntityIdentityTrait;
-use Chaos\Common\Repository\Entity;
+use Chaos\Repository\Contract\EntityAuditTrait;
+use Chaos\Repository\Contract\EntityIdentityTrait;
+use Chaos\Repository\Entity;
 
 /**
  * Class LookupEntity

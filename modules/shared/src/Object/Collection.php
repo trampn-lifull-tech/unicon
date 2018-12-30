@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Object;
+namespace Chaos\Object;
 
 /**
  * Class Collection

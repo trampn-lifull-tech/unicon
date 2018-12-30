@@ -1,8 +1,8 @@
 <?php
 
-namespace Chaos\Common\Repository;
+namespace Chaos\Repository;
 
-use Chaos\Common\Contract\ContainerAware;
+use Chaos\Infrastructure\Contract\ContainerAware;
 
 /**
  * Class EntityListener
@@ -15,7 +15,7 @@ abstract class EntityListener implements Contract\IEntityListener
     /**
      * {@inheritdoc}
      *
-     * @param   \Chaos\Common\Repository\Contract\IEntity $entity The entity.
+     * @param   \Chaos\Repository\Contract\IEntity $entity The entity.
      * @param   \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs The event arguments.
      * @return  void
      * @throws  \Exception

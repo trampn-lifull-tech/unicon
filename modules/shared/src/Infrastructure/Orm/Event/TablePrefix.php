@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Orm\Event;
+namespace Chaos\Infrastructure\Orm\Event;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;

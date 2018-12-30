@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Contract;
+namespace Chaos\Infrastructure\Contract;
 
 /**
  * Interface IConfigAware
@@ -21,8 +21,8 @@ interface IConfigAware
      * <code>
      * $this->setVars([
      *     '/modules/core/src/Lookup/config.yml',
-     *     '/modules/app/src/Dashboard/config.yml',
-     *     '/modules/app/config/config.yml',
+     *     '/modules/app/Dashboard/config.yml',
+     *     '/modules/config.yml',
      *     '__options__' => [
      *         'cache' => false,
      *         'cache_path' => '/storage/framework',

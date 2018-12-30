@@ -1,0 +1,24 @@
+https://study.com/academy/lesson/domain-model-vs-data-model.html
+
+What Is a Data Model?
+A data model is used in database design and development.
+It is a common tool for relational database design, the most popular type of database is use today.
+Some names of products that use relational databases are Oracle and Microsoft SQL Server.
+
+In data models, the collection of all of the objects in that system that contain all of the data,
+and a representation of how that data behaves and interacts with each other, is called the schema instead of the domain.
+
+Key Terms for a Data Model
+An entity is the basic construct in a data model.
+An entity is a person, place, thing, or event that must be represented in the database.
+These will become the tables or rows in a database.
+
+Relationships between the entities are modeled next to show which entities will interact with the others.
+
+Attributes are the individual pieces of information you want to store about the entities.
+These become the columns in the database.
+
+How to Build a Data Model
+To construct a data model we first identify all our entities.
+Then we add relationships between the entities to represent which other entities will interact with them.
+We then add the attributes we need to store the information we want to use.

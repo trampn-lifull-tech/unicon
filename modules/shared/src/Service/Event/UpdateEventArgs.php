@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Service\Event;
+namespace Chaos\Service\Event;
 
 /**
  * Class UpdateEventArgs

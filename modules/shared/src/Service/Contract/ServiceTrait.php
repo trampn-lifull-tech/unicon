@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Service\Contract;
+namespace Chaos\Service\Contract;
 
 /**
  * Class ServiceTrait
@@ -17,7 +17,7 @@ trait ServiceTrait
      * Triggers a specified event.
      *
      * @param   string $event The event name.
-     * @param   \Chaos\Common\Service\Event\EventArgs|array $eventArgs The event arguments.
+     * @param   \Chaos\Service\Event\EventArgs|array $eventArgs The event arguments.
      * @param   object $instance To trigger events in another.
      * @return  static
      * @throws  \ReflectionException

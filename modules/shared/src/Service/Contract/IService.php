@@ -1,20 +1,20 @@
 <?php
 
-namespace Chaos\Common\Service\Contract;
+namespace Chaos\Service\Contract;
 
-use Chaos\Common\Contract\IConfigAware;
-use Chaos\Common\Contract\IContainerAware;
-use Chaos\Common\Object\Contract\IObject;
+use Chaos\Infrastructure\Contract\IConfigAware;
+use Chaos\Infrastructure\Contract\IContainerAware;
+use Chaos\Object\Contract\IObject;
 
 /**
  * Interface IService
  * @author ntd1712
  *
- * @property \Chaos\Common\Repository\Contract\IRepository $repository.
+ * @property \Chaos\Repository\Contract\IRepository $repository.
  *
  * @property-read string $className The short class name of the entity.
  * @property-read string $entityName The qualified class name of the entity.
- * @property-read \Chaos\Common\Repository\Contract\IEntity $entity The entity instance.
+ * @property-read \Chaos\Repository\Contract\IEntity $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
  *
@@ -39,7 +39,7 @@ interface IService extends IConfigAware, IContainerAware, IObject
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Common\Service\Exception\ServiceException
+     * @throws  \Chaos\Service\Exception\ServiceException
      */
     public function read($criteria);
 
@@ -48,8 +48,8 @@ interface IService extends IConfigAware, IContainerAware, IObject
      *
      * @param   array $post The _POST variable.
      * @return  array
-     * @throws  \Chaos\Common\Service\Exception\ServiceException
-     * @throws  \Chaos\Common\Service\Exception\ValidateException
+     * @throws  \Chaos\Service\Exception\ServiceException
+     * @throws  \Chaos\Service\Exception\ValidateException
      * @throws  \Exception
      */
     public function create(array $post = []);
@@ -60,8 +60,8 @@ interface IService extends IConfigAware, IContainerAware, IObject
      * @param   array $post The _PUT variable.
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria
      * @return  array
-     * @throws  \Chaos\Common\Service\Exception\ServiceException
-     * @throws  \Chaos\Common\Service\Exception\ValidateException
+     * @throws  \Chaos\Service\Exception\ServiceException
+     * @throws  \Chaos\Service\Exception\ValidateException
      * @throws  \Exception
      */
     public function update(array $post = [], $criteria = null);
@@ -71,7 +71,7 @@ interface IService extends IConfigAware, IContainerAware, IObject
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Common\Service\Exception\ServiceException
+     * @throws  \Chaos\Service\Exception\ServiceException
      * @throws  \Exception
      */
     public function delete($criteria);

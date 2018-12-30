@@ -1,14 +1,14 @@
 <?php
 
-namespace Chaos\Common\Service;
+namespace Chaos\Service;
 
-use Chaos\Common\Constant\ErrorCode;
-use Chaos\Common\Constant\EventType;
-use Chaos\Common\Contract\ConfigAware;
-use Chaos\Common\Contract\ContainerAware;
-use Chaos\Common\Object\Contract\ObjectTrait;
-use Chaos\Common\Repository\Contract\IRepository;
-use Chaos\Common\Repository\Contract\RepositoryAware;
+use Chaos\Infrastructure\Constant\ErrorCode;
+use Chaos\Infrastructure\Constant\EventType;
+use Chaos\Infrastructure\Contract\ConfigAware;
+use Chaos\Infrastructure\Contract\ContainerAware;
+use Chaos\Object\Contract\ObjectTrait;
+use Chaos\Repository\Contract\IRepository;
+use Chaos\Repository\Contract\RepositoryAware;
 
 /**
  * Class Service

@@ -1,9 +1,9 @@
 <?php
 
-namespace Chaos\Common\Repository\Contract;
+namespace Chaos\Repository\Contract;
 
-use Chaos\Common\Contract\IContainerAware;
-use Chaos\Common\Object\Contract\IModel;
+use Chaos\Infrastructure\Contract\IContainerAware;
+use Chaos\Object\Contract\IModel;
 
 /**
  * Interface IEntity

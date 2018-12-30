@@ -2,7 +2,7 @@
 
 namespace Chaos\Module\Lookup\Event;
 
-use Chaos\Common\Repository\EntityListener;
+use Chaos\Repository\EntityListener;
 
 /**
  * Class LookupListener

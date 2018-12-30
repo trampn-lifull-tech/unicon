@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Object\Contract;
+namespace Chaos\Object\Contract;
 
 /**
  * Interface IModel

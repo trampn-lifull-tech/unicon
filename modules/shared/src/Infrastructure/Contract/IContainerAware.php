@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Contract;
+namespace Chaos\Infrastructure\Contract;
 
 /**
  * Interface IContainerAware
@@ -21,7 +21,7 @@ interface IContainerAware
      * <code>
      * $this->setContainer([
      *     '/modules/core/src/Lookup/services.yml',
-     *     '/modules/app/src/Dashboard/services.yml'
+     *     '/modules/app/Dashboard/services.yml'
      * ]);
      * $this->setContainer([]);
      * </code>

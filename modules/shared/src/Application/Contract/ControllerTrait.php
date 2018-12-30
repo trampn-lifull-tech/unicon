@@ -1,10 +1,10 @@
 <?php
 
-namespace Chaos\Common\Contract;
+namespace Chaos\Application\Contract;
 
 use Carbon\Carbon;
-use Chaos\Common\Constant\PredicateType;
-use Chaos\Common\Type\Type;
+use Chaos\Infrastructure\Constant\PredicateType;
+use Chaos\Infrastructure\Type\Type;
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Filter\StaticFilter;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Common\Contract;
+namespace Chaos\Service\Contract;
 
 /**
  * Trait ServiceAware
@@ -26,7 +26,7 @@ trait ServiceAware
      *
      * @param   null|string $name The service name.
      * @param   bool $cache [optional] Defaults to TRUE.
-     * @return  \Chaos\Common\Service\Service|\Chaos\Common\Service\Contract\IService
+     * @return  \Chaos\Service\Service|\Chaos\Service\Contract\IService
      */
     public function getService($name = null, $cache = true)
     {
