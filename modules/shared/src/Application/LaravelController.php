@@ -2,9 +2,9 @@
 
 namespace Chaos\Application;
 
-use Chaos\Infrastructure\Contract\ConfigAware;
-use Chaos\Infrastructure\Contract\ContainerAware;
-use Chaos\Infrastructure\Orm\EntityManagerFactory;
+use Chaos\Support\Contract\ConfigAware;
+use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Orm\EntityManagerFactory;
 use Chaos\Service\Contract\IService;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;

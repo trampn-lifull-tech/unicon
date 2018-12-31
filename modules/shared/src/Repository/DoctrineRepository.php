@@ -2,8 +2,8 @@
 
 namespace Chaos\Repository;
 
-use Chaos\Infrastructure\Contract\ConfigAware;
-use Chaos\Infrastructure\Contract\ContainerAware;
+use Chaos\Support\Contract\ConfigAware;
+use Chaos\Support\Contract\ContainerAware;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;

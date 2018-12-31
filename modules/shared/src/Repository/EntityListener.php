@@ -2,7 +2,7 @@
 
 namespace Chaos\Repository;
 
-use Chaos\Infrastructure\Contract\ContainerAware;
+use Chaos\Support\Contract\ContainerAware;
 
 /**
  * Class EntityListener

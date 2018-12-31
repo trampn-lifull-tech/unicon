@@ -2,9 +2,9 @@
 
 namespace Chaos\Repository\Contract;
 
-use Chaos\Infrastructure\Contract\IConfigAware;
-use Chaos\Infrastructure\Contract\IContainerAware;
-use Chaos\Object\Contract\IObject;
+use Chaos\Support\Contract\IConfigAware;
+use Chaos\Support\Contract\IContainerAware;
+use Chaos\Support\Object\Contract\IObject;
 
 /**
  * Interface IRepository

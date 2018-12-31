@@ -3,8 +3,8 @@
 namespace Chaos\Application\Contract;
 
 use Carbon\Carbon;
-use Chaos\Infrastructure\Constant\PredicateType;
-use Chaos\Infrastructure\Type\Type;
+use Chaos\Support\Constant\PredicateType;
+use Chaos\Support\Type\Type;
 use Zend\Db\Sql\Predicate\Predicate;
 use Zend\Filter\StaticFilter;
 

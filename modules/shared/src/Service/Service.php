@@ -2,11 +2,11 @@
 
 namespace Chaos\Service;
 
-use Chaos\Infrastructure\Constant\ErrorCode;
-use Chaos\Infrastructure\Constant\EventType;
-use Chaos\Infrastructure\Contract\ConfigAware;
-use Chaos\Infrastructure\Contract\ContainerAware;
-use Chaos\Object\Contract\ObjectTrait;
+use Chaos\Support\Constant\ErrorCode;
+use Chaos\Support\Constant\EventType;
+use Chaos\Support\Contract\ConfigAware;
+use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Object\Contract\ObjectTrait;
 use Chaos\Repository\Contract\IRepository;
 use Chaos\Repository\Contract\RepositoryAware;
 

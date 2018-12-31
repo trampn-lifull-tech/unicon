@@ -2,8 +2,8 @@
 
 namespace Chaos\Repository\Contract;
 
-use Chaos\Infrastructure\Contract\IContainerAware;
-use Chaos\Object\Contract\IModel;
+use Chaos\Support\Contract\IContainerAware;
+use Chaos\Support\Object\Contract\IModel;
 
 /**
  * Interface IEntity
