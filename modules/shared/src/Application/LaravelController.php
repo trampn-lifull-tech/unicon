@@ -2,10 +2,10 @@
 
 namespace Chaos\Application;
 
+use Chaos\Service\Contract\IServiceHandler;
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
 use Chaos\Support\Orm\EntityManagerFactory;
-use Chaos\Service\Contract\IService;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -13,7 +13,7 @@ use Ramsey\Uuid\Uuid;
  * Class LaravelController
  * @author ntd1712
  *
- * @property IService $service
+ * @property IServiceHandler $service
  */
 abstract class LaravelController extends Controller
 {
@@ -34,7 +34,7 @@ abstract class LaravelController extends Controller
 
         if (!empty($services)) {
             foreach ($services as $service) {
-                if ($service instanceof IService) {
+                if ($service instanceof IServiceHandler) {
                     $service->setContainer($container)->setVars($vars);
                     $container->set($service->getClass(), $service);
                 }

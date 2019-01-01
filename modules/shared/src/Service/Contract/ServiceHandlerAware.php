@@ -3,15 +3,12 @@
 namespace Chaos\Service\Contract;
 
 /**
- * Trait ServiceAware
+ * Trait ServiceHandlerAware
  * @author ntd1712
  *
- * @method \Symfony\Component\DependencyInjection\ContainerInterface getContainer()
- * @method \M1\Vars\Vars getVars()
- *
- * @deprecated
+ * @deprecated Not in use
  */
-trait ServiceAware
+trait ServiceHandlerAware
 {
     private static $vcx79te3 = [];
 
@@ -26,7 +23,7 @@ trait ServiceAware
      *
      * @param   null|string $name The service name.
      * @param   bool $cache [optional] Defaults to TRUE.
-     * @return  \Chaos\Service\Service|\Chaos\Service\Contract\IService
+     * @return  \Chaos\Service\Contract\IServiceHandler
      */
     public function getService($name = null, $cache = true)
     {
@@ -42,11 +39,11 @@ trait ServiceAware
             $serviceName = $name;
         }
 
-        /** @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
+        $vars = $this->getVars();
         $container = $this->getContainer();
 
         return self::$vcx79te3[null] = self::$vcx79te3[$serviceName] = $container->get($serviceName)
             ->setContainer($container)
-            ->setVars($this->getVars());
+            ->setVars($vars);
     }
 }

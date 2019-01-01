@@ -2,28 +2,31 @@
 
 namespace Chaos\Service;
 
+use Chaos\Repository\Contract\IRepository;
+use Chaos\Repository\Contract\RepositoryAware;
 use Chaos\Support\Constant\ErrorCode;
 use Chaos\Support\Constant\EventType;
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Event;
 use Chaos\Support\Object\Contract\ObjectTrait;
-use Chaos\Repository\Contract\IRepository;
-use Chaos\Repository\Contract\RepositoryAware;
 
 /**
- * Class Service
+ * Class ServiceHandler
  * @author ntd1712
  */
-abstract class Service implements Contract\IService
+abstract class ServiceHandler implements Contract\IServiceHandler
 {
     use ConfigAware, ContainerAware, ObjectTrait,
-        RepositoryAware, /*Contract\ServiceAware, */Contract\ServiceTrait;
+        Event\Contract\EventTrait, RepositoryAware /*, Contract\ServiceAware*/;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
+        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
+
         $vars = $this->getVars();
         $container = $this->getContainer();
 
@@ -35,12 +38,14 @@ abstract class Service implements Contract\IService
                 }
             }
         }
+
+        // </editor-fold>
     }
 
     /**
      * {@inheritdoc}
      *
-     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The query criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
      * @return  array
      */
@@ -119,7 +124,7 @@ abstract class Service implements Contract\IService
      * {@inheritdoc}
      *
      * @param   array $post The _PUT variable.
-     * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria
+     * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool $isNew A flag indicates we are creating or updating a record.
      * @return  array
      */
@@ -180,7 +185,7 @@ abstract class Service implements Contract\IService
 
         try {
             // start a transaction
-            if ($this->enableTransaction) {
+            if (isset($this->enableTransaction)) {
                 $this->repository->beginTransaction();
             }
 
@@ -233,7 +238,7 @@ abstract class Service implements Contract\IService
             // start a transaction
             $eventArgs = new Event\UpdateEventArgs($criteria, $entity, false);
 
-            if ($this->enableTransaction) {
+            if (isset($this->enableTransaction)) {
                 $this->repository->beginTransaction();
             }
 
@@ -258,19 +263,4 @@ abstract class Service implements Contract\IService
             throw $ex;
         }
     }
-
-    // <editor-fold desc="Magic methods" defaultstate="collapsed">
-
-    /**
-     * @param   string $name The name of the property being interacted with.
-     * @return  mixed
-     *
-     * @deprecated We should remove this
-     */
-    public function __get($name)
-    {
-        return property_exists($this, $name) ? $this->$name : $this->repository->$name;
-    }
-
-    // </editor-fold>
 }

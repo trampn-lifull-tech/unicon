@@ -32,7 +32,7 @@ class ApiController extends LaravelRestController
         ];
 
         $configResources = array_merge(
-            glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
+//            glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
             glob($basePath . '/modules/app/*/config.yml', GLOB_NOSORT),
             [$basePath . '/modules/config.yml']
         );

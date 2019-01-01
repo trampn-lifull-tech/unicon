@@ -2,14 +2,14 @@
 
 namespace Chaos\Module\Lookup\Service;
 
-use Chaos\Service\Service;
+use Chaos\Service\ServiceHandler;
 use Chaos\Module\Lookup\Repository\LookupRepository;
 
 /**
  * Class LookupService
  * @author ntd1712
  */
-class LookupService extends Service
+class LookupService extends ServiceHandler
 {
     /**
      * @param   LookupRepository $lookupRepository

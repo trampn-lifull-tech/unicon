@@ -1,12 +1,10 @@
 <?php
 
-namespace Chaos\Service\Event;
+namespace Chaos\Support\Event;
 
 /**
  * Class UpdateEventArgs
  * @author ntd1712
- *
- * @todo
  */
 class UpdateEventArgs extends EventArgs
 {
