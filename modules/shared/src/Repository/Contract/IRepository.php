@@ -12,16 +12,18 @@ use Chaos\Support\Object\Contract\IObject;
  *
  * @property-read string $className The short class name of the entity, e.g. User
  * @property-read string $entityName The qualified class name of the entity, e.g. Entities\User
- * @property-read \Chaos\Repository\Contract\IEntity $entity The entity instance.
+ * @property-read object $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
  *
- * @method self beginTransaction() Starts a transaction by suspending auto-commit mode.
- * @method self commit() Commits the current transaction.
- * @method self rollback() Cancels any database changes done during the current transaction.
- * @method self flush() Flushes all changes to objects that have been queued up to now to the database.
- * @method self close() Closes the connection.
+ * @property bool $enableTransaction A value that indicates whether the transaction is enabled.
  * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
+ *
+ * @method IRepository beginTransaction() Starts a transaction by suspending auto-commit mode.
+ * @method IRepository commit() Commits the current transaction.
+ * @method IRepository rollback() Cancels any database changes done during the current transaction.
+ * @method IRepository flush() Flushes all changes to objects that have been queued up to now to the database.
+ * @method IRepository close() Closes the connection.
  */
 interface IRepository extends IConfigAware, IContainerAware, IObject
 {
@@ -31,9 +33,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   array $paging The paging criteria.
      * @return  \Doctrine\ORM\Tools\Pagination\Paginator
-     * @throws  \Doctrine\ORM\ORMException
-     * @throws  \InvalidArgumentException
-     * @throws  \ReflectionException
      */
     public function paginate($criteria = [], array $paging = []);
 
@@ -42,9 +41,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  \ArrayIterator
-     * @throws  \Doctrine\ORM\ORMException
-     * @throws  \InvalidArgumentException
-     * @throws  \ReflectionException
      */
     public function readAll($criteria = []);
 
@@ -53,9 +49,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  object
-     * @throws  \Doctrine\ORM\ORMException
-     * @throws  \InvalidArgumentException
-     * @throws  \ReflectionException
      */
     public function read($criteria);
 
@@ -63,40 +56,37 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * The default `create` method, you can override this in the derived class.
      *
      * @param   object[]|object $entity The entity instance.
+     * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
      * @throws  \Doctrine\ORM\ORMException
-     * @throws  \InvalidArgumentException
-     * @throws  \ReflectionException
      */
-    public function create($entity);
+    public function create($entity, $autoFlush = true);
 
     /**
      * The default `update` method, you can override this in the derived class.
      *
      * @param   object[]|object $entity The entity instance.
      * @param   null|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
      * @throws  \Doctrine\ORM\ORMException
-     * @throws  \InvalidArgumentException
-     * @throws  \ReflectionException
      */
-    public function update($entity, $criteria = null);
+    public function update($entity, $criteria = null, $autoFlush = true);
 
     /**
      * The default `delete` method, you can override this in the derived class.
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array|object $criteria The criteria.
+     * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
      * @throws  \Doctrine\ORM\ORMException
-     * @throws  \InvalidArgumentException
-     * @throws  \ReflectionException
      */
-    public function delete($criteria);
+    public function delete($criteria, $autoFlush = true);
 
     /**
      * The default `exist` method, you can override this in the derived class.
      *
-     * @param   \Doctrine\Common\Collections\Criteria|array|mixed $criteria Either a query criteria or a field value.
+     * @param   mixed|\Doctrine\Common\Collections\Criteria|array $criteria Either a query criteria or a field value.
      * @param   null|string $fieldName The field name; defaults to `Id`.
      * @return  bool
      */

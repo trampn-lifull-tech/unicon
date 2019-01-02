@@ -4,6 +4,7 @@ namespace Chaos\Repository;
 
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Object\Contract\ObjectTrait;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
@@ -12,22 +13,19 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * Class DoctrineRepository
  * @author ntd1712
- *
- * @method self beginTransaction()
- * @method self commit()
- * @method self rollback()
- * @method self flush()
- * @method self close()
- * @method string getClassName()
  */
 abstract class DoctrineRepository extends EntityRepository implements Contract\IDoctrineRepository
 {
-    use ConfigAware, ContainerAware, Contract\DoctrineRepositoryTrait;
+    use ConfigAware, ContainerAware, ObjectTrait,
+        Contract\DoctrineRepositoryTrait;
 
     /**
      * {@inheritdoc}
      *
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   array $paging The paging criteria.
      * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
+     * @return  \Doctrine\ORM\Tools\Pagination\Paginator
      */
     public function paginate($criteria = [], array $paging = [], $fetchJoinCollection = true)
     {
@@ -47,7 +45,9 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
     /**
      * {@inheritdoc}
      *
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   int $hydrationMode [optional] Processing mode to be used during the hydration process.
+     * @return  \ArrayIterator
      */
     public function readAll($criteria = [], $hydrationMode = AbstractQuery::HYDRATE_OBJECT)
     {
@@ -60,7 +60,10 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
     /**
      * {@inheritdoc}
      *
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   int $hydrationMode [optional] The hydration mode.
+     * @return  object
+     * @throws  \Doctrine\ORM\NonUniqueResultException
      */
     public function read($criteria, $hydrationMode = null)
     {
@@ -73,7 +76,9 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
     /**
      * {@inheritdoc}
      *
+     * @param   object[]|object $entity The entity instance.
      * @param   bool $autoFlush [optional]
+     * @return  int The affected rows.
      */
     public function create($entity, $autoFlush = true)
     {
@@ -83,8 +88,11 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
     /**
      * {@inheritdoc}
      *
+     * @param   object[]|object $entity The entity instance.
+     * @param   null|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool $autoFlush [optional]
      * @param   bool $isNew [optional] A flag indicating we are creating or updating a record.
+     * @return  int The affected rows.
      */
     public function update($entity, $criteria = null, $autoFlush = true, $isNew = false)
     {
@@ -96,52 +104,58 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
             $entity = [$entity];
         }
 
-        $i = 0;
+        $count = 0;
 
         foreach ($entity as $v) {
             $isNew ? $this->_em->persist($v) : $v = $this->_em->merge($v);
 
-            if ((0 === ++$i % CHAOS_QUERY_LIMIT) && $autoFlush) {
+            if ((0 === ++$count % CHAOS_QUERY_LIMIT) && $autoFlush) {
                 $this->_em->flush();
             }
         }
 
-        if ($autoFlush && 0 !== $i) {
+        if ($autoFlush && 0 !== $count) {
             $this->_em->flush();
         }
 
-        return $i;
+        return $count;
     }
 
     /**
      * {@inheritdoc}
      *
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array|object $criteria The criteria.
      * @param   bool $autoFlush [optional]
+     * @return  int The affected rows.
      */
     public function delete($criteria, $autoFlush = true)
     {
         $entity = is_object($criteria) ? [$criteria] : $this->getQueryBuilder($criteria)->getQuery()->getResult();
-        $i = 0;
+        $count = 0;
 
         foreach ($entity as $v) {
             if ($this->_em->contains($v)) {
                 $this->_em->remove($v);
 
-                if ((0 === ++$i % CHAOS_QUERY_LIMIT) && $autoFlush) {
+                if ((0 === ++$count % CHAOS_QUERY_LIMIT) && $autoFlush) {
                     $this->_em->flush();
                 }
             }
         }
 
-        if ($autoFlush && 0 !== $i) {
+        if ($autoFlush && 0 !== $count) {
             $this->_em->flush();
         }
 
-        return $i;
+        return $count;
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @param   mixed|\Doctrine\Common\Collections\Criteria|array $criteria Either a query criteria or a field value.
+     * @param   null|string $fieldName The field name; defaults to `Id`.
+     * @return  bool
      */
     public function exist($criteria, $fieldName = null)
     {

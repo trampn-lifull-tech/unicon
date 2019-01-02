@@ -2,7 +2,7 @@
 
 namespace Chaos\Repository\Contract;
 
-use Chaos\Infrastructure\Constant\JoinType;
+use Chaos\Support\Constant\JoinType;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\Query\Expr\Join;

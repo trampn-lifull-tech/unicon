@@ -11,14 +11,13 @@ use Chaos\Support\Object\Contract\IObject;
  * @author ntd1712
  *
  * @property \Chaos\Repository\Contract\IRepository $repository
- * @property bool $enableTransaction A value that indicates whether the transaction is enabled.
  */
 interface IServiceHandler extends IConfigAware, IContainerAware, IObject
 {
     /**
      * The default `readAll` method, you can override this in the derived class.
      *
-     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The query criteria.
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
      * @return  array
      */

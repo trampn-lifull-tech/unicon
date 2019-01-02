@@ -3,7 +3,6 @@
 namespace Chaos\Service;
 
 use Chaos\Repository\Contract\IRepository;
-use Chaos\Repository\Contract\RepositoryAware;
 use Chaos\Support\Constant\ErrorCode;
 use Chaos\Support\Constant\EventType;
 use Chaos\Support\Contract\ConfigAware;
@@ -18,7 +17,7 @@ use Chaos\Support\Object\Contract\ObjectTrait;
 abstract class ServiceHandler implements Contract\IServiceHandler
 {
     use ConfigAware, ContainerAware, ObjectTrait,
-        Event\Contract\EventTrait, RepositoryAware /*, Contract\ServiceAware*/;
+        Event\Contract\EventTrait /*, RepositoryAware, Contract\ServiceHandlerAware*/;
 
     /**
      * Constructor.
@@ -45,7 +44,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
     /**
      * {@inheritdoc}
      *
-     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The query criteria.
+     * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
      * @return  array
      */
@@ -185,7 +184,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
 
         try {
             // start a transaction
-            if (isset($this->enableTransaction)) {
+            if (isset($this->repository->enableTransaction)) {
                 $this->repository->beginTransaction();
             }
 
@@ -235,10 +234,10 @@ abstract class ServiceHandler implements Contract\IServiceHandler
         $entity = $result['data'];
 
         try {
-            // start a transaction
+            // start a transaction (if any)
             $eventArgs = new Event\UpdateEventArgs($criteria, $entity, false);
 
-            if (isset($this->enableTransaction)) {
+            if (isset($this->repository->enableTransaction)) {
                 $this->repository->beginTransaction();
             }
 
