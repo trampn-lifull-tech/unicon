@@ -13,6 +13,13 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 /**
  * Class DoctrineRepository
  * @author ntd1712
+ *
+ * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
+ * @method Contract\IRepository beginTransaction() Starts a transaction by suspending auto-commit mode.
+ * @method Contract\IRepository commit() Commits the current transaction.
+ * @method Contract\IRepository rollback() Cancels any database changes done during the current transaction.
+ * @method Contract\IRepository flush() Flushes all changes to objects that have been queued up to now to the database.
+ * @method Contract\IRepository close() Closes the connection.
  */
 abstract class DoctrineRepository extends EntityRepository implements Contract\IDoctrineRepository
 {

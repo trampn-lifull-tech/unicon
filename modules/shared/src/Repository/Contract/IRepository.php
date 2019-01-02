@@ -15,10 +15,9 @@ use Chaos\Support\Object\Contract\IObject;
  * @property-read object $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
- *
  * @property bool $enableTransaction A value that indicates whether the transaction is enabled.
- * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
  *
+ * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
  * @method IRepository beginTransaction() Starts a transaction by suspending auto-commit mode.
  * @method IRepository commit() Commits the current transaction.
  * @method IRepository rollback() Cancels any database changes done during the current transaction.
