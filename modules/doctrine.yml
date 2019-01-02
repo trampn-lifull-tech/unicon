@@ -43,7 +43,7 @@ doctrine:
             mapping: true
             type: annotation
             dir:
-              - '%APP_DIR%/modules/shared/src/Object/DataModel/Lookup/Entity'
+              - '%APP_DIR%/modules/core/src/Lookup/Entity'
             use_simple_annotation_reader: false
         ast: ~
         dql:
