@@ -4,6 +4,7 @@ namespace Chaos\Repository\Contract;
 
 use Chaos\Support\Constant\JoinType;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query\Expr\Comparison;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -83,10 +84,7 @@ trait DoctrineRepositoryTrait
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   \Doctrine\ORM\QueryBuilder $queryBuilder [optional] The <tt>QueryBuilder</tt> instance.
      * @return  \Doctrine\ORM\QueryBuilder
-     * @throws  \Doctrine\ORM\Query\QueryException
-     * @throws  \InvalidArgumentException
-     * @throws  \ReflectionException
-     * @throws  \Exception
+     * @throws  \Doctrine\ORM\ORMException
      */
     protected function getQueryBuilder($criteria, QueryBuilder $queryBuilder = null)
     {
@@ -123,7 +121,7 @@ trait DoctrineRepositoryTrait
                     //      ['from' => [
                     //          ['from' => 'User', 'alias' => 'u', 'indexBy' => 'u.Id'],
                     //          ['from' => 'Role', 'alias' => 'r'],
-                    //          ['from' => $this->getRepository('Permission')]
+                    //          ['from' => $this->permissionRepository]
                     //      ]]
                     if ($v instanceof IRepository) {
                         $v = [
@@ -184,7 +182,7 @@ trait DoctrineRepositoryTrait
                     //      ['select' => ['User.Id', 'Role.Id']
                     //      ['select' => [
                     //          $this->getRepository('User'),
-                    //          $this->getRepository('Role')
+                    //          $this->roleRepository
                     //      ]
                     if ($v instanceof IRepository) {
                         $v = [$v->className];
@@ -225,10 +223,10 @@ trait DoctrineRepositoryTrait
                 case Select::JOINS:
                 case 'join':
                     // e.g. ['joins' => [ // User INNER JOIN UserRole WITH UserRole = User.UserRole
-                    //          ['join' => $this->getRepository('UserRole'), 'condition' => '%1$s = %2$s.%1$s'],
-                    //          ['join' => $this->getRepository('Role'), 'condition' => '%3$s = %2$s.%3$s']
+                    //          ['join' => $this->userRoleRepository, 'condition' => '%1$s = %2$s.%1$s'],
+                    //          ['join' => $this->roleRepository, 'condition' => '%3$s = %2$s.%3$s']
                     //      ]]            // ...  INNER JOIN Role WITH Role = UserRole.Role
-                    //      ['joins' => ['innerJoin' => $this->getRepository('UserRole')]]
+                    //      ['joins' => ['innerJoin' => $this->userRoleRepository]]
                     //      ['joins' => ['leftJoin' => $this->getRepository('User'), 'condition' => '%3$s = %2$s.%3$s']]
                     if (!is_array($v)) {
                         throw new \InvalidArgumentException(__METHOD__ . " expects '$k' in array format");
@@ -290,7 +288,7 @@ trait DoctrineRepositoryTrait
                     throw new \InvalidArgumentException('UNION is not supported in DQL');
                 case Select::WHERE:
                 case Select::HAVING:
-                    // e.g. $expr = $this->getRepository()->expression; // \Doctrine\ORM\Query\Expr
+                    // e.g. $expr = $this->repository->expression; // \Doctrine\ORM\Query\Expr
                     //      $or = $expr->orx(
                     //          $expr->eq('User.Id', 1),
                     //          $expr->like('Role.Name', "'%user%'")
@@ -406,17 +404,21 @@ trait DoctrineRepositoryTrait
 
                                 $matches[1] = $aliases[0] . '.' . $matches[1];
                             } else if (false !== ($format = @vsprintf($matches[1], $aliases))) {
-                                /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
-                                $container = $this->getContainer();
-                                $parts = explode('.', $format);
+                                try {
+                                    /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
+                                    $container = $this->getContainer();
+                                    $parts = explode('.', $format);
 
-                                if (!$container->has($parts[0])
-                                    || !property_exists($container->get($parts[0]), $parts[1])
-                                ) {
-                                    continue;
+                                    if (!$container->has($parts[0])
+                                        || !property_exists($container->get($parts[0]), $parts[1])
+                                    ) {
+                                        continue;
+                                    }
+
+                                    $matches[1] = $format;
+                                } catch (\Exception $ex) {
+                                    throw ORMException::unknownEntityNamespace($parts[0]);
                                 }
-
-                                $matches[1] = $format;
                             }
 
                             $order = Select::ORDER_ASCENDING;
@@ -457,7 +459,6 @@ trait DoctrineRepositoryTrait
      * @param   \Doctrine\ORM\QueryBuilder $queryBuilder The <tt>QueryBuilder</tt> instance.
      * @param   array $aliases The aliases.
      * @return  \Doctrine\ORM\QueryBuilder
-     * @throws  \ReflectionException
      */
     private function transformPredicate(PredicateInterface $predicateSet, QueryBuilder $queryBuilder, $aliases)
     {
@@ -473,7 +474,13 @@ trait DoctrineRepositoryTrait
                 }
             }
 
-            switch ($type = reflect($predicate)->getShortName()) {
+            try {
+                $type = reflect($predicate)->getShortName();
+            } catch (\ReflectionException $ex) {
+                $type = null;
+            }
+
+            switch ($type) {
                 case 'Predicate': // e.g. nest/unnest
                     $expr = $this
                         ->transformPredicate($predicate, $this->createQueryBuilder($aliases[0]), $aliases)

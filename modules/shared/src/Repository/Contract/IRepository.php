@@ -17,6 +17,7 @@ use Chaos\Support\Object\Contract\IObject;
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
  * @property bool $enableTransaction A value that indicates whether the transaction is enabled.
  *
+ * @method null|object find($id, $lockMode = null, $lockVersion = null) Finds an entity by its primary key / identifier.
  * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
  * @method IRepository beginTransaction() Starts a transaction by suspending auto-commit mode.
  * @method IRepository commit() Commits the current transaction.
@@ -32,6 +33,7 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   array $paging The paging criteria.
      * @return  \Doctrine\ORM\Tools\Pagination\Paginator
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function paginate($criteria = [], array $paging = []);
 
@@ -40,6 +42,7 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  \ArrayIterator
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function readAll($criteria = []);
 
@@ -48,6 +51,7 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  object
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function read($criteria);
 

@@ -14,12 +14,13 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * Class DoctrineRepository
  * @author ntd1712
  *
- * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
- * @method Contract\IRepository beginTransaction() Starts a transaction by suspending auto-commit mode.
- * @method Contract\IRepository commit() Commits the current transaction.
- * @method Contract\IRepository rollback() Cancels any database changes done during the current transaction.
- * @method Contract\IRepository flush() Flushes all changes to objects that have been queued up to now to the database.
- * @method Contract\IRepository close() Closes the connection.
+ * @method null|object find($id, $lockMode = null, $lockVersion = null)
+ * @method string getClassName()
+ * @method Contract\IRepository beginTransaction()
+ * @method Contract\IRepository commit()
+ * @method Contract\IRepository rollback()
+ * @method Contract\IRepository flush()
+ * @method Contract\IRepository close()
  */
 abstract class DoctrineRepository extends EntityRepository implements Contract\IDoctrineRepository
 {
@@ -39,11 +40,11 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
         $query = $this->getQueryBuilder($criteria);
 
         if (null === $query->getFirstResult()) {
-            $query->setFirstResult(@$paging['CurrentPageStart'] ?: 0);
+            $query->setFirstResult($paging['CurrentPageStart'] ?? 0);
         }
 
         if (null === $query->getMaxResults()) {
-            $query->setMaxResults(@$paging['ItemCountPerPage'] ?: CHAOS_QUERY_LIMIT);
+            $query->setMaxResults($paging['ItemCountPerPage'] ?? CHAOS_QUERY_LIMIT);
         }
 
         return new Paginator($query, $fetchJoinCollection);

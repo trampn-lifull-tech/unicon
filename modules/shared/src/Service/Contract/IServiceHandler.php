@@ -20,6 +20,7 @@ interface IServiceHandler extends IConfigAware, IContainerAware, IObject
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
      * @return  array
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function readAll($criteria = [], $paging = false);
 
@@ -29,6 +30,7 @@ interface IServiceHandler extends IConfigAware, IContainerAware, IObject
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
      * @throws  \Chaos\Service\Exception\ServiceException
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function read($criteria);
 
@@ -37,6 +39,8 @@ interface IServiceHandler extends IConfigAware, IContainerAware, IObject
      *
      * @param   array $post The _POST variable.
      * @return  array
+     * @throws  \Chaos\Service\Exception\ServiceException
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function create(array $post = []);
 
@@ -47,7 +51,7 @@ interface IServiceHandler extends IConfigAware, IContainerAware, IObject
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
      * @throws  \Chaos\Service\Exception\ServiceException
-     * @throws  \Chaos\Service\Exception\ValidateException
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function update(array $post = [], $criteria = null);
 
@@ -57,6 +61,7 @@ interface IServiceHandler extends IConfigAware, IContainerAware, IObject
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
      * @throws  \Chaos\Service\Exception\ServiceException
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function delete($criteria);
 }

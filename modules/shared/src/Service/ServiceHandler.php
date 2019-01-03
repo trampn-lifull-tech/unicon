@@ -198,7 +198,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             }
 
             if (1 > $affectedRows) {
-                throw new Exception\ServiceException('ERROR_SAVING_ITEM');
+                throw;
             }
 
             // commit current transaction
@@ -218,7 +218,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             return $this->read($criteria);
         } catch (\Exception $ex) {
             $this->repository->close()->rollback();
-            throw $ex;
+            throw new Exception\ServiceException('ERROR_SAVING_ITEM');
         }
     }
 
@@ -247,7 +247,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             $affectedRows = $this->repository->delete($entity, false);
 
             if (1 > $affectedRows) {
-                throw new Exception\ServiceException('ERROR_DELETING_ITEM');
+                throw;
             }
 
             // commit current transaction
@@ -259,7 +259,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             ];
         } catch (\Exception $ex) {
             $this->repository->close()->rollback();
-            throw $ex;
+            throw new Exception\ServiceException('ERROR_DELETING_ITEM');
         }
     }
 }
