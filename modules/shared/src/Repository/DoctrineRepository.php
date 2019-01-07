@@ -34,6 +34,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
      * @param   array $paging The paging criteria.
      * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
      * @return  \Doctrine\ORM\Tools\Pagination\Paginator
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function paginate($criteria = [], array $paging = [], $fetchJoinCollection = true)
     {
@@ -56,6 +57,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   int $hydrationMode [optional] Processing mode to be used during the hydration process.
      * @return  \ArrayIterator
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function readAll($criteria = [], $hydrationMode = AbstractQuery::HYDRATE_OBJECT)
     {
@@ -71,7 +73,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   int $hydrationMode [optional] The hydration mode.
      * @return  object
-     * @throws  \Doctrine\ORM\NonUniqueResultException
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function read($criteria, $hydrationMode = null)
     {
@@ -87,6 +89,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
      * @param   object[]|object $entity The entity instance.
      * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function create($entity, $autoFlush = true)
     {
@@ -101,6 +104,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
      * @param   bool $autoFlush [optional]
      * @param   bool $isNew [optional] A flag indicating we are creating or updating a record.
      * @return  int The affected rows.
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function update($entity, $criteria = null, $autoFlush = true, $isNew = false)
     {
@@ -135,6 +139,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array|object $criteria The criteria.
      * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
+     * @throws  \Doctrine\ORM\ORMException
      */
     public function delete($criteria, $autoFlush = true)
     {

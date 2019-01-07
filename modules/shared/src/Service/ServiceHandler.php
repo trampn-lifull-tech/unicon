@@ -3,16 +3,19 @@
 namespace Chaos\Service;
 
 use Chaos\Repository\Contract\IRepository;
-use Chaos\Support\Constant\ErrorCode;
 use Chaos\Support\Constant\EventType;
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
 use Chaos\Support\Event;
 use Chaos\Support\Object\Contract\ObjectTrait;
+use Doctrine\ORM\ORMException;
+use Zend\Filter\StaticFilter;
 
 /**
  * Class ServiceHandler
  * @author ntd1712
+ *
+ * TODO: use DTO for the result
  */
 abstract class ServiceHandler implements Contract\IServiceHandler
 {
@@ -79,27 +82,27 @@ abstract class ServiceHandler implements Contract\IServiceHandler
                 $criteria = (int)$criteria;
 
                 if (1 > $criteria) {
-                    throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
+                    throw new Exception\ServiceException;
                 }
             } else {
-                // $criteria = $this->filter($criteria); // TODO
+                $criteria = StaticFilter::execute(
+                    $criteria,
+                    'HtmlEntities',
+                    ['encoding' => $this->getVars()->get('app.charset')]
+                );
 
                 if (empty($criteria)) {
-                    throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
+                    throw new Exception\ServiceException;
                 }
             }
 
             $entity = $this->repository->find($criteria);
         } else {
-            if (empty($criteria)) {
-                throw new \InvalidArgumentException(__METHOD__ . ' expects "$criteria" in array format');
-            }
-
             $entity = $this->repository->read($criteria);
         }
 
-        if (null === $entity) {
-            throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
+        if (empty($entity)) {
+            throw new Exception\ServiceException;
         }
 
         $this->trigger(EventType::ON_AFTER_READ, [CHAOS_READ_EVENT_ARGS, $criteria, $entity]);
@@ -130,7 +133,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
     public function update(array $post = [], $criteria = null, $isNew = false)
     {
         if (empty($post)) {
-            throw new Exception\ServiceException(ErrorCode::INVALID_REQUEST);
+            throw new Exception\ServiceException;
         }
 
         if ($isNew) {
@@ -234,7 +237,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
         $entity = $result['data'];
 
         try {
-            // start a transaction (if any)
+            // before delete
             $eventArgs = new Event\UpdateEventArgs($criteria, $entity, false);
 
             if (isset($this->repository->enableTransaction)) {
@@ -243,21 +246,21 @@ abstract class ServiceHandler implements Contract\IServiceHandler
 
             $this->trigger(EventType::ON_BEFORE_DELETE, $eventArgs);
 
-            // delete entity
+            // on delete
             $affectedRows = $this->repository->delete($entity, false);
 
             if (1 > $affectedRows) {
                 throw;
             }
 
-            // commit current transaction
+            // after delete
             $this->trigger(EventType::ON_AFTER_DELETE, $eventArgs);
             $this->repository->flush()->commit();
 
             return [
                 'success' => true
             ];
-        } catch (\Exception $ex) {
+        } catch (ORMException $ex) {
             $this->repository->close()->rollback();
             throw new Exception\ServiceException('ERROR_DELETING_ITEM');
         }

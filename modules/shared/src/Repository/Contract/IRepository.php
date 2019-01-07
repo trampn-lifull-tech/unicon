@@ -33,7 +33,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   array $paging The paging criteria.
      * @return  \Doctrine\ORM\Tools\Pagination\Paginator
-     * @throws  \Doctrine\ORM\ORMException
      */
     public function paginate($criteria = [], array $paging = []);
 
@@ -42,7 +41,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  \ArrayIterator
-     * @throws  \Doctrine\ORM\ORMException
      */
     public function readAll($criteria = []);
 
@@ -51,7 +49,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  object
-     * @throws  \Doctrine\ORM\ORMException
      */
     public function read($criteria);
 
@@ -61,7 +58,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * @param   object[]|object $entity The entity instance.
      * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
-     * @throws  \Doctrine\ORM\ORMException
      */
     public function create($entity, $autoFlush = true);
 
@@ -72,7 +68,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * @param   null|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
-     * @throws  \Doctrine\ORM\ORMException
      */
     public function update($entity, $criteria = null, $autoFlush = true);
 
@@ -82,7 +77,6 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array|object $criteria The criteria.
      * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
-     * @throws  \Doctrine\ORM\ORMException
      */
     public function delete($criteria, $autoFlush = true);
 

@@ -9,7 +9,11 @@ namespace Chaos\Service\Exception;
 class ServiceException extends \Exception
 {
     /**
+     * @var string
+     */
+    protected $message = 'BAD_REQUEST';
+    /**
      * @var mixed|int
      */
-    protected $code = 500;
+    protected $code = 400;
 }

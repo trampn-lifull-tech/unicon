@@ -10,7 +10,7 @@ use Chaos\Support\Object\Contract\IObject;
  * Interface IServiceHandler
  * @author ntd1712
  *
- * @property \Chaos\Repository\Contract\IRepository $repository
+ * @property \Chaos\Repository\DoctrineRepository|\Chaos\Repository\Contract\IRepository $repository
  */
 interface IServiceHandler extends IConfigAware, IContainerAware, IObject
 {
