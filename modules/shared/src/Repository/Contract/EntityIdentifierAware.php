@@ -5,6 +5,8 @@ namespace Chaos\Repository\Contract;
 /**
  * Trait EntityIdentifierAware
  * @author ntd1712
+ *
+ * TODO
  */
 trait EntityIdentifierAware
 {

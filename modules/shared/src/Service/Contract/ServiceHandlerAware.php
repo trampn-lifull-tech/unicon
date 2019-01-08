@@ -17,8 +17,8 @@ trait ServiceHandlerAware
      *
      * <code>
      * $this->getService()->...
-     * $this->getService('Lookup')->...
-     * $this->getService('Chaos\Module\Lookup\Service\LookupService')->...
+     * $this->getService('User')->...
+     * $this->getService('Account\Services\UserService')->...
      * </code>
      *
      * @param   null|string $name The service name.
@@ -39,8 +39,9 @@ trait ServiceHandlerAware
             $serviceName = $name;
         }
 
-        $vars = $this->getVars();
+        /** @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
         $container = $this->getContainer();
+        $vars = $this->getVars();
 
         return self::$vcx79te3[null] = self::$vcx79te3[$serviceName] = $container->get($serviceName)
             ->setContainer($container)

@@ -10,6 +10,8 @@ use Chaos\Support\Object\Model;
  * @author ntd1712
  *
  * Entity Data Model is a model that describes entities and the relationships between them.
+ *
+ * TODO
  */
 class Entity extends Model implements Contract\IEntity
 {

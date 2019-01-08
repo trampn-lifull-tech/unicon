@@ -69,16 +69,6 @@ trait DoctrineRepositoryTrait
     }
 
     /**
-     * @return  static
-     */
-    public function close()
-    {
-        $this->_em->close();
-
-        return $this;
-    }
-
-    /**
      * Gets the <tt>QueryBuilder</tt> instance.
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
@@ -404,10 +394,11 @@ trait DoctrineRepositoryTrait
 
                                 $matches[1] = $aliases[0] . '.' . $matches[1];
                             } else if (false !== ($format = @vsprintf($matches[1], $aliases))) {
+                                $parts = explode('.', $format);
+
                                 try {
                                     /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
                                     $container = $this->getContainer();
-                                    $parts = explode('.', $format);
 
                                     if (!$container->has($parts[0])
                                         || !property_exists($container->get($parts[0]), $parts[1])

@@ -14,15 +14,16 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * Class DoctrineRepository
  * @author ntd1712
  *
- * @method null|object find($id, $lockMode = null, $lockVersion = null)
+ * @property-read \Doctrine\ORM\EntityManager $entityManager The <tt>EntityManager</tt> instance.
+ * @property-read \Doctrine\ORM\Mapping\ClassMetadata $metadata The <tt>ClassMetadata</tt> instance.
+ *
  * @method string getClassName()
  * @method Contract\IRepository beginTransaction()
  * @method Contract\IRepository commit()
  * @method Contract\IRepository rollback()
  * @method Contract\IRepository flush()
- * @method Contract\IRepository close()
  */
-abstract class DoctrineRepository extends EntityRepository implements Contract\IDoctrineRepository
+abstract class DoctrineRepository extends EntityRepository implements Contract\IRepository
 {
     use ConfigAware, ContainerAware, ObjectTrait,
         Contract\DoctrineRepositoryTrait;
@@ -167,7 +168,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
      * {@inheritdoc}
      *
      * @param   mixed|\Doctrine\Common\Collections\Criteria|array $criteria Either a query criteria or a field value.
-     * @param   null|string $fieldName The field name; defaults to `Id`.
+     * @param   null|string $fieldName The field name; defaults to Primary Key.
      * @return  bool
      */
     public function exist($criteria, $fieldName = null)
@@ -210,12 +211,10 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\I
                 return new $this->_entityName;
             case 'fields':
                 return $this->_class->fieldMappings;
-            case 'pk':
+            case 'identifier':
                 return $this->_class->identifier;
             case 'criteria':
                 return Criteria::create();
-            case 'expression':
-                return $this->_em->getExpressionBuilder();
             case 'entityManager':
                 return $this->_em;
             case 'metadata':

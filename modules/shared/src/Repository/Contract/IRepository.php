@@ -15,15 +15,14 @@ use Chaos\Support\Object\Contract\IObject;
  * @property-read object $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
+ * @property-read \Doctrine\Common\Collections\Criteria $criteria The <tt>Criteria</tt> instance.
  * @property bool $enableTransaction A value that indicates whether the transaction is enabled.
  *
- * @method null|object find($id, $lockMode = null, $lockVersion = null) Finds an entity by its primary key / identifier.
  * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
  * @method IRepository beginTransaction() Starts a transaction by suspending auto-commit mode.
  * @method IRepository commit() Commits the current transaction.
  * @method IRepository rollback() Cancels any database changes done during the current transaction.
  * @method IRepository flush() Flushes all changes to objects that have been queued up to now to the database.
- * @method IRepository close() Closes the connection.
  */
 interface IRepository extends IConfigAware, IContainerAware, IObject
 {
@@ -84,7 +83,7 @@ interface IRepository extends IConfigAware, IContainerAware, IObject
      * The default `exist` method, you can override this in the derived class.
      *
      * @param   mixed|\Doctrine\Common\Collections\Criteria|array $criteria Either a query criteria or a field value.
-     * @param   null|string $fieldName The field name; defaults to `Id`.
+     * @param   null|string $fieldName The field name; defaults to Primary Key.
      * @return  bool
      */
     public function exist($criteria, $fieldName = null);

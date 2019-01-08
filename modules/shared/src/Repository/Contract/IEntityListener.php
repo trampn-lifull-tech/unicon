@@ -7,6 +7,8 @@ namespace Chaos\Repository\Contract;
  * @author ntd1712
  *
  * @link http://doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#entity-listeners-resolver
+ *
+ * TODO
  */
 interface IEntityListener
 {

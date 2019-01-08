@@ -5,6 +5,8 @@ namespace Chaos\Repository\Contract;
 /**
  * Trait EntityIdentityTrait
  * @author ntd1712
+ *
+ * TODO
  */
 trait EntityIdentityTrait
 {

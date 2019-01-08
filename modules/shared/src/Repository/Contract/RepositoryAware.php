@@ -7,6 +7,8 @@ use Doctrine\ORM\Events;
 /**
  * Trait RepositoryAware
  * @author ntd1712
+ *
+ * @deprecated Not in use
  */
 trait RepositoryAware
 {
@@ -40,12 +42,12 @@ trait RepositoryAware
 
         /** @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
         $container = $this->getContainer();
-        $config = $this->getVars();
+        $vars = $this->getVars();
 
         self::$mwnn3h3h[$repositoryName] = $container->get(DOCTRINE_ENTITY_MANAGER)
             ->getRepository(get_class($container->get($name)))
             ->setContainer($container)
-            ->setVars($config);
+            ->setVars($vars);
 
         // register 'postLoad' listeners
         foreach (self::$mwnn3h3h[$repositoryName]->metadata->entityListeners as $event => $listeners) {
@@ -55,7 +57,7 @@ trait RepositoryAware
                         ->getEntityListenerResolver()->register(
                             $container->get($listener['class'])
                                 ->setContainer($container)
-                                ->setVars($config)
+                                ->setVars($vars)
                         );
                 }
             }

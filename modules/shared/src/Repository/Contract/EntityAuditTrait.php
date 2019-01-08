@@ -5,6 +5,8 @@ namespace Chaos\Repository\Contract;
 /**
  * Trait EntityAuditTrait
  * @author ntd1712
+ *
+ * TODO
  */
 trait EntityAuditTrait
 {
