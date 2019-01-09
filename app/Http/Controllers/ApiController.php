@@ -71,7 +71,7 @@ class ApiController extends LaravelResourceController
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc} @override
      *
      * @throws  \BadMethodCallException
      */
@@ -81,7 +81,7 @@ class ApiController extends LaravelResourceController
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc} @override
      *
      * @throws  \BadMethodCallException
      */
