@@ -3,10 +3,10 @@
 namespace Chaos\Service\Exception;
 
 /**
- * Class ValidateException
+ * Class ValidationException
  * @author ntd1712
  */
-class ValidateException extends \Exception
+class ValidationException extends \RuntimeException
 {
     /**
      * @var mixed|int

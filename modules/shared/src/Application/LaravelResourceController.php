@@ -3,10 +3,10 @@
 namespace Chaos\Application;
 
 /**
- * Class LaravelRestController
+ * Class LaravelResourceController
  * @author ntd1712
  */
-abstract class LaravelRestController extends LaravelController
+abstract class LaravelResourceController extends LaravelController
 {
     /**
      * GET /api/v1/lookup?filter=&sort=&start=&length=
@@ -22,6 +22,19 @@ abstract class LaravelRestController extends LaravelController
             $this->getFilterParams($request = $this->getRequest(null, false), $this->service->repository->fields),
             $this->getPagerParams($request)
         );
+    }
+
+    /**
+     * GET /api/v1/lookup/create
+     *
+     * Shows the form for creating a new resource.
+     * The default `create` action, you can override this in the derived class.
+     *
+     * @return  array|\Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return [];
     }
 
     /**
@@ -50,6 +63,20 @@ abstract class LaravelRestController extends LaravelController
     public function show($id)
     {
         return $this->service->read($id);
+    }
+
+    /**
+     * GET /api/v1/lookup/:id/edit
+     *
+     * Shows the form for editing the specified resource.
+     * The default `edit` action, you can override this in the derived class.
+     *
+     * @param   mixed $id The route parameter ID.
+     * @return  array|\Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        return [$id];
     }
 
     /**

@@ -8,19 +8,16 @@ use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
 use Chaos\Support\Event;
 use Chaos\Support\Object\Contract\ObjectTrait;
-use Doctrine\ORM\ORMException;
 use Zend\Filter\StaticFilter;
 
 /**
  * Class ServiceHandler
  * @author ntd1712
- *
- * TODO: use DTO for the result
  */
 abstract class ServiceHandler implements Contract\IServiceHandler
 {
     use ConfigAware, ContainerAware, ObjectTrait,
-        Event\Contract\EventTrait /*, RepositoryAware, Contract\ServiceHandlerAware*/;
+        Event\Contract\EventTrait;
 
     /**
      * Constructor.
@@ -74,6 +71,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
+     * @throws  \Chaos\Service\Exception\ServiceException
      */
     public function read($criteria)
     {
@@ -116,6 +114,8 @@ abstract class ServiceHandler implements Contract\IServiceHandler
      *
      * @param   array $post The _POST variable.
      * @return  array
+     * @throws  \Chaos\Service\Exception\ServiceException
+     * @throws  \Chaos\Service\Exception\ValidationException
      */
     public function create(array $post = [])
     {
@@ -129,6 +129,8 @@ abstract class ServiceHandler implements Contract\IServiceHandler
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool $isNew A flag indicates we are creating or updating a record.
      * @return  array
+     * @throws  \Chaos\Service\Exception\ServiceException
+     * @throws  \Chaos\Service\Exception\ValidationException
      */
     public function update(array $post = [], $criteria = null, $isNew = false)
     {
@@ -145,7 +147,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
                 $post['CreatedBy'] = $post['UpdatedBy'];
             }
 
-            $entity = $this->repository->entity;
+            $entity = new $this->repository->entity;
         } else {
             if (null === $criteria) {
                 $where = [];
@@ -201,7 +203,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             }
 
             if (1 > $affectedRows) {
-                throw;
+                throw new Exception\ServiceException(__FUNCTION__ . '_error');
             }
 
             // commit current transaction
@@ -219,9 +221,9 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             }
 
             return $this->read($criteria);
-        } catch (\Exception $ex) {
+        } catch (Exception\ServiceException $ex) {
             $this->repository->close()->rollback();
-            throw new Exception\ServiceException('ERROR_SAVING_ITEM');
+            throw $ex;
         }
     }
 
@@ -230,6 +232,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
+     * @throws  \Chaos\Service\Exception\ServiceException
      */
     public function delete($criteria)
     {
@@ -250,7 +253,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             $affectedRows = $this->repository->delete($entity, false);
 
             if (1 > $affectedRows) {
-                throw;
+                throw new Exception\ServiceException(__FUNCTION__ . '_error');
             }
 
             // after delete
@@ -260,9 +263,9 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             return [
                 'success' => true
             ];
-        } catch (ORMException $ex) {
+        } catch (Exception\ServiceException $ex) {
             $this->repository->close()->rollback();
-            throw new Exception\ServiceException('ERROR_DELETING_ITEM');
+            throw $ex;
         }
     }
 }

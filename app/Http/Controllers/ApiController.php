@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Chaos\Application\LaravelRestController;
+use Chaos\Application\LaravelResourceController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
  * Class ApiController
  * @author ntd1712
  */
-class ApiController extends LaravelRestController
+class ApiController extends LaravelResourceController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
@@ -68,5 +68,25 @@ class ApiController extends LaravelRestController
         // </editor-fold>
 
         parent::__construct(func_get_args());
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws  \BadMethodCallException
+     */
+    public function create()
+    {
+        throw new \BadMethodCallException('Unknown method ' . __METHOD__);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws  \BadMethodCallException
+     */
+    public function edit($id)
+    {
+        throw new \BadMethodCallException('Unknown method ' . __METHOD__);
     }
 }

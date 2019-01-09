@@ -22,6 +22,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * @method Contract\IRepository commit()
  * @method Contract\IRepository rollback()
  * @method Contract\IRepository flush()
+ * @method Contract\IRepository close()
  */
 abstract class DoctrineRepository extends EntityRepository implements Contract\IRepository
 {

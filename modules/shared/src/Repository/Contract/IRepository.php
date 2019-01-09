@@ -23,6 +23,7 @@ use Chaos\Support\Object\Contract\IObject;
  * @method IRepository commit() Commits the current transaction.
  * @method IRepository rollback() Cancels any database changes done during the current transaction.
  * @method IRepository flush() Flushes all changes to objects that have been queued up to now to the database.
+ * @method IRepository close() Closes the connection.
  */
 interface IRepository extends IConfigAware, IContainerAware, IObject
 {

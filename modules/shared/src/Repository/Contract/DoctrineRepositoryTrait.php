@@ -69,6 +69,16 @@ trait DoctrineRepositoryTrait
     }
 
     /**
+     * @return  static
+     */
+    public function close()
+    {
+        $this->_em->close();
+
+        return $this;
+    }
+
+    /**
      * Gets the <tt>QueryBuilder</tt> instance.
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
