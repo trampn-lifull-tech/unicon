@@ -2,12 +2,12 @@
 
 namespace Chaos\Service;
 
-use Chaos\Repository\Contract\IRepository;
 use Chaos\Support\Constant\EventType;
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
 use Chaos\Support\Event;
 use Chaos\Support\Object\Contract\ObjectTrait;
+use Psr\Container\ContainerInterface;
 use Zend\Filter\StaticFilter;
 
 /**
@@ -20,25 +20,20 @@ abstract class ServiceHandler implements Contract\IServiceHandler
         Event\Contract\EventTrait;
 
     /**
-     * Constructor.
+     * Initializes the given instance.
+     *
+     * @param   \Psr\Container\ContainerInterface $container The container.
+     * @param   object $instance [optional]
+     * @return  static
      */
-    public function __construct()
+    public function __invoke(ContainerInterface $container, $instance)
     {
-        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
+        $this
+            ->setVars($instance)
+            ->setContainer($container)
+            ->getContainer()->set($this->getClass(), $this);
 
-        $vars = $this->getVars();
-        $container = $this->getContainer();
-
-        if (!empty($repositories = func_get_args())) {
-            foreach ($repositories as $repository) {
-                if ($repository instanceof IRepository) {
-                    $repository->setContainer($container)->setVars($vars);
-                    $container->set($repository->getClass(), $repository);
-                }
-            }
-        }
-
-        // </editor-fold>
+        return $this;
     }
 
     /**

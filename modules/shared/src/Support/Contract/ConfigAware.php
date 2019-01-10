@@ -30,7 +30,7 @@ trait ConfigAware // implements IConfigAware
     /**
      * {@inheritdoc}
      *
-     * @param   array|\M1\Vars\Vars $config Either be an array holding the paths to the config files
+     * @param   object|array $config Either be an array holding the paths to the config files
      *          or a <tt>Vars</tt> instance.
      * @param   string $optionKey [optional]
      * @return  static

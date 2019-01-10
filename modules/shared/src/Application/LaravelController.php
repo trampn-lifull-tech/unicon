@@ -5,7 +5,6 @@ namespace Chaos\Application;
 use Chaos\Service\Contract\IServiceHandler;
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
-use Chaos\Support\Orm\EntityManagerFactory;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -18,37 +17,6 @@ use Ramsey\Uuid\Uuid;
 abstract class LaravelController extends Controller
 {
     use ConfigAware, ContainerAware, Contract\ControllerTrait;
-
-    /**
-     * Constructor.
-     *
-     * @param   array $services An array of service containers that should be initialized.
-     * @throws  \Exception
-     */
-    public function __construct(array $services)
-    {
-        // <editor-fold desc="Initializes some defaults" defaultstate="collapsed">
-
-        $vars = $this->getVars();
-        $container = $this->getContainer();
-
-        if (!empty($services)) {
-            foreach ($services as $service) {
-                if ($service instanceof IServiceHandler) {
-                    $service->setContainer($container)->setVars($vars);
-                    $container->set($service->getClass(), $service);
-                }
-            }
-        }
-
-        $container->set(M1_VARS, $vars);
-        $container->set(
-            DOCTRINE_ENTITY_MANAGER,
-            (new EntityManagerFactory)->__invoke(null, null, $vars->getContent())
-        );
-
-        // </editor-fold>
-    }
 
     /**
      * Either gets a query value or all of the input and files.

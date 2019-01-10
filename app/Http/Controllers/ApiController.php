@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Chaos\Application\LaravelResourceController;
+use Chaos\Support\Orm\EntityManagerFactory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -67,7 +68,16 @@ class ApiController extends LaravelResourceController
 
         // </editor-fold>
 
-        parent::__construct(func_get_args());
+        // <editor-fold desc="Initializes global services" defaultstate="collapsed">
+
+        $vars = $this->getVars();
+        $container = $this->getContainer();
+        $entityManager = new EntityManagerFactory;
+
+        $container->set(M1_VARS, $vars);
+        $container->set(DOCTRINE_ENTITY_MANAGER, $entityManager($container, null, $vars->getContent()));
+
+        // </editor-fold>
     }
 
     /**

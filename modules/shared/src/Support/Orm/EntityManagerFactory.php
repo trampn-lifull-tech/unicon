@@ -17,6 +17,8 @@ use Psr\Container\ContainerInterface;
 final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
+     * Creates an object.
+     *
      * @param   \Psr\Container\ContainerInterface $container The container.
      * @param   string $requestedName [optional]
      * @param   null|array $options [optional]

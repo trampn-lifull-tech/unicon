@@ -18,12 +18,14 @@ use Psr\Container\ContainerInterface;
 final class SerializerFactory // implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
+     * Creates an object.
+     *
      * @param   \Psr\Container\ContainerInterface $container The container.
      * @param   string $requestedName [optional]
      * @param   null|array $options [optional]
      * @return  \JMS\Serializer\Serializer|\JMS\Serializer\SerializerInterface
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName = null, array $options = null)
     {
         if (empty($options)) {
             $options = $container->get(M1_VARS);

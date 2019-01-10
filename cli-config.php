@@ -12,10 +12,11 @@ $kernel->bootstrap();
 
 try {
     $controller = new \App\Http\Controllers\ApiController;
-    $entityManager = (new \Chaos\Support\Orm\EntityManagerFactory)
-        ->__invoke(null, null, $controller->getVars()->getContent());
+    $entityManager = new \Chaos\Support\Orm\EntityManagerFactory;
 
-    return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet($entityManager);
+    return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet(
+        $entityManager($controller->getContainer(), null, $controller->getVars()->getContent())
+    );
 } catch (Exception $ex) {
     //
 }

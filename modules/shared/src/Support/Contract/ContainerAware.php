@@ -33,8 +33,8 @@ trait ContainerAware // implements IContainerAware
     /**
      * {@inheritdoc}
      *
-     * @param   array|\Symfony\Component\DependencyInjection\ContainerInterface $container Either be
-     *          an array holding the paths to the service files or a <tt>ContainerBuilder</tt> instance.
+     * @param   object|array $container Either be an array holding the paths to the service files
+     *          or a <tt>ContainerBuilder</tt> instance.
      * @return  static
      */
     public function setContainer($container)

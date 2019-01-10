@@ -15,14 +15,16 @@ class LookupController extends ApiController
     /**
      * GET /api/v2/lookup
      *
-     * @param   LookupService $lookupService
      * @param   DashboardService $dashboardService
+     * @param   LookupService $lookupService
      * @throws  \Exception
      */
-    public function __construct(LookupService $lookupService, DashboardService $dashboardService)
+    public function __construct(DashboardService $dashboardService, LookupService $lookupService)
     {
-        parent::__construct($lookupService, $dashboardService);
-        $this->service = $lookupService;
+        parent::__construct();
+
+        $dashboardService($this->getContainer(), $this->getVars());
+        $this->service = $lookupService($this->getContainer(), $this->getVars());
     }
 
     /**
@@ -35,9 +37,10 @@ class LookupController extends ApiController
         var_dump(
             $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'),
             $this->service,
-            $this->service->repository,
+//            $this->service->repository,
 
             $this->filter('15/39/2014', true),
+            $this->filter('10/29/2014', true),
             $this->filter('10/29/2014', 86399),
 
             $this->getFilterParams($this->getRequest(null, false)),
