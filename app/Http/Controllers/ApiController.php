@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Chaos\Application\LaravelResourceController;
-use Chaos\Support\Orm\EntityManagerFactory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -68,17 +67,25 @@ class ApiController extends LaravelResourceController
 
         // </editor-fold>
 
-        // <editor-fold desc="Initializes global services" defaultstate="collapsed">
+        // <editor-fold desc="Initializes services" defaultstate="collapsed">
 
         $vars = $this->getVars();
         $container = $this->getContainer();
-        $entityManager = new EntityManagerFactory;
-
         $container->set(M1_VARS, $vars);
-        $container->set(DOCTRINE_ENTITY_MANAGER, $entityManager($container, null, $vars->getContent()));
+
+//        $entityManager = new \Chaos\Support\Orm\EntityManagerFactory;
+//        $container->set(DOCTRINE_ENTITY_MANAGER, $entityManager($container, null, $vars->getContent()));
+
+        foreach (($services = func_get_args()) as $service) {
+            /** @var \Chaos\Service\ServiceHandler $service */
+            $service($container, $vars);
+            $container->set($service->getClass(), $this);
+        }
 
         // </editor-fold>
     }
+
+    // <editor-fold desc="Unused in API" defaultstate="collapsed">
 
     /**
      * {@inheritdoc} @override
@@ -99,4 +106,6 @@ class ApiController extends LaravelResourceController
     {
         throw new \BadMethodCallException('Unknown method ' . __METHOD__);
     }
+
+    // </editor-fold>
 }

@@ -19,8 +19,6 @@ class LookupController extends ApiController
      */
     public function __construct(LookupService $lookupService)
     {
-        parent::__construct();
-
-        $this->service = $lookupService($this->getContainer(), $this->getVars());
+        parent::__construct($this->service = $lookupService);
     }
 }

@@ -1,5 +1,5 @@
 app:
-  copyright: Copyright (c) 2018 ntd1712
+  copyright: Copyright (c) 2013-2019 ntd1712
   charset: utf-8
   min_search_chars: 3
   date_format: Y-m-d                  # jsDate.toISOString(), e.g. 2017-09-21T10:11:19.026Z

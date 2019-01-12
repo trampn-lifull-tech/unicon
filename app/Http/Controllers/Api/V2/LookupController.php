@@ -15,16 +15,13 @@ class LookupController extends ApiController
     /**
      * GET /api/v2/lookup
      *
-     * @param   DashboardService $dashboardService
      * @param   LookupService $lookupService
+     * @param   DashboardService $dashboardService
      * @throws  \Exception
      */
-    public function __construct(DashboardService $dashboardService, LookupService $lookupService)
+    public function __construct(LookupService $lookupService, DashboardService $dashboardService)
     {
-        parent::__construct();
-
-        $dashboardService($this->getContainer(), $this->getVars());
-        $this->service = $lookupService($this->getContainer(), $this->getVars());
+        parent::__construct($this->service = $lookupService, $dashboardService);
     }
 
     /**
@@ -47,8 +44,8 @@ class LookupController extends ApiController
             $this->getPagerParams($this->getRequest(null, false)),
             $this->getRequest(),
 
-            serialize($this->getContainer()->get(M1_VARS)),
-            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER))
+            json_encode($this->getContainer()->get(M1_VARS)->getContent())
+//            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER))
         );
 
         echo '<pre>';

@@ -17,7 +17,7 @@ use Psr\Container\ContainerInterface;
 final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\FactoryInterface
 {
     /**
-     * Creates an object.
+     * {@inheritdoc}
      *
      * @param   \Psr\Container\ContainerInterface $container The container.
      * @param   string $requestedName [optional]

@@ -62,12 +62,12 @@ trait ControllerTrait
      *  'where' => $predicate
      * ]
      *
-     * @param   array $request The request.
+     * @param   \ArrayAccess|array $request The request.
      * @param   array $permit [optional] This is useful for limiting which scalars should be allowed.
      * @param   array $binds [optional] A bind variable array.
      * @return  array
      */
-    protected function getFilterParams(array $request, array $permit = [], array $binds = [])
+    protected function getFilterParams($request, array $permit = [], array $binds = [])
     {
         $filter = $request['filter'] ?? null;
 
@@ -114,11 +114,11 @@ trait ControllerTrait
      *  'order' => ['Id' => 'DESC NULLS FIRST', 'Name' => 'ASC NULLS LAST']
      * ]
      *
-     * @param   array $request The request.
+     * @param   \ArrayAccess|array $request The request.
      * @param   array $binds [optional] A bind variable array.
      * @return  array
      */
-    protected function getOrderParams(array $request, array $binds = [])
+    protected function getOrderParams($request, array $binds = [])
     {
         $order = $request['sort'] ?? null;
 
@@ -182,11 +182,11 @@ trait ControllerTrait
      *  'ItemCountPerPage' => 10
      * ]
      *
-     * @param   array $request The request.
+     * @param   \ArrayAccess|array $request The request.
      * @param   array $binds [optional] A bind variable array.
      * @return  bool|array
      */
-    protected function getPagerParams(array $request, array $binds = [])
+    protected function getPagerParams($request, array $binds = [])
     {
         $default = [
             'CurrentPageStart' => $request['start'] ?? null,
@@ -203,7 +203,7 @@ trait ControllerTrait
      * Returns the string $value, converting characters to their corresponding HTML entity equivalents where they exist.
      *
      * @param   string $value The value.
-     * @param   bool $checkDate [optional].
+     * @param   bool $checkDate [optional]
      * @return  string
      */
     protected function filter($value, $checkDate = false)
@@ -217,8 +217,8 @@ trait ControllerTrait
         $value = trim($value);
 
         if (false !== $checkDate) {
-            if (false !== ($time = strtotime($value))) {
-                $carbon = Carbon::createFromTimestamp($time, $vars->get('app.timezone'));
+            if (false !== ($timestamp = strtotime($value))) {
+                $carbon = Carbon::createFromTimestamp($timestamp, $vars->get('app.timezone'));
 
                 if (is_int($checkDate)) {
                     $carbon->addSeconds($checkDate);
@@ -229,7 +229,9 @@ trait ControllerTrait
                 $filtered = '';
             }
         } else {
-            $filtered = StaticFilter::execute($value, 'HtmlEntities', ['encoding' => $vars->get('app.charset')]);
+            $filtered = StaticFilter::execute($value, 'HtmlEntities', [
+                'encoding' => $vars->get('app.charset')
+            ]);
         }
 
         return $filtered;
@@ -243,7 +245,7 @@ trait ControllerTrait
      * @param   null|\Zend\Db\Sql\Predicate\PredicateInterface $predicate [optional] The <tt>Predicate</tt> instance.
      * @return  Predicate|\Zend\Db\Sql\Predicate\PredicateInterface
      */
-    protected function filterParams($binds = [], $permit = [], $predicate = null)
+    protected function filterParams($binds, $permit = [], $predicate = null)
     {
         if (null === $predicate) {
             $predicate = new Predicate;
@@ -485,7 +487,7 @@ trait ControllerTrait
      * @param   array $binds A bind variable array.
      * @return  array
      */
-    protected function filterOrderParams(array $binds = [])
+    protected function filterOrderParams(array $binds)
     {
         $orderSet = [];
         $count = 0;
@@ -502,7 +504,7 @@ trait ControllerTrait
             if (!empty($v['nulls']) && PredicateType::has($nulls = 'NULLS ' . strtoupper($v['nulls']))) {
                 $orderSet[$v['property']] .= ' ' . (
                     PredicateType::NULLS_FIRST === $nulls ? PredicateType::NULLS_FIRST : PredicateType::NULLS_LAST
-                );
+                    );
             }
 
             if (CHAOS_QUERY_LIMIT <= ++$count) {
@@ -519,7 +521,7 @@ trait ControllerTrait
      * @param   array $binds A bind variable array.
      * @return  bool|array
      */
-    protected function filterPagerParams(array $binds = [])
+    protected function filterPagerParams(array $binds)
     {
         if (!(($hasCurrentPageNumber = isset($binds['CurrentPageNumber'])) || isset($binds['CurrentPageStart']))) {
             return false;

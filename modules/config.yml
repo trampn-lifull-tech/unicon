@@ -10,11 +10,11 @@ app:
   key: '%^APP_KEY%'
   url: '%^APP_URL%'
 
-#session:
-#  cookie: '%SESSION_COOKIE%'
-#  lifetime: '%^SESSION_LIFETIME%'
-#  path: '%SESSION_PATH%'
-#  domain: '%SESSION_DOMAIN%'
+session:
+  cookie: '%SESSION_COOKIE%'
+  lifetime: '%^SESSION_LIFETIME%'
+  path: '%SESSION_PATH%'
+  domain: '%SESSION_DOMAIN%'
 
 #multitenant:
 #  enabled: false

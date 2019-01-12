@@ -19,22 +19,25 @@ abstract class ServiceHandler implements Contract\IServiceHandler
     use ConfigAware, ContainerAware, ObjectTrait,
         Event\Contract\EventTrait;
 
+    // <editor-fold desc="InitializerInterface implementation" defaultstate="collapsed">
+
     /**
-     * Initializes the given instance.
+     * {@inheritdoc}
      *
      * @param   \Psr\Container\ContainerInterface $container The container.
      * @param   object $instance [optional]
      * @return  static
      */
-    public function __invoke(ContainerInterface $container, $instance)
+    public function __invoke(ContainerInterface $container, $instance = null)
     {
-        $this
-            ->setVars($instance)
+        return $this
             ->setContainer($container)
-            ->getContainer()->set($this->getClass(), $this);
-
-        return $this;
+            ->setVars($instance ?? $container->get(M1_VARS));
     }
+
+    // </editor-fold>
+
+    // <editor-fold desc="IServiceHandler implementation">
 
     /**
      * {@inheritdoc}
@@ -263,4 +266,6 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             throw $ex;
         }
     }
+
+    // </editor-fold>
 }

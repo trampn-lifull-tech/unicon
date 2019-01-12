@@ -13,7 +13,6 @@ use Chaos\Support\Object\Contract\IObject;
  * @property \Doctrine\Common\Persistence\ObjectRepository|\Chaos\Repository\Contract\IRepository $repository
  */
 interface IServiceHandler extends IConfigAware, IContainerAware, IObject
-    // , \Zend\ServiceManager\Initializer\InitializerInterface
 {
     /**
      * The default `readAll` method, you can override this in the derived class.
