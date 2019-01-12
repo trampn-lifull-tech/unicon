@@ -15,9 +15,8 @@ class LookupController extends ApiController
     /**
      * GET /api/v2/lookup
      *
-     * @param   LookupService $lookupService
-     * @param   DashboardService $dashboardService
-     * @throws  \Exception
+     * @param   \Chaos\Module\Lookup\Service\LookupService $lookupService
+     * @param   \Chaos\Module\Dashboard\Service\DashboardService $dashboardService
      */
     public function __construct(LookupService $lookupService, DashboardService $dashboardService)
     {

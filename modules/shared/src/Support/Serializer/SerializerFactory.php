@@ -20,7 +20,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
     /**
      * {@inheritdoc}
      *
-     * @param   \Psr\Container\ContainerInterface $container The container.
+     * @param   \Psr\Container\ContainerInterface $container The container object.
      * @param   string $requestedName [optional]
      * @param   null|array $options [optional]
      * @return  \JMS\Serializer\Serializer|\JMS\Serializer\SerializerInterface

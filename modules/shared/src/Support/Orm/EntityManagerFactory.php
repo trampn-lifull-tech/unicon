@@ -16,10 +16,12 @@ use Psr\Container\ContainerInterface;
  */
 final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\FactoryInterface
 {
+    // <editor-fold desc="FactoryInterface implementation">
+
     /**
      * {@inheritdoc}
      *
-     * @param   \Psr\Container\ContainerInterface $container The container.
+     * @param   \Psr\Container\ContainerInterface $container The container object.
      * @param   string $requestedName [optional]
      * @param   null|array $options [optional]
      * @return  \Doctrine\ORM\EntityManager|\Doctrine\ORM\EntityManagerInterface
@@ -46,6 +48,8 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
 
         return $entityManager;
     }
+
+    // </editor-fold>
 
     /**
      * @param   array $dbal The DBAL config.

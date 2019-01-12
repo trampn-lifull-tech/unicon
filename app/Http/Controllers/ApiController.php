@@ -17,8 +17,6 @@ class ApiController extends LaravelResourceController
 
     /**
      * Constructor.
-     *
-     * @throws  \Exception
      */
     public function __construct()
     {
@@ -32,7 +30,7 @@ class ApiController extends LaravelResourceController
         ];
 
         $configResources = array_merge(
-//            glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
+            // glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
             glob($basePath . '/modules/app/*/config.yml', GLOB_NOSORT),
             [$basePath . '/modules/config.yml']
         );
@@ -76,7 +74,7 @@ class ApiController extends LaravelResourceController
 //        $entityManager = new \Chaos\Support\Orm\EntityManagerFactory;
 //        $container->set(DOCTRINE_ENTITY_MANAGER, $entityManager($container, null, $vars->getContent()));
 
-        foreach (($services = func_get_args()) as $service) {
+        foreach (func_get_args() as $service) {
             /** @var \Chaos\Service\ServiceHandler $service */
             $service($container, $vars);
             $container->set($service->getClass(), $this);

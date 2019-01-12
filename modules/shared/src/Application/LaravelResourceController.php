@@ -34,7 +34,7 @@ abstract class LaravelResourceController extends LaravelController
      */
     public function create()
     {
-        return [];
+        return ['TODO'];
     }
 
     /**
@@ -76,7 +76,7 @@ abstract class LaravelResourceController extends LaravelController
      */
     public function edit($id)
     {
-        return [$id];
+        return ["TODO: $id"];
     }
 
     /**

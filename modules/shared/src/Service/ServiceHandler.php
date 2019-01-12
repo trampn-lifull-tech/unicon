@@ -15,6 +15,7 @@ use Zend\Filter\StaticFilter;
  * @author ntd1712
  */
 abstract class ServiceHandler implements Contract\IServiceHandler
+    // , \Zend\ServiceManager\Initializer\InitializerInterface
 {
     use ConfigAware, ContainerAware, ObjectTrait,
         Event\Contract\EventTrait;
@@ -24,7 +25,7 @@ abstract class ServiceHandler implements Contract\IServiceHandler
     /**
      * {@inheritdoc}
      *
-     * @param   \Psr\Container\ContainerInterface $container The container.
+     * @param   \Psr\Container\ContainerInterface $container The container object.
      * @param   object $instance [optional]
      * @return  static
      */
