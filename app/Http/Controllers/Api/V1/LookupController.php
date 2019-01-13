@@ -14,7 +14,7 @@ class LookupController extends ApiController
     /**
      * GET /api/v1/lookup
      *
-     * @param   \Chaos\Module\Lookup\Service\LookupService $lookupService
+     * @param   LookupService $lookupService
      */
     public function __construct(LookupService $lookupService)
     {

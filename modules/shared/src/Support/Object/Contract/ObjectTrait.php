@@ -6,10 +6,8 @@ namespace Chaos\Support\Object\Contract;
  * Trait ObjectTrait
  * @author ntd1712
  */
-trait ObjectTrait
+trait ObjectTrait // implements IObject
 {
-    // <editor-fold desc="IObject implementation">
-
     /**
      * {@inheritdoc}
      *
@@ -40,8 +38,6 @@ trait ObjectTrait
     {
         return spl_object_hash($this);
     }
-
-    // </editor-fold>
 
     // <editor-fold desc="Magic methods" defaultstate="collapsed">
 

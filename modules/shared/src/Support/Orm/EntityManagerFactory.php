@@ -16,8 +16,6 @@ use Psr\Container\ContainerInterface;
  */
 final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\FactoryInterface
 {
-    // <editor-fold desc="FactoryInterface implementation">
-
     /**
      * {@inheritdoc}
      *
@@ -31,7 +29,7 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
     public function __invoke(ContainerInterface $container = null, $requestedName = null, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get(M1_VARS);
+            $options = $container->get('config');
         }
 
         $entityManager = ORM\EntityManager::create(
@@ -48,8 +46,6 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
 
         return $entityManager;
     }
-
-    // </editor-fold>
 
     /**
      * @param   array $dbal The DBAL config.

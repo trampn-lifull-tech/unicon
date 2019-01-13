@@ -30,7 +30,7 @@ class ApiController extends LaravelResourceController
         ];
 
         $configResources = array_merge(
-            // glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
+        // glob($basePath . '/modules/core/src/*/config.yml', GLOB_NOSORT),
             glob($basePath . '/modules/app/*/config.yml', GLOB_NOSORT),
             [$basePath . '/modules/config.yml']
         );
@@ -71,13 +71,18 @@ class ApiController extends LaravelResourceController
         $container = $this->getContainer();
         $container->set(M1_VARS, $vars);
 
-//        $entityManager = new \Chaos\Support\Orm\EntityManagerFactory;
-//        $container->set(DOCTRINE_ENTITY_MANAGER, $entityManager($container, null, $vars->getContent()));
+        if (!empty($services = func_get_args())) {
+            foreach ($services as $service) {
+                /**
+                 * @var \Chaos\Service\ServiceHandler $service
+                 * @var \Chaos\Repository\DoctrineRepository $repository
+                 */
+                $repository = $service($container, $vars)->repository;
 
-        foreach (func_get_args() as $service) {
-            /** @var \Chaos\Service\ServiceHandler $service */
-            $service($container, $vars);
-            $container->set($service->getClass(), $this);
+                if (isset($repository)) {
+                    $repository($container, $vars);
+                }
+            }
         }
 
         // </editor-fold>

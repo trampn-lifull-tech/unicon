@@ -10,8 +10,6 @@ use M1\Vars\Vars;
  */
 trait ConfigAware // implements IConfigAware
 {
-    // <editor-fold desc="IConfigAware implementation">
-
     /**
      * @JMS\Serializer\Annotation\Exclude()
      */
@@ -58,6 +56,4 @@ trait ConfigAware // implements IConfigAware
 
         return $this;
     }
-
-    // </editor-fold>
 }

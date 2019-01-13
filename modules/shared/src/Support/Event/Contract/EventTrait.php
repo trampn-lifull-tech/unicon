@@ -22,8 +22,7 @@ trait EventTrait
             if (is_array($eventArgs)) {
                 try {
                     $eventArgs = reflect(array_shift($eventArgs))->newInstanceArgs($eventArgs);
-                }
-                catch (\ReflectionException $ex) {
+                } catch (\ReflectionException $ex) {
                     //
                 }
             }

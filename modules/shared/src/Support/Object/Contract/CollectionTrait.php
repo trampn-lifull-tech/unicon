@@ -8,10 +8,8 @@ namespace Chaos\Support\Object\Contract;
  *
  * @property-read array $storage
  */
-trait CollectionTrait
+trait CollectionTrait // implements ICollection
 {
-    // <editor-fold desc="ICollection implementation">
-
     /**
      * {@inheritdoc}
      *
@@ -314,6 +312,4 @@ trait CollectionTrait
     {
         return array_slice($this->storage, $offset, $length, $preserveKeys);
     }
-
-    // </editor-fold>
 }

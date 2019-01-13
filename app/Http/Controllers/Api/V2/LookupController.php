@@ -15,12 +15,12 @@ class LookupController extends ApiController
     /**
      * GET /api/v2/lookup
      *
-     * @param   \Chaos\Module\Lookup\Service\LookupService $lookupService
-     * @param   \Chaos\Module\Dashboard\Service\DashboardService $dashboardService
+     * @param   LookupService $lookupService
+     * @param   DashboardService $dashboardService
      */
     public function __construct(LookupService $lookupService, DashboardService $dashboardService)
     {
-        parent::__construct($this->service = $lookupService, $dashboardService);
+        parent::__construct($this->service = $lookupService, $this->dashboardService = $dashboardService);
     }
 
     /**
@@ -31,9 +31,8 @@ class LookupController extends ApiController
     public function index()
     {
         var_dump(
-            $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'),
+            $this->dashboardService,
             $this->service,
-//            $this->service->repository,
 
             $this->filter('15/39/2014', true),
             $this->filter('10/29/2014', true),
@@ -43,6 +42,7 @@ class LookupController extends ApiController
             $this->getPagerParams($this->getRequest(null, false)),
             $this->getRequest(),
 
+            json_encode($this->service->repository->getVars()->getContent()),
             json_encode($this->getContainer()->get(M1_VARS)->getContent())
 //            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER))
         );

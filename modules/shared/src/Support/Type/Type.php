@@ -14,7 +14,7 @@ class Type
 {
 //    use ConfigAwareTrait;
 
-    // <editor-fold desc="PREDEFINED CONSTANTS" defaultstate="collapsed">
+    // <editor-fold desc="Predefined constants" defaultstate="collapsed">
 
     // Common types
     const ARRAY_TYPE = 'array';
@@ -196,7 +196,7 @@ class Type
         return isset(self::$typesMap[$name]) || in_array($name, self::$typesMap, true);
     }
 
-    // <editor-fold desc="MAGIC METHODS" defaultstate="collapsed">
+    // <editor-fold desc="Magic methods" defaultstate="collapsed">
 
     /**
      * @return  string

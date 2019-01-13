@@ -3,7 +3,6 @@
 namespace Chaos\Support\Contract;
 
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
@@ -13,8 +12,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 trait ContainerAware // implements IContainerAware
 {
-    // <editor-fold desc="IContainerAware implementation">
-
     /**
      * @JMS\Serializer\Annotation\Exclude()
      */
@@ -23,7 +20,7 @@ trait ContainerAware // implements IContainerAware
     /**
      * {@inheritdoc}
      *
-     * @return  ContainerBuilder|\Symfony\Component\DependencyInjection\ContainerInterface
+     * @return  ContainerBuilderAdapter|\Symfony\Component\DependencyInjection\ContainerInterface
      */
     public function getContainer()
     {
@@ -34,17 +31,17 @@ trait ContainerAware // implements IContainerAware
      * {@inheritdoc}
      *
      * @param   object|array $container Either be an array holding the paths to the service files
-     *          or a <tt>ContainerBuilder</tt> instance.
+     *          or a <tt>ContainerBuilderAdapter</tt> instance.
      * @return  static
      */
     public function setContainer($container)
     {
         if (empty($container)) {
-            $container = new ContainerBuilder;
+            $container = new ContainerBuilderAdapter;
         } else if (!$container instanceof ContainerInterface) {
             try {
                 $paths = $container;
-                $container = new ContainerBuilder;
+                $container = new ContainerBuilderAdapter;
                 $loader = new YamlFileLoader($container, new FileLocator($paths));
 
                 foreach ($paths as $resource) {
@@ -54,7 +51,7 @@ trait ContainerAware // implements IContainerAware
                 // https://symfony.com/doc/master/components/dependency_injection/compilation.html
                 // $container->compile();
             } catch (\Exception $ex) {
-                $container = new ContainerBuilder;
+                $container = new ContainerBuilderAdapter;
             }
         }
 
@@ -62,6 +59,4 @@ trait ContainerAware // implements IContainerAware
 
         return $this;
     }
-
-    // </editor-fold>
 }

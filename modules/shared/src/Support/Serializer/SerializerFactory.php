@@ -28,7 +28,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
     public function __invoke(ContainerInterface $container, $requestedName = null, array $options = null)
     {
         if (empty($options)) {
-            $options = $container->get(M1_VARS);
+            $options = $container->get('config');
         }
 
         $serializer = SerializerBuilder::create()

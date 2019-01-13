@@ -5,9 +5,9 @@ namespace Chaos\Service;
 use Chaos\Support\Constant\EventType;
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Contract\InitializerAware;
 use Chaos\Support\Event;
 use Chaos\Support\Object\Contract\ObjectTrait;
-use Psr\Container\ContainerInterface;
 use Zend\Filter\StaticFilter;
 
 /**
@@ -15,30 +15,9 @@ use Zend\Filter\StaticFilter;
  * @author ntd1712
  */
 abstract class ServiceHandler implements Contract\IServiceHandler
-    // , \Zend\ServiceManager\Initializer\InitializerInterface
 {
-    use ConfigAware, ContainerAware, ObjectTrait,
-        Event\Contract\EventTrait;
-
-    // <editor-fold desc="InitializerInterface implementation" defaultstate="collapsed">
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param   \Psr\Container\ContainerInterface $container The container object.
-     * @param   object $instance [optional]
-     * @return  static
-     */
-    public function __invoke(ContainerInterface $container, $instance = null)
-    {
-        return $this
-            ->setContainer($container)
-            ->setVars($instance ?? $container->get(M1_VARS));
-    }
-
-    // </editor-fold>
-
-    // <editor-fold desc="IServiceHandler implementation">
+    use ConfigAware, ContainerAware, InitializerAware,
+        ObjectTrait, Event\Contract\EventTrait;
 
     /**
      * {@inheritdoc}
@@ -267,6 +246,4 @@ abstract class ServiceHandler implements Contract\IServiceHandler
             throw $ex;
         }
     }
-
-    // </editor-fold>
 }

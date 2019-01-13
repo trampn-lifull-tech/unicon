@@ -12,8 +12,6 @@ class Model extends \stdClass implements Contract\IModel
 {
     use Contract\ObjectTrait;
 
-    // <editor-fold desc="IModel implementation">
-
     /**
      * {@inheritdoc}
      *
@@ -23,8 +21,6 @@ class Model extends \stdClass implements Contract\IModel
     {
         return get_object_vars($this);
     }
-
-    // </editor-fold>
 
     // <editor-fold desc="Magic methods" defaultstate="collapsed">
 

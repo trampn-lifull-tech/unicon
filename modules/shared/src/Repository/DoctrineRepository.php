@@ -5,10 +5,11 @@ namespace Chaos\Repository;
 use Chaos\Support\Contract\ConfigAware;
 use Chaos\Support\Contract\ContainerAware;
 use Chaos\Support\Object\Contract\ObjectTrait;
+use Chaos\Support\Orm\EntityManagerFactory;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class DoctrineRepository
@@ -24,10 +25,35 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * @method Contract\IRepository flush()
  * @method Contract\IRepository close()
  */
-abstract class DoctrineRepository extends EntityRepository implements Contract\IRepository
+abstract class DoctrineRepository /*extends EntityRepository*/ implements Contract\IRepository
+    // , \Zend\ServiceManager\Initializer\InitializerInterface
 {
-    use ConfigAware, ContainerAware, ObjectTrait,
-        Contract\DoctrineRepositoryTrait;
+    use ConfigAware, ContainerAware,
+        ObjectTrait, Contract\DoctrineRepositoryTrait;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param   \Symfony\Component\DependencyInjection\ContainerInterface $container The container object.
+     * @param   object $instance [optional]
+     * @return  static
+     * @throws
+     */
+    public function __invoke(ContainerInterface $container, $instance = null)
+    {
+        if (empty($instance)) {
+            $instance = $container->get(M1_VARS);
+        }
+
+        $this->_em = (new EntityManagerFactory)($container, null, $instance->getContent());
+        $container->set(DOCTRINE_ENTITY_MANAGER, $this->_em);
+        $container->set($this->getClass(), $this);
+
+        $this->setContainer($container);
+        $this->setVars($instance);
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}

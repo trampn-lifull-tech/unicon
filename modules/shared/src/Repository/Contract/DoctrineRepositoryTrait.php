@@ -15,7 +15,7 @@ use Zend\Db\Sql\Select;
  * Class DoctrineRepositoryTrait
  * @author ntd1712
  *
- * @property-read \Doctrine\ORM\EntityManager $_em
+ * @property \Doctrine\ORM\EntityManager $_em
  */
 trait DoctrineRepositoryTrait
 {

@@ -2,6 +2,7 @@
 
 namespace Chaos\Module\Dashboard\Service;
 
+use Chaos\Module\Dashboard\Repository\DashboardRepository;
 use Chaos\Service\ServiceHandler;
 
 /**
@@ -10,5 +11,11 @@ use Chaos\Service\ServiceHandler;
  */
 class DashboardService extends ServiceHandler
 {
-    //
+    /**
+     * @param   DashboardRepository $dashboardRepository
+     */
+    public function __construct(DashboardRepository $dashboardRepository)
+    {
+        $this->repository = $dashboardRepository;
+    }
 }
