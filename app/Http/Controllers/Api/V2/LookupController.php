@@ -31,7 +31,6 @@ class LookupController extends ApiController
     public function index()
     {
         var_dump(
-            $this->dashboardService,
             $this->service,
 
             $this->filter('15/39/2014', true),
@@ -42,17 +41,17 @@ class LookupController extends ApiController
             $this->getPagerParams($this->getRequest(null, false)),
             $this->getRequest(),
 
-            json_encode($this->service->repository->getVars()->getContent()),
-            json_encode($this->getContainer()->get(M1_VARS)->getContent())
-//            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER))
+            json_encode($this->getContainer()->get(M1_VARS)->getContent()),
+            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER))
         );
 
         echo '<pre>';
         var_export($this->service->getVars()->getContent());
         echo '<br><br>';
 
-        $this->service->getVars()->set('test_config', 'lookupService');
+        $this->service->repository->getVars()->set('test_config', 'lookupService');
         var_export($this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService')->getVars()->getContent());
+        var_dump($this->dashboardService === $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'));
         echo '<br><br>';
 
         return [
