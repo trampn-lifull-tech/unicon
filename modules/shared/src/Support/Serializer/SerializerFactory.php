@@ -2,6 +2,7 @@
 
 namespace Chaos\Support\Serializer;
 
+use Interop\Container\ContainerInterface;
 use JMS\Serializer\Construction;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Expression\ExpressionEvaluator;
@@ -9,7 +10,6 @@ use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Naming;
 use JMS\Serializer\SerializerBuilder;
 use Metadata\Cache\DoctrineCacheAdapter;
-use Psr\Container\ContainerInterface;
 
 /**
  * Class SerializerFactory
@@ -20,7 +20,7 @@ final class SerializerFactory // implements \Zend\ServiceManager\Factory\Factory
     /**
      * {@inheritdoc}
      *
-     * @param   \Psr\Container\ContainerInterface $container The container object.
+     * @param   \Interop\Container\ContainerInterface $container The container object.
      * @param   string $requestedName [optional]
      * @param   null|array $options [optional]
      * @return  \JMS\Serializer\Serializer|\JMS\Serializer\SerializerInterface

@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\Mapping\Driver as PHPDriver;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM;
 use Doctrine\ORM\Mapping\Driver;
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 
 /**
  * Class EntityManagerFactory
@@ -19,7 +19,7 @@ final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\Fact
     /**
      * {@inheritdoc}
      *
-     * @param   \Psr\Container\ContainerInterface $container The container object.
+     * @param   \Interop\Container\ContainerInterface $container The container object.
      * @param   string $requestedName [optional]
      * @param   null|array $options [optional]
      * @return  \Doctrine\ORM\EntityManager|\Doctrine\ORM\EntityManagerInterface

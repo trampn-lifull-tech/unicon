@@ -1,7 +1,6 @@
 <?php
 
 define('DOCTRINE_ENTITY_MANAGER', 'Doctrine\ORM\EntityManager');
-define('M1_VARS', 'M1\Vars\Vars');
 
 define('CHAOS_MAX_ROWS_PER_QUERY', 100);
 define('CHAOS_QUERY_LIMIT', 10);

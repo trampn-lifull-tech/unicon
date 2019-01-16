@@ -2,9 +2,10 @@
 
 namespace Chaos\Repository\Contract;
 
-use Chaos\Support\Contract\IConfigAware;
-use Chaos\Support\Contract\IContainerAware;
+use Chaos\Support\Config\Contract\IVarsAware;
+use Chaos\Support\Container\Contract\IContainerAware;
 use Chaos\Support\Object\Contract\IObject;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 
 /**
  * Interface IRepository
@@ -25,7 +26,7 @@ use Chaos\Support\Object\Contract\IObject;
  * @method IRepository flush() Flushes all changes to objects that have been queued up to now to the database.
  * @method IRepository close() Closes the connection.
  */
-interface IRepository extends IConfigAware, IContainerAware, IObject
+interface IRepository extends IContainerAware, IVarsAware, IObject, InitializerInterface
 {
     /**
      * The default `paginate` method, you can override this in the derived class.

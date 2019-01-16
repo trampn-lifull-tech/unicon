@@ -1,9 +1,9 @@
 <?php
 
-namespace Chaos\Support\Contract;
+namespace Chaos\Support\Container\Contract;
 
+use Chaos\Support\Container\Container;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -20,7 +20,7 @@ trait ContainerAware // implements IContainerAware
     /**
      * {@inheritdoc}
      *
-     * @return  ContainerBuilderAdapter|\Symfony\Component\DependencyInjection\ContainerInterface
+     * @return  Container|\Chaos\Support\Container\Contract\IContainer
      */
     public function getContainer()
     {
@@ -30,18 +30,18 @@ trait ContainerAware // implements IContainerAware
     /**
      * {@inheritdoc}
      *
-     * @param   object|array $container Either be an array holding the paths to the service files
-     *          or a <tt>ContainerBuilderAdapter</tt> instance.
+     * @param   object|array $container Either be an array holding the paths to the resource files
+     *          or a <tt>IContainer</tt> instance.
      * @return  static
      */
     public function setContainer($container)
     {
         if (empty($container)) {
-            $container = new ContainerBuilderAdapter;
-        } else if (!$container instanceof ContainerInterface) {
+            $container = new Container;
+        } else if (!$container instanceof IContainer) {
             try {
                 $paths = $container;
-                $container = new ContainerBuilderAdapter;
+                $container = new Container;
                 $loader = new YamlFileLoader($container, new FileLocator($paths));
 
                 foreach ($paths as $resource) {
@@ -51,7 +51,7 @@ trait ContainerAware // implements IContainerAware
                 // https://symfony.com/doc/master/components/dependency_injection/compilation.html
                 // $container->compile();
             } catch (\Exception $ex) {
-                $container = new ContainerBuilderAdapter;
+                $container = new Container;
             }
         }
 

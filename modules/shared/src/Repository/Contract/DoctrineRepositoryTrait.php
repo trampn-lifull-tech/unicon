@@ -407,7 +407,7 @@ trait DoctrineRepositoryTrait
                                 $parts = explode('.', $format);
 
                                 try {
-                                    /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
+                                    /** @var \Chaos\Support\Container\Contract\IContainer $container */
                                     $container = $this->getContainer();
 
                                     if (!$container->has($parts[0])

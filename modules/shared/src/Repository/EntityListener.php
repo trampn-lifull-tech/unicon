@@ -2,7 +2,7 @@
 
 namespace Chaos\Repository;
 
-use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Container\Contract\ContainerAware;
 
 /**
  * Class EntityListener
@@ -26,7 +26,7 @@ abstract class EntityListener implements Contract\IEntityListener
     {
         $entity->setContainer($this->getContainer());
         $entity->getContainer()
-            ->get(M1_VARS)
+            ->get('config')
             ->set($entity->getClass(), $eventArgs->getEntityManager()->getUnitOfWork()->getEntityIdentifier($entity));
     }
 }

@@ -20,6 +20,18 @@ class ApiController extends LaravelResourceController
      */
     public function __construct()
     {
+        // <editor-fold desc="Initializes service container" defaultstate="collapsed">
+
+//        $containerResources = array_merge(
+//            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
+//            glob($basePath . '/modules/app/*/services.yml', GLOB_NOSORT)
+//        );
+        $containerResources = [];
+
+        $this->setContainer($containerResources);
+
+        // </editor-fold>
+
         // <editor-fold desc="Initializes config loader" defaultstate="collapsed">
 
         $basePath = base_path();
@@ -53,29 +65,17 @@ class ApiController extends LaravelResourceController
 
         // </editor-fold>
 
-        // <editor-fold desc="Initializes service container" defaultstate="collapsed">
-
-//        $containerResources = array_merge(
-//            glob($basePath . '/modules/core/src/*/services.yml', GLOB_NOSORT),
-//            glob($basePath . '/modules/app/*/services.yml', GLOB_NOSORT)
-//        );
-        $containerResources = [];
-
-        $this->setContainer($containerResources);
-
-        // </editor-fold>
-
-        // <editor-fold desc="Initializes services" defaultstate="collapsed">
+        // <editor-fold desc="Initializes services">
 
         $vars = $this->getVars();
         $container = $this->getContainer();
-        $container->set(M1_VARS, $vars);
+        $container->set('config', $vars);
 
         if (!empty($services = func_get_args())) {
             foreach ($services as $service) {
                 /**
-                 * @var \Chaos\Service\ServiceHandler $service
-                 * @var \Chaos\Repository\DoctrineRepository $repository
+                 * @var \Chaos\Service\Contract\IServiceHandler $service
+                 * @var \Chaos\Repository\Contract\IRepository $repository
                  */
                 $repository = $service($container, $vars)->repository;
 

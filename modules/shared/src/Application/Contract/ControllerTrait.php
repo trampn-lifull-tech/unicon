@@ -212,7 +212,7 @@ trait ControllerTrait
             return '';
         }
 
-        /** @var \M1\Vars\Vars $vars */
+        /** @var \Chaos\Support\Config\Contract\Ivars $vars */
         $vars = $this->getVars();
         $value = trim($value);
 
@@ -251,7 +251,7 @@ trait ControllerTrait
             $predicate = new Predicate;
         }
 
-        /** @var \M1\Vars\Vars $vars */
+        /** @var \Chaos\Support\Config\Contract\Ivars $vars */
         $vars = $this->getVars();
 
         if (is_array($binds)) {

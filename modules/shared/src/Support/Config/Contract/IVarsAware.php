@@ -1,17 +1,17 @@
 <?php
 
-namespace Chaos\Support\Contract;
+namespace Chaos\Support\Config\Contract;
 
 /**
- * Interface IConfigAware
+ * Interface IVarsAware
  * @author ntd1712
  */
-interface IConfigAware
+interface IVarsAware
 {
     /**
-     * Gets a reference to the configuration object. The object returned will be of type <tt>Vars</tt>.
+     * Gets a reference to the configuration object. The object returned will be of type <tt>IVars</tt>.
      *
-     * @return  \M1\Vars\Vars
+     * @return  \Chaos\Support\Config\Contract\IVars
      */
     public function getVars();
 
@@ -37,9 +37,9 @@ interface IConfigAware
      * $this->setVars([]);
      * </code>
      *
-     * @param   object|array $config Either be an array holding the paths to the config files
-     *          or a <tt>Vars</tt> instance.
+     * @param   object|array $vars Either be an array holding the paths to the resource files
+     *          or a <tt>IVars</tt> instance.
      * @return  static
      */
-    public function setVars($config);
+    public function setVars($vars);
 }

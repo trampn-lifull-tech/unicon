@@ -2,9 +2,10 @@
 
 namespace Chaos\Service\Contract;
 
-use Chaos\Support\Contract\IConfigAware;
-use Chaos\Support\Contract\IContainerAware;
+use Chaos\Support\Config\Contract\IVarsAware;
+use Chaos\Support\Container\Contract\IContainerAware;
 use Chaos\Support\Object\Contract\IObject;
+use Zend\ServiceManager\Initializer\InitializerInterface;
 
 /**
  * Interface IServiceHandler
@@ -12,7 +13,7 @@ use Chaos\Support\Object\Contract\IObject;
  *
  * @property \Chaos\Repository\Contract\IRepository $repository
  */
-interface IServiceHandler extends IConfigAware, IContainerAware, IObject
+interface IServiceHandler extends IContainerAware, IVarsAware, IObject, InitializerInterface
 {
     /**
      * The default `readAll` method, you can override this in the derived class.

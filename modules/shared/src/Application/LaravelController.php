@@ -2,8 +2,8 @@
 
 namespace Chaos\Application;
 
-use Chaos\Support\Contract\ConfigAware;
-use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Config\Contract\VarsAware;
+use Chaos\Support\Container\Contract\ContainerAware;
 use Illuminate\Routing\Controller;
 use Ramsey\Uuid\Uuid;
 
@@ -15,7 +15,8 @@ use Ramsey\Uuid\Uuid;
  */
 abstract class LaravelController extends Controller
 {
-    use ConfigAware, ContainerAware, Contract\ControllerTrait;
+    use ContainerAware, VarsAware,
+        Contract\ControllerTrait;
 
     /**
      * Either gets a query value or all of the input and files.

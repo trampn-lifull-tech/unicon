@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Support\Contract;
+namespace Chaos\Support\Container\Contract;
 
 /**
  * Interface IContainerAware
@@ -9,9 +9,9 @@ namespace Chaos\Support\Contract;
 interface IContainerAware
 {
     /**
-     * Gets a reference to the container object. The object returned will be of type <tt>ContainerInterface</tt>.
+     * Gets a reference to the container object. The object returned will be of type <tt>IContainer</tt>.
      *
-     * @return  \Symfony\Component\DependencyInjection\ContainerInterface
+     * @return  \Chaos\Support\Container\Contract\IContainer
      */
     public function getContainer();
 
@@ -26,8 +26,8 @@ interface IContainerAware
      * $this->setContainer([]);
      * </code>
      *
-     * @param   object|array $container Either be an array holding the paths to the service files
-     *          or a <tt>ContainerBuilder</tt> instance.
+     * @param   object|array $container Either be an array holding the paths to the resource files
+     *          or a <tt>IContainer</tt> instance.
      * @return  static
      */
     public function setContainer($container);

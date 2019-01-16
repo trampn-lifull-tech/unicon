@@ -40,7 +40,7 @@ trait RepositoryAware
             $repositoryName = $name;
         }
 
-        /** @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
+        /** @var \Psr\Container\ContainerInterface $container */
         $container = $this->getContainer();
         $vars = $this->getVars();
 

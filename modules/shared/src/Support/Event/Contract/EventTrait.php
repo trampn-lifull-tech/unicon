@@ -5,6 +5,8 @@ namespace Chaos\Support\Event\Contract;
 /**
  * Trait EventTrait
  * @author ntd1712
+ *
+ * TODO
  */
 trait EventTrait
 {

@@ -2,14 +2,14 @@
 
 namespace Chaos\Repository;
 
-use Chaos\Support\Contract\ConfigAware;
-use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Config\Contract\VarsAware;
+use Chaos\Support\Container\Contract\ContainerAware;
 use Chaos\Support\Object\Contract\ObjectTrait;
 use Chaos\Support\Orm\EntityManagerFactory;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Interop\Container\ContainerInterface;
 
 /**
  * Class DoctrineRepository
@@ -26,31 +26,29 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @method Contract\IRepository close()
  */
 abstract class DoctrineRepository /*extends EntityRepository*/ implements Contract\IRepository
-    // , \Zend\ServiceManager\Initializer\InitializerInterface
 {
-    use ConfigAware, ContainerAware,
+    use ContainerAware, VarsAware,
         ObjectTrait, Contract\DoctrineRepositoryTrait;
 
     /**
      * {@inheritdoc}
      *
-     * @param   \Symfony\Component\DependencyInjection\ContainerInterface $container The container object.
+     * @param   \Interop\Container\ContainerInterface $container The container object.
      * @param   object $instance [optional]
      * @return  static
      * @throws
      */
     public function __invoke(ContainerInterface $container, $instance = null)
     {
-        if (empty($instance)) {
-            $instance = $container->get(M1_VARS);
-        }
-
-        $this->_em = (new EntityManagerFactory)($container, null, $instance->getContent());
-        $container->set(DOCTRINE_ENTITY_MANAGER, $this->_em);
-        $container->set($this->getClass(), $this);
-
         $this->setContainer($container);
-        $this->setVars($instance);
+        $container = $this->getContainer();
+
+        $this->setVars($instance ?? $container->get('config'));
+        $vars = $this->getVars();
+
+        $this->_em = (new EntityManagerFactory)($container, null, $vars->getContent());
+        $container->set('em', $this->_em);
+        $container->set($this->getClass(), $this);
 
         return $this;
     }

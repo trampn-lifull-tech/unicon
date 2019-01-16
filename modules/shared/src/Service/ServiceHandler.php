@@ -2,22 +2,45 @@
 
 namespace Chaos\Service;
 
+use Chaos\Support\Config\Contract\VarsAware;
 use Chaos\Support\Constant\EventType;
-use Chaos\Support\Contract\ConfigAware;
-use Chaos\Support\Contract\ContainerAware;
-use Chaos\Support\Contract\InitializerAware;
+use Chaos\Support\Container\Contract\ContainerAware;
 use Chaos\Support\Event;
 use Chaos\Support\Object\Contract\ObjectTrait;
+use Interop\Container\ContainerInterface;
 use Zend\Filter\StaticFilter;
 
 /**
  * Class ServiceHandler
  * @author ntd1712
+ *
+ * TODO
  */
 abstract class ServiceHandler implements Contract\IServiceHandler
 {
-    use ConfigAware, ContainerAware, InitializerAware,
+    use ContainerAware, VarsAware,
         ObjectTrait, Event\Contract\EventTrait;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param   \Interop\Container\ContainerInterface $container The container object.
+     * @param   object $instance [optional]
+     * @return  static
+     * @throws
+     */
+    public function __invoke(ContainerInterface $container, $instance = null)
+    {
+        $this->setContainer($container);
+        $container = $this->getContainer();
+
+        $this->setVars($instance ?? $container->get('config'));
+        // $vars = $this->getVars();
+
+        $container->set($this->getClass(), $this);
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}

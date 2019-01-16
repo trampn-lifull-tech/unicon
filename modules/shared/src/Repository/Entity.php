@@ -2,7 +2,7 @@
 
 namespace Chaos\Repository;
 
-use Chaos\Support\Contract\ContainerAware;
+use Chaos\Support\Container\Contract\ContainerAware;
 use Chaos\Support\Object\Model;
 
 /**

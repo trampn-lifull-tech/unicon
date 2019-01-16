@@ -30,32 +30,31 @@ class LookupController extends ApiController
      */
     public function index()
     {
+        echo '<pre>';
         var_dump(
-            $this->service,
-
-            $this->filter('15/39/2014', true),
-            $this->filter('10/29/2014', true),
-            $this->filter('10/29/2014', 86399),
-
+            $this->getRequest(),
             $this->getFilterParams($this->getRequest(null, false)),
             $this->getPagerParams($this->getRequest(null, false)),
-            $this->getRequest(),
 
-            json_encode($this->getContainer()->get(M1_VARS)->getContent()),
-            serialize($this->getContainer()->get(DOCTRINE_ENTITY_MANAGER))
+            $this->filter('1/39/2019', true),
+            $this->filter('1/29/2019', true),
+            $this->filter('1/29/2019', 86399)
         );
 
-        echo '<pre>';
-        var_export($this->service->getVars()->getContent());
-        echo '<br><br>';
+        var_dump(
+            $this->service,
+            $this->dashboardService === ($dashboardService = $this->service->test()),
+            $this->dashboardService->getVars() === $dashboardService->getVars()
+        );
 
-        $this->service->repository->getVars()->set('test_config', 'lookupService');
+        $this->service->repository->getVars()->set('test_config', __FUNCTION__);
         var_export($this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService')->getVars()->getContent());
-        var_dump($this->dashboardService === $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'));
         echo '<br><br>';
 
         return [
-            'data' => __FUNCTION__
+            'data' => __METHOD__
         ];
     }
+
+    private $dashboardService;
 }
