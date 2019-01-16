@@ -9,12 +9,13 @@ use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM;
 use Doctrine\ORM\Mapping\Driver;
 use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Class EntityManagerFactory
  * @author ntd1712
  */
-final class EntityManagerFactory // implements \Zend\ServiceManager\Factory\FactoryInterface
+final class EntityManagerFactory implements FactoryInterface
 {
     /**
      * {@inheritdoc}

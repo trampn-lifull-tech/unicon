@@ -35,7 +35,7 @@ class ApiController extends LaravelResourceController
         // <editor-fold desc="Initializes config loader" defaultstate="collapsed">
 
         $basePath = base_path();
-        $config = config();
+        $config = app('config');
         $config = [
             'app' => $config->get('app'),
             'session' => $config->get('session')

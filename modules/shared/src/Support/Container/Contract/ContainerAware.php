@@ -48,8 +48,7 @@ trait ContainerAware // implements IContainerAware
                     $loader->load($resource);
                 }
 
-                // https://symfony.com/doc/master/components/dependency_injection/compilation.html
-                // $container->compile();
+                 $container->compile();
             } catch (\Exception $ex) {
                 $container = new Container;
             }

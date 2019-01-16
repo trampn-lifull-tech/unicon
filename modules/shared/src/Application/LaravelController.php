@@ -5,7 +5,7 @@ namespace Chaos\Application;
 use Chaos\Support\Config\Contract\VarsAware;
 use Chaos\Support\Container\Contract\ContainerAware;
 use Illuminate\Routing\Controller;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 /**
  * Class LaravelController
@@ -43,12 +43,7 @@ abstract class LaravelController extends Controller
             $params['UpdatedBy'] = $this->getSession('loggedName', null, $request->getSession());
             $params['NotUse'] = 'false';
             $params['ApplicationKey'] = $this->getVars()->get('app.key');
-
-            try {
-                $params['Guid'] = Uuid::uuid4()->toString();
-            } catch (\Exception $ex) {
-                //
-            }
+            $params['Guid'] = Str::orderedUuid()->toString();
         }
 
         return $params;

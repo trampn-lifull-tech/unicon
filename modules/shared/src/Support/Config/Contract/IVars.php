@@ -41,14 +41,6 @@ interface IVars extends \ArrayAccess
     public function setContent($content);
 
     /**
-     * Converts the array into a flat dot notation array.
-     *
-     * @param   bool $flatten_array Flatten arrays into none existent keys.
-     * @return  array The dot notation array.
-     */
-    public function toDots($flatten_array = true);
-
-    /**
      * Makes it so the content is available in getenv()
      *
      * @return  void

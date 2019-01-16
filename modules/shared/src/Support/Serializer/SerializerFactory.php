@@ -10,12 +10,13 @@ use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Naming;
 use JMS\Serializer\SerializerBuilder;
 use Metadata\Cache\DoctrineCacheAdapter;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Class SerializerFactory
  * @author ntd1712
  */
-final class SerializerFactory // implements \Zend\ServiceManager\Factory\FactoryInterface
+final class SerializerFactory implements FactoryInterface
 {
     /**
      * {@inheritdoc}
