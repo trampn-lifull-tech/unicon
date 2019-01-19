@@ -23,7 +23,7 @@ if (!function_exists('isJson')) {
     {
         $json = @call_user_func_array('json_decode', func_get_args());
 
-        return JSON_ERROR_NONE === json_last_error() ? $json : false;
+        return json_last_error() ? false : $json;
     }
 }
 

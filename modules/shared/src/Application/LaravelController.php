@@ -43,7 +43,7 @@ abstract class LaravelController extends Controller
             $params['UpdatedBy'] = $this->getSession('loggedName', null, $request->getSession());
             $params['NotUse'] = 'false';
             $params['ApplicationKey'] = $this->getVars()->get('app.key');
-            $params['Guid'] = Str::orderedUuid()->toString();
+            $params['Guid'] = Str::uuid()->toString();
         }
 
         return $params;

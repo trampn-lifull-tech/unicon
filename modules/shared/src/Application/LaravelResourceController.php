@@ -19,7 +19,10 @@ abstract class LaravelResourceController extends LaravelController
     public function index()
     {
         return $this->service->readAll(
-            $this->getFilterParams($request = $this->getRequest(null, false), $this->service->repository->fields),
+            $this->getOrderParams(
+                $request = $this->getRequest(null, false),
+                $this->getFilterParams($request, $this->service->repository->fields)
+            ),
             $this->getPagerParams($request)
         );
     }
@@ -43,7 +46,7 @@ abstract class LaravelResourceController extends LaravelController
      * Stores a newly created resource in storage.
      * This is the default `store` action, you can override this in the derived class.
      *
-     * @param   \Illuminate\Http\Request $request
+     * @param   \Illuminate\Http\Request $request The request.
      * @return  array|\Illuminate\Http\Response
      */
     public function store($request)
@@ -85,7 +88,7 @@ abstract class LaravelResourceController extends LaravelController
      * Updates the specified resource in storage.
      * This is the default `update` action, you can override this in the derived class.
      *
-     * @param   \Illuminate\Http\Request $request
+     * @param   \Illuminate\Http\Request $request The request.
      * @param   mixed $id The route parameter ID.
      * @return  array|\Illuminate\Http\Response
      */

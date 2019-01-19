@@ -33,8 +33,11 @@ class LookupController extends ApiController
         echo '<pre>';
         var_dump(
             $this->getRequest(),
-            $this->getFilterParams($this->getRequest(null, false)),
-            $this->getPagerParams($this->getRequest(null, false)),
+            $this->getOrderParams(
+                $request = $this->getRequest(null, false),
+                $this->getFilterParams($request)
+            ),
+            $this->getPagerParams($request),
 
             $this->filter('1/39/2019', true),
             $this->filter('1/29/2019', true),

@@ -91,7 +91,7 @@ trait ControllerTrait
             }
         }
 
-        return $this->getOrderParams($request, $binds);
+        return $binds;
     }
 
     /**
@@ -212,7 +212,7 @@ trait ControllerTrait
             return '';
         }
 
-        /** @var \Chaos\Support\Config\Contract\Ivars $vars */
+        /** @var \Chaos\Support\Config\Contract\IVars $vars */
         $vars = $this->getVars();
         $value = trim($value);
 
@@ -251,7 +251,7 @@ trait ControllerTrait
             $predicate = new Predicate;
         }
 
-        /** @var \Chaos\Support\Config\Contract\Ivars $vars */
+        /** @var \Chaos\Support\Config\Contract\IVars $vars */
         $vars = $this->getVars();
 
         if (is_array($binds)) {
@@ -504,7 +504,7 @@ trait ControllerTrait
             if (!empty($v['nulls']) && PredicateType::has($nulls = 'NULLS ' . strtoupper($v['nulls']))) {
                 $orderSet[$v['property']] .= ' ' . (
                     PredicateType::NULLS_FIRST === $nulls ? PredicateType::NULLS_FIRST : PredicateType::NULLS_LAST
-                    );
+                );
             }
 
             if (CHAOS_QUERY_LIMIT <= ++$count) {
