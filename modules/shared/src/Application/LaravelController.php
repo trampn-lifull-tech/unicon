@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  * Class LaravelController
  * @author ntd1712
  *
- * @property \Chaos\Service\Contract\IServiceHandler $service
+ * @property \Chaos\Service\Contract\ServiceHandlerInterface $service
  */
 abstract class LaravelController extends Controller
 {

@@ -3,10 +3,10 @@
 namespace Chaos\Support\Config\Contract;
 
 /**
- * Interface IVars
+ * Interface VarsInterface
  * @author ntd1712
  */
-interface IVars extends \ArrayAccess
+interface VarsInterface extends \ArrayAccess
 {
     /**
      * Object oriented get access for the array.

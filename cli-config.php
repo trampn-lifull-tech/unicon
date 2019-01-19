@@ -17,6 +17,8 @@ try {
     return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet(
         $entityManager($controller->getContainer(), null, $controller->getVars()->getContent())
     );
+} catch (Interop\Container\Exception\ContainerException $ex) {
+    //
 } catch (Exception $ex) {
     //
 }

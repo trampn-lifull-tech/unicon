@@ -13,7 +13,7 @@ use Chaos\Support\Object\Model;
  *
  * TODO
  */
-class Entity extends Model implements Contract\IEntity
+class Entity extends Model implements Contract\EntityInterface
 {
     use ContainerAware;
 }

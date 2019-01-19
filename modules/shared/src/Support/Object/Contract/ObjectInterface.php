@@ -3,18 +3,18 @@
 namespace Chaos\Support\Object\Contract;
 
 /**
- * Interface IObject
+ * Interface ObjectInterface
  * @author ntd1712
  */
-interface IObject
+interface ObjectInterface
 {
     /**
      * Indicates whether other object is "equal to" this one.
      *
-     * @param   \Chaos\Support\Object\Contract\IObject $other The reference object with which to compare.
+     * @param   \Chaos\Support\Object\Contract\ObjectInterface $other The reference object with which to compare.
      * @return  bool
      */
-    public function equals(IObject $other);
+    public function equals(ObjectInterface $other);
 
     /**
      * Returns the runtime class of this object.

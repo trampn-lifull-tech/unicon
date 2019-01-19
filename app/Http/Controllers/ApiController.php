@@ -74,8 +74,8 @@ class ApiController extends LaravelResourceController
         if (!empty($services = func_get_args())) {
             foreach ($services as $service) {
                 /**
-                 * @var \Chaos\Service\Contract\IServiceHandler $service
-                 * @var \Chaos\Repository\Contract\IRepository $repository
+                 * @var \Chaos\Service\Contract\ServiceHandlerInterface $service
+                 * @var \Chaos\Repository\Contract\RepositoryInterface $repository
                  */
                 $repository = $service($container, $vars)->repository;
 

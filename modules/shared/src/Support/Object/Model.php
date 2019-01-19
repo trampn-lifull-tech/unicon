@@ -8,7 +8,7 @@ namespace Chaos\Support\Object;
  *
  * We use Model to transport Data between Layers.
  */
-class Model extends \stdClass implements Contract\IModel
+class Model extends \stdClass implements Contract\ModelInterface
 {
     use Contract\ObjectTrait;
 

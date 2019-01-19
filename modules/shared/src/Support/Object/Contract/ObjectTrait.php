@@ -6,15 +6,15 @@ namespace Chaos\Support\Object\Contract;
  * Trait ObjectTrait
  * @author ntd1712
  */
-trait ObjectTrait // implements IObject
+trait ObjectTrait // implements ObjectInterface
 {
     /**
      * {@inheritdoc}
      *
-     * @param   \Chaos\Support\Object\Contract\IObject $other The reference object with which to compare.
+     * @param   \Chaos\Support\Object\Contract\ObjectInterface $other The reference object with which to compare.
      * @return  bool
      */
-    public function equals(IObject $other)
+    public function equals(ObjectInterface $other)
     {
         return $this === $other;
     }

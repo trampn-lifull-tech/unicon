@@ -3,10 +3,10 @@
 namespace Chaos\Support\Object\Contract;
 
 /**
- * Interface IModel
+ * Interface ModelInterface
  * @author ntd1712
  */
-interface IModel extends IObject
+interface ModelInterface extends ObjectInterface
 {
     /**
      * Gets the properties of the model object.

@@ -8,7 +8,7 @@ namespace Chaos\Support\Object\Contract;
  *
  * @property-read array $storage
  */
-trait CollectionTrait // implements ICollection
+trait CollectionTrait // implements CollectionInterface
 {
     /**
      * {@inheritdoc}

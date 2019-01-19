@@ -11,7 +11,7 @@ trait ServiceHandlerAware
     private static $vcx79te3 = [];
 
     /**
-     * Gets a reference to the service object. The object returned will be of type <tt>IService</tt>.
+     * Gets a reference to the service object. The object returned will be of type <tt>ServiceHandlerInterface</tt>.
      *
      * <code>
      * $this->getService()->...
@@ -21,7 +21,7 @@ trait ServiceHandlerAware
      *
      * @param   null|string $name The service name.
      * @param   bool $cache [optional] Defaults to TRUE.
-     * @return  \Chaos\Service\Contract\IServiceHandler
+     * @return  \Chaos\Service\Contract\ServiceHandlerInterface
      */
     public function getService($name = null, $cache = true)
     {

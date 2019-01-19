@@ -123,7 +123,7 @@ trait DoctrineRepositoryTrait
                     //          ['from' => 'Role', 'alias' => 'r'],
                     //          ['from' => $this->permissionRepository]
                     //      ]]
-                    if ($v instanceof IRepository) {
+                    if ($v instanceof RepositoryInterface) {
                         $v = [
                             ['from' => $v->getClassName()]
                         ];
@@ -150,7 +150,7 @@ trait DoctrineRepositoryTrait
                             );
                         }
 
-                        if ($from['from'] instanceof IRepository) {
+                        if ($from['from'] instanceof RepositoryInterface) {
                             $from['from'] = $from['from']->getClassName();
                         }
 
@@ -184,7 +184,7 @@ trait DoctrineRepositoryTrait
                     //          $this->getRepository('User'),
                     //          $this->roleRepository
                     //      ]
-                    if ($v instanceof IRepository) {
+                    if ($v instanceof RepositoryInterface) {
                         $v = [$v->className];
                     } else if (is_string($v)) {
                         $v = preg_split(CHAOS_REPLACE_COMMA_SEPARATOR, $v, -1, PREG_SPLIT_NO_EMPTY);
@@ -197,7 +197,7 @@ trait DoctrineRepositoryTrait
                             continue;
                         }
 
-                        if ($select instanceof IRepository) {
+                        if ($select instanceof RepositoryInterface) {
                             $select = $select->className;
                         }
 
@@ -243,7 +243,7 @@ trait DoctrineRepositoryTrait
                             );
                         }
 
-                        if ($join[$type] instanceof IRepository) {
+                        if ($join[$type] instanceof RepositoryInterface) {
                             $join[$type] = $join[$type]->getClassName();
                             // $join['alias'] = $join[$type]->className;
                         }
@@ -407,7 +407,7 @@ trait DoctrineRepositoryTrait
                                 $parts = explode('.', $format);
 
                                 try {
-                                    /** @var \Chaos\Support\Container\Contract\IContainer $container */
+                                    /** @var \Chaos\Support\Container\Contract\ContainerInterface $container */
                                     $container = $this->getContainer();
 
                                     if (!$container->has($parts[0])

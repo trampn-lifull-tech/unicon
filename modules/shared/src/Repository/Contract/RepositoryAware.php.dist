@@ -15,7 +15,7 @@ trait RepositoryAware
     private static $mwnn3h3h = [];
 
     /**
-     * Gets a reference to the repository object. The object returned will be of type <tt>IRepository</tt>.
+     * Gets a reference to the repository object. The object returned will be of type <tt>RepositoryInterface</tt>.
      *
      * <code>
      * $this->getService()->getRepository('User')->...
@@ -25,7 +25,7 @@ trait RepositoryAware
      *
      * @param   null|string $name The repository name.
      * @param   bool $cache [optional] Defaults to TRUE.
-     * @return  \Chaos\Repository\DoctrineRepository|\Chaos\Repository\Contract\IRepository
+     * @return  \Chaos\Repository\Contract\RepositoryInterface
      */
     public function getRepository($name = null, $cache = true)
     {

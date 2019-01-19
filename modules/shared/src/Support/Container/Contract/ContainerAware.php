@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  * Trait ContainerAware
  * @author ntd1712
  */
-trait ContainerAware // implements IContainerAware
+trait ContainerAware // implements ContainerAwareInterface
 {
     /**
      * @JMS\Serializer\Annotation\Exclude()
@@ -20,7 +20,7 @@ trait ContainerAware // implements IContainerAware
     /**
      * {@inheritdoc}
      *
-     * @return  Container|\Chaos\Support\Container\Contract\IContainer
+     * @return  Container|\Chaos\Support\Container\Contract\ContainerInterface
      */
     public function getContainer()
     {
@@ -31,14 +31,14 @@ trait ContainerAware // implements IContainerAware
      * {@inheritdoc}
      *
      * @param   object|array $container Either be an array holding the paths to the resource files
-     *          or a <tt>IContainer</tt> instance.
+     *          or a <tt>ContainerInterface</tt> instance.
      * @return  static
      */
     public function setContainer($container)
     {
         if (empty($container)) {
             $container = new Container;
-        } else if (!$container instanceof IContainer) {
+        } else if (!$container instanceof ContainerInterface) {
             try {
                 $paths = $container;
                 $container = new Container;
@@ -48,7 +48,7 @@ trait ContainerAware // implements IContainerAware
                     $loader->load($resource);
                 }
 
-                 $container->compile();
+                $container->compile();
             } catch (\Exception $ex) {
                 $container = new Container;
             }

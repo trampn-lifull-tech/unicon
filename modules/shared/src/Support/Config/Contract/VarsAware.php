@@ -8,7 +8,7 @@ use Chaos\Support\Config\Vars;
  * Trait VarsAware
  * @author ntd1712
  */
-trait VarsAware // implements IVarsAware
+trait VarsAware // implements VarsAwareInterface
 {
     /**
      * @JMS\Serializer\Annotation\Exclude()
@@ -18,7 +18,7 @@ trait VarsAware // implements IVarsAware
     /**
      * {@inheritdoc}
      *
-     * @return  Vars|\Chaos\Support\Config\Contract\IVars
+     * @return  Vars|\Chaos\Support\Config\Contract\VarsInterface
      */
     public function getVars()
     {
@@ -29,13 +29,13 @@ trait VarsAware // implements IVarsAware
      * {@inheritdoc}
      *
      * @param   object|array $vars Either be an array holding the paths to the resource files
-     *          or a <tt>IVars</tt> instance.
+     *          or a <tt>VarsInterface</tt> instance.
      * @param   string $optionsKey [optional]
      * @return  static
      */
     public function setVars($vars, $optionsKey = '__options__')
     {
-        if (!$vars instanceof IVars) {
+        if (!$vars instanceof VarsInterface) {
             $resource = __DIR__ . '/../../../../config/config.yml';
             $options = ['cache' => false, 'loaders' => ['yaml'], 'merge_globals' => false];
 

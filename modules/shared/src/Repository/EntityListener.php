@@ -10,14 +10,14 @@ use Chaos\Support\Container\Contract\ContainerAware;
  *
  * TODO
  */
-abstract class EntityListener implements Contract\IEntityListener
+abstract class EntityListener implements Contract\EntityListenerInterface
 {
     use ContainerAware;
 
     /**
      * {@inheritdoc}
      *
-     * @param   \Chaos\Repository\Contract\IEntity $entity The entity.
+     * @param   \Chaos\Repository\Contract\EntityInterface $entity The entity.
      * @param   \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs The event arguments.
      * @return  void
      * @throws  \Exception

@@ -3,15 +3,15 @@
 namespace Chaos\Support\Container\Contract;
 
 /**
- * Interface IContainerAware
+ * Interface ContainerAwareInterface
  * @author ntd1712
  */
-interface IContainerAware
+interface ContainerAwareInterface
 {
     /**
-     * Gets a reference to the container object. The object returned will be of type <tt>IContainer</tt>.
+     * Gets a reference to the container object. The object returned will be of type <tt>ContainerInterface</tt>.
      *
-     * @return  \Chaos\Support\Container\Contract\IContainer
+     * @return  \Chaos\Support\Container\Contract\ContainerInterface
      */
     public function getContainer();
 
@@ -27,7 +27,7 @@ interface IContainerAware
      * </code>
      *
      * @param   object|array $container Either be an array holding the paths to the resource files
-     *          or a <tt>IContainer</tt> instance.
+     *          or a <tt>ContainerInterface</tt> instance.
      * @return  static
      */
     public function setContainer($container);

@@ -19,13 +19,13 @@ use Interop\Container\ContainerInterface;
  * @property-read \Doctrine\ORM\Mapping\ClassMetadata $metadata The <tt>ClassMetadata</tt> instance.
  *
  * @method string getClassName()
- * @method Contract\IRepository beginTransaction()
- * @method Contract\IRepository commit()
- * @method Contract\IRepository rollback()
- * @method Contract\IRepository flush()
- * @method Contract\IRepository close()
+ * @method Contract\RepositoryInterface beginTransaction()
+ * @method Contract\RepositoryInterface commit()
+ * @method Contract\RepositoryInterface rollback()
+ * @method Contract\RepositoryInterface flush()
+ * @method Contract\RepositoryInterface close()
  */
-abstract class DoctrineRepository /*extends EntityRepository*/ implements Contract\IRepository
+abstract class DoctrineRepository /*extends EntityRepository*/ implements Contract\RepositoryInterface
 {
     use ContainerAware, VarsAware,
         ObjectTrait, Contract\DoctrineRepositoryTrait;

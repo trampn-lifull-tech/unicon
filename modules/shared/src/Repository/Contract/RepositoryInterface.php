@@ -2,13 +2,13 @@
 
 namespace Chaos\Repository\Contract;
 
-use Chaos\Support\Config\Contract\IVarsAware;
-use Chaos\Support\Container\Contract\IContainerAware;
-use Chaos\Support\Object\Contract\IObject;
+use Chaos\Support\Config\Contract\VarsAwareInterface;
+use Chaos\Support\Container\Contract\ContainerAwareInterface;
+use Chaos\Support\Object\Contract\ObjectInterface;
 use Zend\ServiceManager\Initializer\InitializerInterface;
 
 /**
- * Interface IRepository
+ * Interface RepositoryInterface
  * @author ntd1712
  *
  * @property-read string $className The short class name of the entity, e.g. User
@@ -20,13 +20,17 @@ use Zend\ServiceManager\Initializer\InitializerInterface;
  * @property bool $enableTransaction A value that indicates whether the transaction is enabled.
  *
  * @method string getClassName() Returns the class name of the object managed by the repository, e.g. Entities\User
- * @method IRepository beginTransaction() Starts a transaction by suspending auto-commit mode.
- * @method IRepository commit() Commits the current transaction.
- * @method IRepository rollback() Cancels any database changes done during the current transaction.
- * @method IRepository flush() Flushes all changes to objects that have been queued up to now to the database.
- * @method IRepository close() Closes the connection.
+ * @method RepositoryInterface beginTransaction() Starts a transaction by suspending auto-commit mode.
+ * @method RepositoryInterface commit() Commits the current transaction.
+ * @method RepositoryInterface rollback() Cancels any database changes done during the current transaction.
+ * @method RepositoryInterface flush() Flushes all changes to objects that have been queued up to now to the database.
+ * @method RepositoryInterface close() Closes the connection.
  */
-interface IRepository extends IContainerAware, IVarsAware, IObject, InitializerInterface
+interface RepositoryInterface extends
+    ContainerAwareInterface,
+    VarsAwareInterface,
+    ObjectInterface,
+    InitializerInterface
 {
     /**
      * The default `paginate` method, you can override this in the derived class.

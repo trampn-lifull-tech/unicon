@@ -16,7 +16,7 @@ use Zend\Filter\StaticFilter;
  *
  * TODO
  */
-abstract class ServiceHandler implements Contract\IServiceHandler
+abstract class ServiceHandler implements Contract\ServiceHandlerInterface
 {
     use ContainerAware, VarsAware,
         ObjectTrait, Event\Contract\EventTrait;

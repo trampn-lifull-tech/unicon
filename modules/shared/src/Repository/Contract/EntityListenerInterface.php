@@ -3,19 +3,19 @@
 namespace Chaos\Repository\Contract;
 
 /**
- * Interface IEntityListener
+ * Interface EntityListenerInterface
  * @author ntd1712
  *
  * @link http://doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#entity-listeners-resolver
  *
  * TODO
  */
-interface IEntityListener
+interface EntityListenerInterface
 {
     /**
      * The `postLoad` event.
      *
-     * @param   \Chaos\Repository\Contract\IEntity $entity The entity.
+     * @param   \Chaos\Repository\Contract\EntityInterface $entity The entity.
      * @param   \Doctrine\ORM\Event\LifecycleEventArgs $eventArgs The event arguments.
      * @return  void
      */
