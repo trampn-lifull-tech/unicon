@@ -11,7 +11,7 @@ use Doctrine\DBAL\Types\Type;
 final class TinyIntType extends Type
 {
     /**
-     * {@inheritdoc} @override
+     * {@inheritdoc}
      *
      * @param   mixed $value The value to convert.
      * @param   \Doctrine\DBAL\Platforms\AbstractPlatform $platform The currently used database platform.
@@ -28,7 +28,7 @@ final class TinyIntType extends Type
     }
 
     /**
-     * {@inheritdoc} @override
+     * {@inheritdoc}
      *
      * @param   array $fieldDeclaration The field declaration.
      * @param   \Doctrine\DBAL\Platforms\AbstractPlatform $platform The currently used database platform.
@@ -46,7 +46,7 @@ final class TinyIntType extends Type
     }
 
     /**
-     * {@inheritdoc} @override
+     * {@inheritdoc}
      *
      * @return  string
      */
@@ -56,7 +56,7 @@ final class TinyIntType extends Type
     }
 
     /**
-     * {@inheritdoc} @override
+     * {@inheritdoc}
      *
      * @return  int
      */

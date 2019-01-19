@@ -9,7 +9,7 @@ use Doctrine\ORM\Query\SqlWalker;
 final class CustomOutputWalker extends SqlWalker
 {
     /**
-     * {@inheritdoc} @override
+     * {@inheritdoc}
      *
      * @param   \Doctrine\ORM\Query\AST\WhereClause $whereClause
      * @return  string The SQL.
