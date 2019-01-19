@@ -27,7 +27,7 @@ final class EntityManagerFactory implements FactoryInterface
      * @throws  \Doctrine\DBAL\DBALException
      * @throws  \Doctrine\ORM\ORMException
      */
-    public function __invoke(ContainerInterface $container = null, $requestedName = null, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (empty($options)) {
             $options = $container->get('config');
@@ -191,7 +191,7 @@ final class EntityManagerFactory implements FactoryInterface
 
     /**
      * @param   array $mappings An array of mappings.
-     * @param   \Doctrine\ORM\Configuration $configuration The configuration object instance.
+     * @param   \Doctrine\ORM\Configuration $configuration The configuration object.
      * @return  null|\Doctrine\Common\Persistence\Mapping\Driver\MappingDriver
      */
     private function getMetadataDriver(array $mappings, ORM\Configuration $configuration)
@@ -247,7 +247,7 @@ final class EntityManagerFactory implements FactoryInterface
 
     /**
      * @param   array $dbal The DBAL config.
-     * @param   \Doctrine\ORM\EntityManager $em The EntityManager object instance.
+     * @param   \Doctrine\ORM\EntityManager $em The <tt>EntityManager</tt> instance.
      * @return  void
      * @throws  \Doctrine\DBAL\DBALException
      */

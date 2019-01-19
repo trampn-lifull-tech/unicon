@@ -2,6 +2,7 @@
 
 namespace Chaos\Module\Lookup\Service;
 
+use Chaos\Module\Dashboard\Service\DashboardService;
 use Chaos\Module\Lookup\Repository\LookupRepository;
 use Chaos\Service\ServiceHandler;
 
@@ -14,18 +15,10 @@ class LookupService extends ServiceHandler
     /**
      * @param   LookupRepository $lookupRepository
      */
-    public function __construct(LookupRepository $lookupRepository, \Chaos\Module\Dashboard\Service\DashboardService $dashboardService)
+    public function __construct(LookupRepository $lookupRepository, DashboardService $dashboardService)
     {
         $this->repository = $lookupRepository;
         $this->dashboardService = $dashboardService;
-    }
-
-    /**
-     * For testing purpose only.
-     */
-    public function test()
-    {
-        return $this->dashboardService;
     }
 
     private $dashboardService;

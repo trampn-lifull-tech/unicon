@@ -10,5 +10,8 @@ use Chaos\Repository\DoctrineRepository;
  */
 class LookupRepository extends DoctrineRepository
 {
-    //
+    /**
+     * @var string
+     */
+    protected $_entityName = 'Chaos\Module\Lookup\Entity\LookupEntity';
 }

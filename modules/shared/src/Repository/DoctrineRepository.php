@@ -5,18 +5,15 @@ namespace Chaos\Repository;
 use Chaos\Support\Config\Contract\VarsAware;
 use Chaos\Support\Container\Contract\ContainerAware;
 use Chaos\Support\Object\Contract\ObjectTrait;
-use Chaos\Support\Orm\EntityManagerFactory;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Interop\Container\ContainerInterface;
 
 /**
  * Class DoctrineRepository
  * @author ntd1712
- *
- * @property-read \Doctrine\ORM\EntityManager $entityManager The <tt>EntityManager</tt> instance.
- * @property-read \Doctrine\ORM\Mapping\ClassMetadata $metadata The <tt>ClassMetadata</tt> instance.
  *
  * @method string getClassName()
  * @method Contract\RepositoryInterface beginTransaction()
@@ -25,10 +22,18 @@ use Interop\Container\ContainerInterface;
  * @method Contract\RepositoryInterface flush()
  * @method Contract\RepositoryInterface close()
  */
-abstract class DoctrineRepository /*extends EntityRepository*/ implements Contract\RepositoryInterface
+abstract class DoctrineRepository extends EntityRepository implements Contract\RepositoryInterface
 {
     use ContainerAware, VarsAware,
         ObjectTrait, Contract\DoctrineRepositoryTrait;
+
+    /**
+     * @noinspection PhpMissingParentConstructorInspection
+     */
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * {@inheritdoc}
@@ -41,14 +46,13 @@ abstract class DoctrineRepository /*extends EntityRepository*/ implements Contra
     public function __invoke(ContainerInterface $container, $instance = null)
     {
         $this->setContainer($container);
-        $container = $this->getContainer();
-
         $this->setVars($instance ?? $container->get('config'));
-        $vars = $this->getVars();
 
-        $this->_em = (new EntityManagerFactory)($container, null, $vars->getContent());
-        $container->set('em', $this->_em);
+        $container = $this->getContainer();
         $container->set($this->getClass(), $this);
+
+        $this->_em = $container->get(DOCTRINE_ENTITY_MANAGER);
+        $this->_class = $this->_em->getClassMetadata($this->_entityName) ;
 
         return $this;
     }
@@ -88,7 +92,8 @@ abstract class DoctrineRepository /*extends EntityRepository*/ implements Contra
     public function readAll($criteria = [], $hydrationMode = AbstractQuery::HYDRATE_OBJECT)
     {
         $result = $this->getQueryBuilder($criteria)
-            ->getQuery()->execute(null, $hydrationMode);
+            ->getQuery()
+            ->execute(null, $hydrationMode);
 
         return new \ArrayIterator($result);
     }
@@ -104,7 +109,9 @@ abstract class DoctrineRepository /*extends EntityRepository*/ implements Contra
     public function read($criteria, $hydrationMode = null)
     {
         $result = $this->getQueryBuilder($criteria)
-            ->setMaxResults(1)->getQuery()->getOneOrNullResult($hydrationMode);
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult($hydrationMode);
 
         return $result;
     }
@@ -230,10 +237,8 @@ abstract class DoctrineRepository /*extends EntityRepository*/ implements Contra
         switch ($name) {
             case 'className':
                 return $this->_class->reflClass->getShortName();
-            case 'entityName':
-                return $this->_entityName;
-            case 'entity':
-                return new $this->_entityName;
+//            case 'entity':
+//                return new $this->entityName;
             case 'fields':
                 return $this->_class->fieldMappings;
             case 'identifier':

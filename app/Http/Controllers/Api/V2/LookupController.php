@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\V2;
 
 use App\Http\Controllers\ApiController;
-use Chaos\Module\Dashboard\Service\DashboardService;
 use Chaos\Module\Lookup\Service\LookupService;
+use Chaos\Module\Dashboard\Service\DashboardService;
 
 /**
  * Class LookupController
@@ -20,7 +20,7 @@ class LookupController extends ApiController
      */
     public function __construct(LookupService $lookupService, DashboardService $dashboardService)
     {
-        parent::__construct($this->service = $lookupService, $this->dashboardService = $dashboardService);
+        parent::__construct($this->service = $lookupService, $dashboardService);
     }
 
     /**
@@ -41,13 +41,11 @@ class LookupController extends ApiController
 
             $this->filter('1/39/2019', true),
             $this->filter('1/29/2019', true),
-            $this->filter('1/29/2019', 86399)
-        );
+            $this->filter('1/29/2019', 86399),
 
-        var_dump(
+            $this->service->repository->fields,
             $this->service,
-            $this->dashboardService === ($dashboardService = $this->service->test()),
-            $this->dashboardService->getVars() === $dashboardService->getVars()
+            $this->getContainer()->getServiceIds()
         );
 
         $this->service->repository->getVars()->set('test_config', __FUNCTION__);
@@ -58,6 +56,4 @@ class LookupController extends ApiController
             'data' => __METHOD__
         ];
     }
-
-    private $dashboardService;
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Chaos\Application\LaravelResourceController;
+use Chaos\Support\Orm\EntityManagerFactory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -70,6 +71,7 @@ class ApiController extends LaravelResourceController
         $vars = $this->getVars();
         $container = $this->getContainer();
         $container->set('config', $vars);
+        $container->set(DOCTRINE_ENTITY_MANAGER, (new EntityManagerFactory)($container, null, $vars->getContent()));
 
         if (!empty($services = func_get_args())) {
             foreach ($services as $service) {

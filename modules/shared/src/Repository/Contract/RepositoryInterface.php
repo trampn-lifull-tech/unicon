@@ -4,15 +4,14 @@ namespace Chaos\Repository\Contract;
 
 use Chaos\Support\Config\Contract\VarsAwareInterface;
 use Chaos\Support\Container\Contract\ContainerAwareInterface;
+use Chaos\Support\Container\Contract\InitializerInterface;
 use Chaos\Support\Object\Contract\ObjectInterface;
-use Zend\ServiceManager\Initializer\InitializerInterface;
 
 /**
  * Interface RepositoryInterface
  * @author ntd1712
  *
  * @property-read string $className The short class name of the entity, e.g. User
- * @property-read string $entityName The qualified class name of the entity, e.g. Entities\User
  * @property-read object $entity The entity instance.
  * @property-read array $fields The field mappings of the entity.
  * @property-read array $pk The field names that are part of the identifier/primary key of the entity.
@@ -27,10 +26,10 @@ use Zend\ServiceManager\Initializer\InitializerInterface;
  * @method RepositoryInterface close() Closes the connection.
  */
 interface RepositoryInterface extends
-    ContainerAwareInterface,
-    VarsAwareInterface,
     ObjectInterface,
-    InitializerInterface
+    InitializerInterface,
+    ContainerAwareInterface,
+    VarsAwareInterface
 {
     /**
      * The default `paginate` method, you can override this in the derived class.

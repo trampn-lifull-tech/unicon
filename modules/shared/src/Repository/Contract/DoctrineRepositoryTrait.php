@@ -24,7 +24,7 @@ trait DoctrineRepositoryTrait
      */
     public function beginTransaction()
     {
-        $this->_em->getConnection()->beginTransaction();
+        $this->_em->beginTransaction();
 
         return $this;
     }
@@ -36,7 +36,7 @@ trait DoctrineRepositoryTrait
     public function commit()
     {
         if ($this->_em->getConnection()->isTransactionActive() && !$this->_em->getConnection()->isRollbackOnly()) {
-            $this->_em->getConnection()->commit();
+            $this->_em->commit();
         }
 
         return $this;
@@ -44,25 +44,25 @@ trait DoctrineRepositoryTrait
 
     /**
      * @return  static
-     * @throws  \Doctrine\DBAL\ConnectionException
      */
     public function rollback()
     {
         if ($this->_em->getConnection()->isTransactionActive()) {
-            $this->_em->getConnection()->rollBack();
+            $this->_em->rollBack();
         }
 
         return $this;
     }
 
     /**
+     * @param   null|object|array $entity The entity.
      * @return  static
      * @throws  \Doctrine\ORM\ORMException
      */
-    public function flush()
+    public function flush($entity = null)
     {
         if ($this->_em->isOpen()) {
-            $this->_em->flush();
+            $this->_em->flush($entity);
         }
 
         return $this;

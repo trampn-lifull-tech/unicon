@@ -1,6 +1,6 @@
 <?php
 
-namespace Chaos\Module\Lookup\Event;
+namespace Chaos\Module\Lookup\Repository;
 
 use Chaos\Repository\EntityListener;
 

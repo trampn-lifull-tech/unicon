@@ -4,8 +4,8 @@ namespace Chaos\Service\Contract;
 
 use Chaos\Support\Config\Contract\VarsAwareInterface;
 use Chaos\Support\Container\Contract\ContainerAwareInterface;
+use Chaos\Support\Container\Contract\InitializerInterface;
 use Chaos\Support\Object\Contract\ObjectInterface;
-use Zend\ServiceManager\Initializer\InitializerInterface;
 
 /**
  * Interface ServiceHandlerInterface
@@ -14,10 +14,10 @@ use Zend\ServiceManager\Initializer\InitializerInterface;
  * @property \Chaos\Repository\Contract\RepositoryInterface $repository
  */
 interface ServiceHandlerInterface extends
-    ContainerAwareInterface,
-    VarsAwareInterface,
     ObjectInterface,
-    InitializerInterface
+    InitializerInterface,
+    ContainerAwareInterface,
+    VarsAwareInterface
 {
     /**
      * The default `readAll` method, you can override this in the derived class.

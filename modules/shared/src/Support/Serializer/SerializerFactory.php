@@ -26,7 +26,7 @@ final class SerializerFactory implements FactoryInterface
      * @param   null|array $options [optional]
      * @return  \JMS\Serializer\Serializer|\JMS\Serializer\SerializerInterface
      */
-    public function __invoke(ContainerInterface $container, $requestedName = null, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (empty($options)) {
             $options = $container->get('config');

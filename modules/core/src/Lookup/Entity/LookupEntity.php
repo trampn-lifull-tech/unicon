@@ -11,7 +11,7 @@ use Chaos\Repository\Entity;
  * @author ntd1712
  *
  * @Doctrine\ORM\Mapping\Entity(repositoryClass="Chaos\Module\Lookup\Repository\LookupRepository", readOnly=true)
- * @Doctrine\ORM\Mapping\EntityListeners({ "Chaos\Module\Lookup\Event\LookupListener" })
+ * @Doctrine\ORM\Mapping\EntityListeners({ "Chaos\Module\Lookup\Repository\LookupListener" })
  * @Doctrine\ORM\Mapping\Table(name="lookup")
  */
 class LookupEntity extends Entity

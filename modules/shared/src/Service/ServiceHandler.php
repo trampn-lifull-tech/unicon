@@ -32,11 +32,9 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
     public function __invoke(ContainerInterface $container, $instance = null)
     {
         $this->setContainer($container);
-        $container = $this->getContainer();
-
         $this->setVars($instance ?? $container->get('config'));
-        // $vars = $this->getVars();
 
+        $container = $this->getContainer();
         $container->set($this->getClass(), $this);
 
         return $this;
