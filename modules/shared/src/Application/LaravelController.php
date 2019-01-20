@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
  * Class LaravelController
  * @author ntd1712
  *
+ * A controller can use multiple services.
+ *
  * @property \Chaos\Service\Contract\ServiceHandlerInterface $service
  */
 abstract class LaravelController extends Controller

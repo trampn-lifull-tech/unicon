@@ -14,6 +14,9 @@ use Zend\Filter\StaticFilter;
  * Class ServiceHandler
  * @author ntd1712
  *
+ * A service can use multiple repositories.
+ * And one service can also use another service, but you need to manually initialize its used repositories.
+ *
  * TODO
  */
 abstract class ServiceHandler implements Contract\ServiceHandlerInterface

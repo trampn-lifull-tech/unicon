@@ -70,24 +70,15 @@ class ApiController extends LaravelResourceController
 
         $vars = $this->getVars();
         $container = $this->getContainer();
+
         $container->set('config', $vars);
         $container->set('entity_manager', (new EntityManagerFactory)($container, null, $vars->getContent()));
 
         if (!empty($services = func_get_args())) {
             foreach ($services as $service) {
-//                $service($container, $vars);
-//
-//                foreach ($service as $property) {
-//                    $property($container, $vars);
-//                }
+                $service($container, $vars);
 
-                /**
-                 * @var \Chaos\Service\Contract\ServiceHandlerInterface $service
-                 * @var \Chaos\Repository\Contract\RepositoryInterface $repository
-                 */
-                $repository = $service($container, $vars)->repository;
-
-                if (isset($repository)) {
+                foreach ($service as $repository) { // iterate through public properties
                     $repository($container, $vars);
                 }
             }
