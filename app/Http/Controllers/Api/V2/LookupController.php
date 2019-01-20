@@ -43,9 +43,9 @@ class LookupController extends ApiController
             $this->filter('1/29/2019', true),
             $this->filter('1/29/2019', 86399),
 
-            $this->service->repository->fields,
-            $this->service,
-            $this->getContainer()->getServiceIds()
+            $this->getContainer()->getServiceIds(),
+            json_encode($this->service->repository->fields),
+            $this->service
         );
 
         $this->service->repository->getVars()->set('test_config', __FUNCTION__);

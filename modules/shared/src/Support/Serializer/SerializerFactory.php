@@ -49,7 +49,7 @@ final class SerializerFactory implements FactoryInterface
             $serializer->addMetadataDirs($metadataDirs);
         }
 
-        if (null !== ($entityManager = $container->get(DOCTRINE_ENTITY_MANAGER))) {
+        if (null !== ($entityManager = $container->get('entity_manager'))) {
             if (null !== ($metadataCacheImpl = $entityManager->getConfiguration()->getMetadataCacheImpl())) {
                 if (is_subclass_of($metadataCacheImpl, 'Doctrine\Common\Cache\Cache')) {
                     /** @var \Doctrine\Common\Cache\CacheProvider $metadataCacheImpl */

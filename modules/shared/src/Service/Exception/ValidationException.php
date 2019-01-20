@@ -11,5 +11,5 @@ class ValidationException extends \RuntimeException
     /**
      * @var mixed|int
      */
-    protected $code = 418;
+    protected $code = 422;
 }

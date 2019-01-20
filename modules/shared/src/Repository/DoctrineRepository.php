@@ -51,7 +51,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\R
         $container = $this->getContainer();
         $container->set($this->getClass(), $this);
 
-        $this->_em = $container->get(DOCTRINE_ENTITY_MANAGER);
+        $this->_em = $container->get('entity_manager');
         $this->_class = $this->_em->getClassMetadata($this->_entityName) ;
 
         return $this;
