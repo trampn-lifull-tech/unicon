@@ -86,7 +86,7 @@ trait DoctrineRepositoryTrait
      * @return  \Doctrine\ORM\QueryBuilder
      * @throws  \Doctrine\ORM\ORMException
      */
-    protected function getQueryBuilder($criteria, QueryBuilder $queryBuilder = null)
+    public function getQueryBuilder($criteria, QueryBuilder $queryBuilder = null)
     {
         if ($criteria instanceof QueryBuilder) {
             return $criteria;

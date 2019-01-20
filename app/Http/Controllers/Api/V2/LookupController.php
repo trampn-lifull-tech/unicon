@@ -35,16 +35,23 @@ class LookupController extends ApiController
             $this->getRequest(),
             $this->getOrderParams(
                 $request = $this->getRequest(null, false),
-                $this->getFilterParams($request)
+                $this->getFilterParams($request, $this->service->repository->fields)
             ),
             $this->getPagerParams($request),
+
+            (string)$this->service->repository->getQueryBuilder(
+                $this->getOrderParams(
+                    $request = $this->getRequest(null, false),
+                    $this->getFilterParams($request, $this->service->repository->fields)
+                )
+            ),
+            json_encode($this->service->repository->fields),
 
             $this->filter('1/39/2019', true),
             $this->filter('1/29/2019', true),
             $this->filter('1/29/2019', 86399),
 
             $this->getContainer()->getServiceIds(),
-            json_encode($this->service->repository->fields),
             $this->service
         );
 
