@@ -14,15 +14,8 @@ use Interop\Container\ContainerInterface;
 /**
  * Class DoctrineRepository
  * @author ntd1712
- *
- * @method string getClassName()
- * @method Contract\RepositoryInterface beginTransaction()
- * @method Contract\RepositoryInterface commit()
- * @method Contract\RepositoryInterface rollback()
- * @method Contract\RepositoryInterface flush()
- * @method Contract\RepositoryInterface close()
  */
-abstract class DoctrineRepository extends EntityRepository implements Contract\RepositoryInterface
+abstract class DoctrineRepository extends EntityRepository implements Contract\DoctrineRepositoryInterface
 {
     use ContainerAware, VarsAware,
         ObjectTrait, Contract\DoctrineRepositoryTrait;
@@ -52,7 +45,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\R
         $container->set($this->getClass(), $this);
 
         $this->_em = $container->get('entity_manager');
-        $this->_class = $this->_em->getClassMetadata($this->_entityName) ;
+        $this->_class = $this->_em->getClassMetadata($this->_entityName);
 
         return $this;
     }
@@ -119,7 +112,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\R
     /**
      * {@inheritdoc}
      *
-     * @param   object[]|object $entity The entity instance.
+     * @param   object[]|object $entity The entity object.
      * @param   bool $autoFlush [optional]
      * @return  int The affected rows.
      * @throws  \Doctrine\ORM\ORMException
@@ -132,7 +125,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\R
     /**
      * {@inheritdoc}
      *
-     * @param   object[]|object $entity The entity instance.
+     * @param   object[]|object $entity The entity object.
      * @param   null|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool $autoFlush [optional]
      * @param   bool $isNew [optional] A flag indicating we are creating or updating a record.
@@ -226,6 +219,69 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\R
         return null !== $this->findOneBy($criteria);
     }
 
+    // <editor-fold desc="Transactional methods" defaultstate="collapsed">
+
+    /**
+     * @return  static
+     */
+    public function beginTransaction()
+    {
+        $this->_em->beginTransaction();
+
+        return $this;
+    }
+
+    /**
+     * @return  static
+     * @throws  \Doctrine\DBAL\ConnectionException
+     */
+    public function commit()
+    {
+        if ($this->_em->getConnection()->isTransactionActive() && !$this->_em->getConnection()->isRollbackOnly()) {
+            $this->_em->commit();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return  static
+     */
+    public function rollback()
+    {
+        if ($this->_em->getConnection()->isTransactionActive()) {
+            $this->_em->rollBack();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param   null|object|array $entity The entity.
+     * @return  static
+     * @throws  \Doctrine\ORM\ORMException
+     */
+    public function flush($entity = null)
+    {
+        if ($this->_em->isOpen()) {
+            $this->_em->flush($entity);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return  static
+     */
+    public function close()
+    {
+        $this->_em->close();
+
+        return $this;
+    }
+
+    // </editor-fold>
+
     // <editor-fold desc="Magic methods" defaultstate="collapsed">
 
     /**
@@ -237,18 +293,20 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\R
         switch ($name) {
             case 'className':
                 return $this->_class->reflClass->getShortName();
-//            case 'entity':
-//                return new $this->entityName;
-            case 'fields':
+            case 'entityName':
+                return $this->_entityName;
+            case 'entity':
+                return new $this->_entityName;
+            case 'fieldMappings':
                 return $this->_class->fieldMappings;
             case 'identifier':
                 return $this->_class->identifier;
             case 'criteria':
                 return Criteria::create();
+            case 'classMetadata':
+                return $this->_class;
             case 'entityManager':
                 return $this->_em;
-            case 'metadata':
-                return $this->_class;
             default:
                 throw new \InvalidArgumentException('Invalid magic property on repository');
         }

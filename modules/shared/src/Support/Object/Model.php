@@ -90,7 +90,7 @@ class Model extends \stdClass implements Contract\ModelInterface
     {
         try {
             return null !== $this->__get($name);
-        } catch (\BadMethodCallException $ex) {
+        } catch (\BadMethodCallException $e) {
             return false;
         }
     }
@@ -104,11 +104,11 @@ class Model extends \stdClass implements Contract\ModelInterface
     {
         try {
             $this->__set($name, null);
-        } catch (\BadMethodCallException $ex) {
+        } catch (\BadMethodCallException $e) {
             throw new \InvalidArgumentException(
                 'The class property $' . $name . ' cannot be unset as NULL is an invalid value for it',
                 0,
-                $ex
+                $e
             );
         }
     }

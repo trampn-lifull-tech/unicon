@@ -49,7 +49,7 @@ trait ContainerAware // implements ContainerAwareInterface
                 }
 
                 $container->compile();
-            } catch (\Exception $ex) {
+            } catch (\Exception $e) {
                 $container = new Container;
             }
         }

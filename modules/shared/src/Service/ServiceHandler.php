@@ -149,12 +149,12 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
                 $post['CreatedBy'] = $post['UpdatedBy'];
             }
 
-            $entity = new $this->repository->entity;
+            $entity = $this->repository->entity;
         } else {
             if (null === $criteria) {
                 $where = [];
 
-                foreach ($this->repository->pk as $v) {
+                foreach ($this->repository->identifier as $v) {
                     if (isset($post[$v])) {
                         $where[$v] = $post[$v];
                     }
@@ -215,7 +215,7 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
             if ($isNew) {
                 $where = [];
 
-                foreach ($this->repository->pk as $v) {
+                foreach ($this->repository->identifier as $v) {
                     $where[$v] = $entity->$v;
                 }
 
@@ -223,9 +223,9 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
             }
 
             return $this->read($criteria);
-        } catch (Exception\ServiceException $ex) {
+        } catch (Exception\ServiceException $e) {
             $this->repository->close()->rollback();
-            throw $ex;
+            throw $e;
         }
     }
 
@@ -265,9 +265,9 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
             return [
                 'success' => true
             ];
-        } catch (Exception\ServiceException $ex) {
+        } catch (Exception\ServiceException $e) {
             $this->repository->close()->rollback();
-            throw $ex;
+            throw $e;
         }
     }
 }

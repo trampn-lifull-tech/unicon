@@ -41,7 +41,7 @@ abstract class LaravelController extends Controller
         $params = $request->all();
 
         if (false !== $default) { // `false` is a hack to return `$params` without values below
-            $params['UpdatedAt'] = date('Y-m-d H:i:s');
+            $params['UpdatedAt'] = date('Y-m-d');
             $params['UpdatedBy'] = $this->getSession('loggedName', null, $request->getSession());
             $params['NotUse'] = 'false';
             $params['ApplicationKey'] = $this->getVars()->get('app.key');

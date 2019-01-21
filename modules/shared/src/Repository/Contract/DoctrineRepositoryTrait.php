@@ -14,70 +14,9 @@ use Zend\Db\Sql\Select;
 /**
  * Class DoctrineRepositoryTrait
  * @author ntd1712
- *
- * @property \Doctrine\ORM\EntityManager $_em
  */
 trait DoctrineRepositoryTrait
 {
-    /**
-     * @return  static
-     */
-    public function beginTransaction()
-    {
-        $this->_em->beginTransaction();
-
-        return $this;
-    }
-
-    /**
-     * @return  static
-     * @throws  \Doctrine\DBAL\ConnectionException
-     */
-    public function commit()
-    {
-        if ($this->_em->getConnection()->isTransactionActive() && !$this->_em->getConnection()->isRollbackOnly()) {
-            $this->_em->commit();
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return  static
-     */
-    public function rollback()
-    {
-        if ($this->_em->getConnection()->isTransactionActive()) {
-            $this->_em->rollBack();
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param   null|object|array $entity The entity.
-     * @return  static
-     * @throws  \Doctrine\ORM\ORMException
-     */
-    public function flush($entity = null)
-    {
-        if ($this->_em->isOpen()) {
-            $this->_em->flush($entity);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return  static
-     */
-    public function close()
-    {
-        $this->_em->close();
-
-        return $this;
-    }
-
     /**
      * Gets the <tt>QueryBuilder</tt> instance.
      *
@@ -123,7 +62,7 @@ trait DoctrineRepositoryTrait
                     //          ['from' => 'Role', 'alias' => 'r'],
                     //          ['from' => $this->permissionRepository]
                     //      ]]
-                    if ($v instanceof RepositoryInterface) {
+                    if ($v instanceof DoctrineRepositoryInterface) {
                         $v = [
                             ['from' => $v->getClassName()]
                         ];
@@ -150,7 +89,7 @@ trait DoctrineRepositoryTrait
                             );
                         }
 
-                        if ($from['from'] instanceof RepositoryInterface) {
+                        if ($from['from'] instanceof DoctrineRepositoryInterface) {
                             $from['from'] = $from['from']->getClassName();
                         }
 
@@ -184,7 +123,7 @@ trait DoctrineRepositoryTrait
                     //          $this->getRepository('User'),
                     //          $this->roleRepository
                     //      ]
-                    if ($v instanceof RepositoryInterface) {
+                    if ($v instanceof DoctrineRepositoryInterface) {
                         $v = [$v->className];
                     } else if (is_string($v)) {
                         $v = preg_split(CHAOS_REPLACE_COMMA_SEPARATOR, $v, -1, PREG_SPLIT_NO_EMPTY);
@@ -197,7 +136,7 @@ trait DoctrineRepositoryTrait
                             continue;
                         }
 
-                        if ($select instanceof RepositoryInterface) {
+                        if ($select instanceof DoctrineRepositoryInterface) {
                             $select = $select->className;
                         }
 
@@ -243,7 +182,7 @@ trait DoctrineRepositoryTrait
                             );
                         }
 
-                        if ($join[$type] instanceof RepositoryInterface) {
+                        if ($join[$type] instanceof DoctrineRepositoryInterface) {
                             $join[$type] = $join[$type]->getClassName();
                             // $join['alias'] = $join[$type]->className;
                         }
@@ -288,7 +227,7 @@ trait DoctrineRepositoryTrait
                     throw new \InvalidArgumentException('UNION is not supported in DQL');
                 case Select::WHERE:
                 case Select::HAVING:
-                    // e.g. $expr = $this->repository->expression; // \Doctrine\ORM\Query\Expr
+                    // e.g. $expr = Criteria::expr(); // \Doctrine\ORM\Query\Expr
                     //      $or = $expr->orx(
                     //          $expr->eq('User.Id', 1),
                     //          $expr->like('Role.Name', "'%user%'")
@@ -417,7 +356,7 @@ trait DoctrineRepositoryTrait
                                     }
 
                                     $matches[1] = $format;
-                                } catch (\Exception $ex) {
+                                } catch (\Exception $e) {
                                     throw ORMException::unknownEntityNamespace($parts[0]);
                                 }
                             }
@@ -477,7 +416,7 @@ trait DoctrineRepositoryTrait
 
             try {
                 $type = reflect($predicate)->getShortName();
-            } catch (\ReflectionException $ex) {
+            } catch (\ReflectionException $e) {
                 $type = null;
             }
 

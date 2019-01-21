@@ -61,7 +61,7 @@ class Reflector
             try {
                 $reflection = reflect($name);
                 self::$cache[$name] = array_flip($reflection->getConstants() + $reflection->getStaticProperties());
-            } catch (\ReflectionException $ex) {
+            } catch (\ReflectionException $e) {
                 self::$cache[$name] = [];
             }
         }

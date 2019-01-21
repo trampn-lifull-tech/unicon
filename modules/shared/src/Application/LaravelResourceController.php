@@ -21,7 +21,7 @@ abstract class LaravelResourceController extends LaravelController
         return $this->service->readAll(
             $this->getOrderParams(
                 $request = $this->getRequest(null, false),
-                $this->getFilterParams($request, $this->service->repository->fields)
+                $this->getFilterParams($request, $this->service->repository->fieldMappings)
             ),
             $this->getPagerParams($request)
         );

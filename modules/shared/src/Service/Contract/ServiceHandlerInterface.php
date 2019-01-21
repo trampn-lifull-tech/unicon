@@ -11,7 +11,7 @@ use Chaos\Support\Object\Contract\ObjectInterface;
  * Interface ServiceHandlerInterface
  * @author ntd1712
  *
- * @property \Chaos\Repository\Contract\RepositoryInterface $repository
+ * @property \Chaos\Repository\Contract\DoctrineRepositoryInterface|\Chaos\Repository\Contract\RepositoryInterface $repository
  */
 interface ServiceHandlerInterface extends
     ObjectInterface,
