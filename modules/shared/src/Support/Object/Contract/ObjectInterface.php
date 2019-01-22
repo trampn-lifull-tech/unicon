@@ -11,10 +11,10 @@ interface ObjectInterface
     /**
      * Indicates whether other object is "equal to" this one.
      *
-     * @param   \Chaos\Support\Object\Contract\ObjectInterface $other The reference object with which to compare.
+     * @param   object $other The reference object with which to compare.
      * @return  bool
      */
-    public function equals(ObjectInterface $other);
+    public function equals($other);
 
     /**
      * Returns the runtime class of this object.

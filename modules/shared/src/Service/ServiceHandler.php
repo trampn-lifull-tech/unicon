@@ -25,6 +25,11 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
         ObjectTrait, Event\Contract\EventTrait;
 
     /**
+     * @var bool A value that indicates whether the transaction is enabled.
+     */
+    public $enableTransaction = false;
+
+    /**
      * {@inheritdoc}
      *
      * @param   \Interop\Container\ContainerInterface $container The container object.
@@ -191,10 +196,7 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
 
         try {
             // start a transaction
-            if (isset($this->repository->enableTransaction)) {
-                $this->repository->beginTransaction();
-            }
-
+            !$this->enableTransaction || $this->repository->beginTransaction();
             $this->trigger(EventType::ON_BEFORE_SAVE, $eventArgs);
 
             // create or update entity
@@ -245,10 +247,7 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
             // before delete
             $eventArgs = new Event\UpdateEventArgs($criteria, $entity, false);
 
-            if (isset($this->repository->enableTransaction)) {
-                $this->repository->beginTransaction();
-            }
-
+            !$this->enableTransaction || $this->repository->beginTransaction();
             $this->trigger(EventType::ON_BEFORE_DELETE, $eventArgs);
 
             // on delete

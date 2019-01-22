@@ -11,11 +11,7 @@ use Chaos\Support\Object\Contract\ObjectInterface;
  * Interface RepositoryInterface
  * @author ntd1712
  */
-interface RepositoryInterface extends
-    ObjectInterface,
-    InitializerInterface,
-    ContainerAwareInterface,
-    VarsAwareInterface
+interface RepositoryInterface extends ObjectInterface, InitializerInterface, ContainerAwareInterface, VarsAwareInterface
 {
     //
 }

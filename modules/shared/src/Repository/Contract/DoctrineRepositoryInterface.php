@@ -3,6 +3,7 @@
 namespace Chaos\Repository\Contract;
 
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\AbstractQuery;
 
 /**
  * Interface DoctrineRepositoryInterface
@@ -17,7 +18,6 @@ use Doctrine\Common\Persistence\ObjectRepository;
  * @property-read \Doctrine\ORM\Mapping\ClassMetadata $classMetadata The <tt>ClassMetadata</tt> instance.
  * @property-read \Doctrine\ORM\EntityManager $entityManager The <tt>EntityManager</tt> instance.
  *
- * @property bool $enableTransaction A value that indicates whether the transaction is enabled.
  * @method self beginTransaction() Starts a transaction by suspending auto-commit mode.
  * @method self commit() Commits the current transaction.
  * @method self rollback() Cancels any database changes done during the current transaction.
@@ -31,25 +31,28 @@ interface DoctrineRepositoryInterface extends RepositoryInterface, ObjectReposit
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   array $paging The paging criteria.
+     * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
      * @return  \Doctrine\ORM\Tools\Pagination\Paginator
      */
-    public function paginate($criteria = [], array $paging = []);
+    public function paginate($criteria = [], array $paging = [], $fetchJoinCollection = true);
 
     /**
      * The default `readAll` method, you can override this in the derived class.
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   null|string|int $hydrationMode [optional] Processing mode to be used during the hydration process.
      * @return  \ArrayIterator
      */
-    public function readAll($criteria = []);
+    public function readAll($criteria = [], $hydrationMode = AbstractQuery::HYDRATE_OBJECT);
 
     /**
      * The default `read` method, you can override this in the derived class.
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   null|string|int $hydrationMode [optional] The hydration mode.
      * @return  object
      */
-    public function read($criteria);
+    public function read($criteria, $hydrationMode = null);
 
     /**
      * The default `create` method, you can override this in the derived class.
@@ -83,7 +86,7 @@ interface DoctrineRepositoryInterface extends RepositoryInterface, ObjectReposit
      * The default `exist` method, you can override this in the derived class.
      *
      * @param   mixed|\Doctrine\Common\Collections\Criteria|array $criteria Either a query criteria or a field value.
-     * @param   null|string $fieldName The field name; defaults to Primary Key.
+     * @param   null|string $fieldName The field name; defaults to the identifier/primary key.
      * @return  bool
      */
     public function exist($criteria, $fieldName = null);

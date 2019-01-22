@@ -78,7 +78,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\D
      * {@inheritdoc}
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
-     * @param   int $hydrationMode [optional] Processing mode to be used during the hydration process.
+     * @param   null|string|int $hydrationMode [optional] Processing mode to be used during the hydration process.
      * @return  \ArrayIterator
      * @throws  \Doctrine\ORM\ORMException
      */
@@ -95,7 +95,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\D
      * {@inheritdoc}
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
-     * @param   int $hydrationMode [optional] The hydration mode.
+     * @param   null|string|int $hydrationMode [optional] The hydration mode.
      * @return  object
      * @throws  \Doctrine\ORM\ORMException
      */
@@ -193,7 +193,7 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\D
      * {@inheritdoc}
      *
      * @param   mixed|\Doctrine\Common\Collections\Criteria|array $criteria Either a query criteria or a field value.
-     * @param   null|string $fieldName The field name; defaults to Primary Key.
+     * @param   null|string $fieldName The field name; defaults to the identifier/primary key.
      * @return  bool
      */
     public function exist($criteria, $fieldName = null)

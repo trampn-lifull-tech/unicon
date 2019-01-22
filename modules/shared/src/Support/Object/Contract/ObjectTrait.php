@@ -11,10 +11,10 @@ trait ObjectTrait // implements ObjectInterface
     /**
      * {@inheritdoc}
      *
-     * @param   \Chaos\Support\Object\Contract\ObjectInterface $other The reference object with which to compare.
+     * @param   object $other The reference object with which to compare.
      * @return  bool
      */
-    public function equals(ObjectInterface $other)
+    public function equals($other)
     {
         return $this === $other;
     }
