@@ -79,7 +79,9 @@ class ApiController extends LaravelResourceController
                 $service($container, $vars);
 
                 foreach ($service as $repository) { // iterate through public properties
-                    $repository($container, $vars);
+                    if (method_exists($repository, '__invoke')) {
+                        $repository($container, $vars);
+                    }
                 }
             }
         }
