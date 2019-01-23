@@ -124,7 +124,7 @@ trait DoctrineRepositoryTrait
                     //          $this->roleRepository
                     //      ]
                     if ($v instanceof DoctrineRepositoryInterface) {
-                        $v = [$v->className];
+                        $v = [$v->classname];
                     } else if (is_string($v)) {
                         $v = preg_split(CHAOS_REPLACE_COMMA_SEPARATOR, $v, -1, PREG_SPLIT_NO_EMPTY);
                     } else if (!is_array($v)) {
@@ -137,7 +137,7 @@ trait DoctrineRepositoryTrait
                         }
 
                         if ($select instanceof DoctrineRepositoryInterface) {
-                            $select = $select->className;
+                            $select = $select->classname;
                         }
 
                         $queryBuilder->addSelect($select);
@@ -184,7 +184,7 @@ trait DoctrineRepositoryTrait
 
                         if ($join[$type] instanceof DoctrineRepositoryInterface) {
                             $join[$type] = $join[$type]->getClassName();
-                            // $join['alias'] = $join[$type]->className;
+                            // $join['alias'] = $join[$type]->classname;
                         }
 
                         if (!isset($join['alias'])) {

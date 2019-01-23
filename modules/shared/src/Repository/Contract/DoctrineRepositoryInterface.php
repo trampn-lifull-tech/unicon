@@ -9,8 +9,7 @@ use Doctrine\ORM\AbstractQuery;
  * Interface DoctrineRepositoryInterface
  * @author ntd1712
  *
- * @property-read string $className The short class name of the entity class, e.g. User
- * @property-read string $entityName The qualified class name of the entity class, e.g. Entities\User
+ * @property-read string $classname The short class name of the entity class, e.g. User
  * @property-read object $entity The entity object.
  * @property-read array $fieldMappings The field mappings of the entity class.
  * @property-read array $identifier The field names that are part of the identifier/primary key of the entity class.

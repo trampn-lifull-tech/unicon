@@ -16,8 +16,6 @@ use Zend\Filter\StaticFilter;
  *
  * A service can use multiple repositories.
  * And one service can also use another service, but you need to manually initialize its used repositories.
- *
- * TODO
  */
 abstract class ServiceHandler implements Contract\ServiceHandlerInterface
 {
@@ -53,12 +51,13 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
+     * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
      * @return  array
      */
-    public function readAll($criteria = [], $paging = false)
+    public function readAll($criteria = [], $paging = false, $fetchJoinCollection = true)
     {
         if (false !== $paging) {
-            $entities = $this->repository->paginate($criteria, $paging);
+            $entities = $this->repository->paginate($criteria, $paging, $fetchJoinCollection);
         } else {
             $entities = $this->repository->readAll($criteria);
         }
@@ -78,7 +77,6 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @return  array
-     * @throws  \Chaos\Service\Exception\ServiceException
      */
     public function read($criteria)
     {

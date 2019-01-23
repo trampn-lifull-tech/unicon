@@ -24,9 +24,10 @@ interface ServiceHandlerInterface extends
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
+     * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
      * @return  array
      */
-    public function readAll($criteria = [], $paging = false);
+    public function readAll($criteria = [], $paging = false, $fetchJoinCollection = true);
 
     /**
      * The default `read` method, you can override this in the derived class.

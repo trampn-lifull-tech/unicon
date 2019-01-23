@@ -291,10 +291,8 @@ abstract class DoctrineRepository extends EntityRepository implements Contract\D
     public function __get($name)
     {
         switch ($name) {
-            case 'className':
+            case 'classname':
                 return $this->_class->reflClass->getShortName();
-            case 'entityName':
-                return $this->_entityName;
             case 'entity':
                 return new $this->_entityName;
             case 'fieldMappings':
