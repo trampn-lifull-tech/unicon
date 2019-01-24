@@ -24,18 +24,20 @@ interface ServiceHandlerInterface extends
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
-     * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
+     * @param   null|string|int $hydrationMode [optional] Whether the query joins a collection (true by default),
+     *          or the processing mode to be used during the hydration process.
      * @return  array
      */
-    public function readAll($criteria = [], $paging = false, $fetchJoinCollection = true);
+    public function readAll($criteria = [], $paging = false, $hydrationMode = 1);
 
     /**
      * The default `read` method, you can override this in the derived class.
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   null|string|int $hydrationMode [optional] The hydration mode.
      * @return  array
      */
-    public function read($criteria);
+    public function read($criteria, $hydrationMode = null);
 
     /**
      * The default `create` method, you can override this in the derived class.

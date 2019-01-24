@@ -51,15 +51,17 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
      *
      * @param   \Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool|array $paging The paging criteria; defaults to FALSE.
-     * @param   bool $fetchJoinCollection [optional] Whether the query joins a collection (true by default).
+     * @param   null|string|int $hydrationMode [optional] Whether the query joins a collection (true by default),
+     *          or the processing mode to be used during the hydration process.
      * @return  array
      */
-    public function readAll($criteria = [], $paging = false, $fetchJoinCollection = true)
+    public function readAll($criteria = [], $paging = false, $hydrationMode = 1)
     {
         if (false !== $paging) {
+            $fetchJoinCollection = 1 === $hydrationMode;
             $entities = $this->repository->paginate($criteria, $paging, $fetchJoinCollection);
         } else {
-            $entities = $this->repository->readAll($criteria);
+            $entities = $this->repository->readAll($criteria, $hydrationMode);
         }
 
         $result = ['data' => [], 'count' => count($entities), 'success' => true];
@@ -76,9 +78,10 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
      * {@inheritdoc}
      *
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
+     * @param   null|string|int $hydrationMode [optional] The hydration mode.
      * @return  array
      */
-    public function read($criteria)
+    public function read($criteria, $hydrationMode = null)
     {
         if (is_scalar($criteria)) {
             if (is_numeric($criteria)) {
@@ -101,7 +104,7 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
 
             $entity = $this->repository->find($criteria);
         } else {
-            $entity = $this->repository->read($criteria);
+            $entity = $this->repository->read($criteria, $hydrationMode);
         }
 
         if (empty($entity)) {
@@ -119,8 +122,6 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
      *
      * @param   array $post The _POST variable.
      * @return  array
-     * @throws  \Chaos\Service\Exception\ServiceException
-     * @throws  \Chaos\Service\Exception\ValidationException
      */
     public function create(array $post = [])
     {
@@ -134,8 +135,6 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
      * @param   mixed|\Doctrine\ORM\QueryBuilder|\Doctrine\Common\Collections\Criteria|array $criteria The criteria.
      * @param   bool $isNew A flag indicates we are creating or updating a record.
      * @return  array
-     * @throws  \Chaos\Service\Exception\ServiceException
-     * @throws  \Chaos\Service\Exception\ValidationException
      */
     public function update(array $post = [], $criteria = null, $isNew = false)
     {
@@ -181,7 +180,12 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
 
         // exchange array
         $eventArgs = new Event\UpdateEventArgs($post, $entity, $isNew);
-        $eventArgs->setPost(array_intersect_key($post, reflect($entity)->getDefaultProperties()));
+
+        try {
+            $eventArgs->setPost(array_intersect_key($post, reflect($entity)->getDefaultProperties()));
+        } catch (\ReflectionException $e) {
+            $eventArgs->setPost($post);
+        }
 
         $this->trigger(EventType::ON_EXCHANGE_ARRAY, $eventArgs);
         $eventArgs->setEntity($entity->exchangeArray($eventArgs->getPost()));
@@ -193,11 +197,11 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
         // }
 
         try {
-            // start a transaction
+            // before save
             !$this->enableTransaction || $this->repository->beginTransaction();
             $this->trigger(EventType::ON_BEFORE_SAVE, $eventArgs);
 
-            // create or update entity
+            // create or update
             if ($isNew) {
                 $affectedRows = $this->repository->create($entity, false);
             } else {
@@ -208,7 +212,7 @@ abstract class ServiceHandler implements Contract\ServiceHandlerInterface
                 throw new Exception\ServiceException(__FUNCTION__ . '_error');
             }
 
-            // commit current transaction
+            // after save
             $this->trigger(EventType::ON_AFTER_SAVE, $eventArgs);
             $this->repository->flush()->commit();
 
