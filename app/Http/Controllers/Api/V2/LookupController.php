@@ -9,6 +9,8 @@ use Chaos\Module\Dashboard\Service\DashboardService;
 /**
  * Class LookupController
  * @author ntd1712
+ *
+ * For testing purpose only.
  */
 class LookupController extends ApiController
 {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Chaos\Application\LaravelResourceController;
+use Chaos\Support\Container\Contract\InitializerInterface;
 use Chaos\Support\Orm\EntityManagerFactory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
