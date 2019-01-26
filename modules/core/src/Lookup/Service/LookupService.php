@@ -19,7 +19,7 @@ class LookupService extends ServiceHandler
         $this->repository = $lookupRepository;
     }
 
-    // <editor-fold desc="For illustration only" defaultstate="collapsed">
+    // <editor-fold desc="For example only" defaultstate="collapsed">
     /*
     public function __construct(LookupRepository $lookupRepository,
                                 \Chaos\Module\Dashboard\Repository\DashboardRepository $dashboardRepository,

@@ -25,11 +25,6 @@ class LookupController extends ApiController
         parent::__construct($this->service = $lookupService, $dashboardService);
     }
 
-    /**
-     * For testing purpose only.
-     *
-     * @throws  \Exception
-     */
     public function index()
     {
         echo '<pre>';
