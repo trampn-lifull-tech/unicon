@@ -346,7 +346,7 @@ trait DoctrineRepositoryTrait
                                 $parts = explode('.', $format);
 
                                 try {
-                                    /** @var \Chaos\Support\Container\Contract\ContainerInterface $container */
+                                    /** @var \Psr\Container\ContainerInterface $container */
                                     $container = $this->getContainer();
 
                                     if (!$container->has($parts[0])

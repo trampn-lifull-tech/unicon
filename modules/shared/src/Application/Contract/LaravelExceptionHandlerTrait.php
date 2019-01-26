@@ -22,6 +22,7 @@ trait LaravelExceptionHandlerTrait
      *
      * @param   \Exception $e
      * @return  \Exception
+     * @see     \App\Exceptions\Handler
      */
     protected function prepareException(\Exception $e)
     {
