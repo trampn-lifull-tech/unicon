@@ -3,13 +3,13 @@
 namespace Chaos\Support\Container\Contract;
 
 use Interop\Container\ContainerInterface as InteropContainerInterface;
-use Symfony\Component\DependencyInjection\TaggedContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface as BaseContainerInterface;
 
 /**
  * Interface ContainerInterface
  * @author ntd1712
  */
-interface ContainerInterface extends TaggedContainerInterface, InteropContainerInterface
+interface ContainerInterface extends BaseContainerInterface, InteropContainerInterface
 {
     //
 }
