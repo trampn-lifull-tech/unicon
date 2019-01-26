@@ -37,7 +37,7 @@ class ApiController extends LaravelResourceController
         // <editor-fold desc="Initializes config loader" defaultstate="collapsed">
 
         $basePath = base_path();
-        $config = app('config');
+        $config = config();
         $config = [
             'app' => $config->get('app'),
             'session' => $config->get('session')
@@ -79,7 +79,7 @@ class ApiController extends LaravelResourceController
             foreach ($services as $service) {
                 $service($container, $vars);
 
-                foreach ($service as $repository) { // iterate through public properties
+                foreach ($service as $repository) { // iterate through public properties ; yeah, this sounds weird :(
                     if ($repository instanceof InitializerInterface) {
                         $repository($container, $vars);
                     }
