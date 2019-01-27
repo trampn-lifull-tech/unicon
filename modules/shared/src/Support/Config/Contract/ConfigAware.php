@@ -3,7 +3,6 @@
 namespace Chaos\Support\Config\Contract;
 
 use Chaos\Support\Config\Config;
-use M1\Vars\Vars;
 
 /**
  * Trait ConfigAware
@@ -41,7 +40,7 @@ trait ConfigAware // implements ConfigAwareInterface
             $options = ['cache' => false, 'loaders' => ['yaml'], 'merge_globals' => false];
 
             if (empty($config)) {
-                $vars = new Vars($resource, $options);
+                $config = new Config($resource, $options);
             } else {
                 if (isset($config[$optionsKey])) {
                     $options = $config[$optionsKey];
@@ -49,10 +48,8 @@ trait ConfigAware // implements ConfigAwareInterface
                 }
 
                 array_unshift($config, $resource);
-                $vars = new Vars($config, $options);
+                $config = new Config($config, $options);
             }
-
-            $config = new Config($vars->getContent());
         }
 
         self::$kba2xzbm = $config;
