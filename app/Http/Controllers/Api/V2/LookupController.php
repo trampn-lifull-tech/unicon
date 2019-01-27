@@ -29,6 +29,9 @@ class LookupController extends ApiController
     {
         echo '<pre>';
         var_dump(
+            app('Chaos\Module\Dashboard\Service\DashboardService'),
+            $this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService'),
+
             $this->getVars()->get('app.copyright'),
             $this->getRequest(),
             $this->getOrderParams(
