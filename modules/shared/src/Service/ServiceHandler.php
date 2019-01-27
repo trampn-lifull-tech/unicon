@@ -2,7 +2,7 @@
 
 namespace Chaos\Service;
 
-use Chaos\Support\Config\Contract\VarsAware;
+use Chaos\Support\Config\Contract\ConfigAware;
 use Chaos\Support\Constant\EventType;
 use Chaos\Support\Container\Contract\ContainerAware;
 use Chaos\Support\Event;
@@ -19,7 +19,7 @@ use Zend\Filter\StaticFilter;
  */
 abstract class ServiceHandler implements Contract\ServiceHandlerInterface
 {
-    use ContainerAware, VarsAware,
+    use ContainerAware, ConfigAware,
         ObjectTrait, Event\Contract\EventTrait;
 
     /**

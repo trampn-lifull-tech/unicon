@@ -2,7 +2,7 @@
 
 namespace Chaos\Repository;
 
-use Chaos\Support\Config\Contract\VarsAware;
+use Chaos\Support\Config\Contract\ConfigAware;
 use Chaos\Support\Container\Contract\ContainerAware;
 use Chaos\Support\Object\Contract\ObjectTrait;
 use Doctrine\Common\Collections\Criteria;
@@ -17,7 +17,7 @@ use Interop\Container\ContainerInterface;
  */
 abstract class DoctrineRepository extends EntityRepository implements Contract\DoctrineRepositoryInterface
 {
-    use ContainerAware, VarsAware,
+    use ContainerAware, ConfigAware,
         ObjectTrait, Contract\DoctrineRepositoryTrait;
 
     /**

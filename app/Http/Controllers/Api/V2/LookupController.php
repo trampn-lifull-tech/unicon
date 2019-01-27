@@ -29,6 +29,7 @@ class LookupController extends ApiController
     {
         echo '<pre>';
         var_dump(
+            $this->getVars()->get('app.copyright'),
             $this->getRequest(),
             $this->getOrderParams(
                 $request = $this->getRequest(null, false),
@@ -53,7 +54,7 @@ class LookupController extends ApiController
         );
 
         $this->service->repository->getVars()->set('test_config', __FUNCTION__);
-        var_export($this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService')->getVars()->getContent());
+        var_export($this->getContainer()->get('Chaos\Module\Dashboard\Service\DashboardService')->getVars()->all());
         echo '<br><br>';
 
         return [

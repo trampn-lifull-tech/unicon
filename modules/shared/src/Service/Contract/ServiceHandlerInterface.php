@@ -2,7 +2,7 @@
 
 namespace Chaos\Service\Contract;
 
-use Chaos\Support\Config\Contract\VarsAwareInterface;
+use Chaos\Support\Config\Contract\ConfigAwareInterface;
 use Chaos\Support\Container\Contract\ContainerAwareInterface;
 use Chaos\Support\Container\Contract\InitializerInterface;
 use Chaos\Support\Object\Contract\ObjectInterface;
@@ -17,7 +17,7 @@ interface ServiceHandlerInterface extends
     ObjectInterface,
     InitializerInterface,
     ContainerAwareInterface,
-    VarsAwareInterface
+    ConfigAwareInterface
 {
     /**
      * The default `readAll` method, you can override this in the derived class.

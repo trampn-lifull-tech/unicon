@@ -3,15 +3,15 @@
 namespace Chaos\Support\Config\Contract;
 
 /**
- * Interface VarsAwareInterface
+ * Interface ConfigAwareInterface
  * @author ntd1712
  */
-interface VarsAwareInterface
+interface ConfigAwareInterface
 {
     /**
-     * Gets a reference to the configuration object. The object returned will be of type <tt>VarsInterface</tt>.
+     * Gets a reference to the configuration object. The object returned will be of type <tt>ConfigInterface</tt>.
      *
-     * @return  \Chaos\Support\Config\Contract\VarsInterface
+     * @return  \Chaos\Support\Config\Contract\ConfigInterface
      */
     public function getVars();
 
@@ -38,7 +38,7 @@ interface VarsAwareInterface
      * </code>
      *
      * @param   object|array $vars Either be an array holding the paths to the resource files
-     *          or a <tt>VarsInterface</tt> instance.
+     *          or a <tt>ConfigInterface</tt> instance.
      * @return  static
      */
     public function setVars($vars);

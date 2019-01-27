@@ -1,6 +1,5 @@
 <?php
 
-define('CHAOS_MAX_ROWS_PER_QUERY', 100);
 define('CHAOS_QUERY_LIMIT', 10);
 
 define('CHAOS_READ_EVENT_ARGS', 'Chaos\Support\Event\ReadEventArgs');

@@ -84,31 +84,31 @@ if (!function_exists('shorten')) {
     }
 }
 
-if (!function_exists('traversableToArray')) {
-    /**
-     * Converts a traversable object to a common array.
-     *
-     * @param   \Traversable $var
-     * @return  array
-     *
-     * @todo Have a look at iterator_to_array()
-     */
-    function traversableToArray(\Traversable $var)
-    {
-        if (method_exists($var, 'getArrayCopy')) {
-            /** @see ArrayObject::getArrayCopy, ArrayIterator::getArrayCopy */
-            $array = $var->getArrayCopy();
-        } else if (method_exists($var, 'toArray')) {
-            /** @see Collection::toArray */
-            $array = $var->toArray();
-        } else {
-            $array = [];
-
-            foreach ($var as $v) {
-                $array[] = $v;
-            }
-        }
-
-        return $array;
-    }
-}
+//if (!function_exists('traversableToArray')) {
+//    /**
+//     * Converts a traversable object to a common array.
+//     *
+//     * @param   \Traversable $var
+//     * @return  array
+//     *
+//     * @todo Have a look at iterator_to_array()
+//     */
+//    function traversableToArray(\Traversable $var)
+//    {
+//        if (method_exists($var, 'getArrayCopy')) {
+//            /** @see ArrayObject::getArrayCopy, ArrayIterator::getArrayCopy */
+//            $array = $var->getArrayCopy();
+//        } else if (method_exists($var, 'toArray')) {
+//            /** @see Collection::toArray */
+//            $array = $var->toArray();
+//        } else {
+//            $array = [];
+//
+//            foreach ($var as $v) {
+//                $array[] = $v;
+//            }
+//        }
+//
+//        return $array;
+//    }
+//}

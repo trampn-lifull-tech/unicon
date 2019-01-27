@@ -73,7 +73,7 @@ class ApiController extends LaravelResourceController
         $container = $this->getContainer();
 
         $container->set('config', $vars);
-        $container->set('entity_manager', (new EntityManagerFactory)($container, null, $vars->getContent()));
+        $container->set('entity_manager', (new EntityManagerFactory)($container, null, $vars->all()));
 
         if (!empty($services = func_get_args())) {
             foreach ($services as $service) {

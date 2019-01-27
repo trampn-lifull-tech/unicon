@@ -2,7 +2,7 @@
 
 namespace Chaos\Application;
 
-use Chaos\Support\Config\Contract\VarsAware;
+use Chaos\Support\Config\Contract\ConfigAware;
 use Chaos\Support\Container\Contract\ContainerAware;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
  */
 abstract class LaravelController extends Controller
 {
-    use ContainerAware, VarsAware,
+    use ContainerAware, ConfigAware,
         Contract\ControllerTrait;
 
     /**

@@ -212,7 +212,7 @@ trait ControllerTrait
             return '';
         }
 
-        /** @var \Chaos\Support\Config\Contract\VarsInterface $vars */
+        /** @var \Chaos\Support\Config\Contract\ConfigInterface $vars */
         $vars = $this->getVars();
         $value = trim($value);
 
@@ -251,7 +251,7 @@ trait ControllerTrait
             $predicate = new Predicate;
         }
 
-        /** @var \Chaos\Support\Config\Contract\VarsInterface $vars */
+        /** @var \Chaos\Support\Config\Contract\ConfigInterface $vars */
         $vars = $this->getVars();
 
         if (is_array($binds)) {
@@ -532,7 +532,7 @@ trait ControllerTrait
 
             if (1 > $binds['ItemCountPerPage']) {
                 $binds['ItemCountPerPage'] = 1;
-            } else if (($maxPerPage = CHAOS_MAX_ROWS_PER_QUERY) < $binds['ItemCountPerPage']) {
+            } else if (($maxPerPage = CHAOS_QUERY_LIMIT * 100) < $binds['ItemCountPerPage']) {
                 $binds['ItemCountPerPage'] = $maxPerPage;
             }
         } else {
