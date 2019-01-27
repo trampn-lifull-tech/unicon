@@ -12,18 +12,17 @@ use M1\Vars\Vars;
 class Config extends Repository implements Contract\ConfigInterface
 {
     /**
-     * {@inheritdoc}
+     * Sets the resource contents.
      *
-     * @param   mixed|array $items
-     * @return  void
+     * @param   string|array $resource The main configuration resource.
+     * @param   array $options The options being used.
+     * @return  static
      */
-    public function __construct($items = [])
+    public function __invoke($resource, $options = [])
     {
-        if (2 === func_num_args()) {
-            $vars = new Vars($items, func_get_arg(1));
-            $items = $vars->getContent();
-        }
+        $vars = new Vars($resource, $options);
+        $this->items = $vars->getContent();
 
-        parent::__construct($items);
+        return $this;
     }
 }

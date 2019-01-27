@@ -28,31 +28,32 @@ trait ConfigAware // implements ConfigAwareInterface
     /**
      * {@inheritdoc}
      *
-     * @param   object|array $config Either be an array holding the paths to the resource files
+     * @param   object|array $vars Either be an array holding the paths to the resource files
      *          or a <tt>ConfigInterface</tt> instance.
      * @param   string $optionsKey [optional]
      * @return  static
      */
-    public function setVars($config, $optionsKey = '__options__')
+    public function setVars($vars, $optionsKey = '__options__')
     {
-        if (!$config instanceof ConfigInterface) {
+        if (!$vars instanceof ConfigInterface) {
+            $config = new Config;
             $resource = __DIR__ . '/../../../../config/config.yml';
             $options = ['cache' => false, 'loaders' => ['yaml'], 'merge_globals' => false];
 
-            if (empty($config)) {
-                $config = new Config($resource, $options);
+            if (empty($vars)) {
+                $vars = $config($resource, $options);
             } else {
-                if (isset($config[$optionsKey])) {
-                    $options = $config[$optionsKey];
-                    unset($config[$optionsKey]);
+                if (isset($vars[$optionsKey])) {
+                    $options = $vars[$optionsKey];
+                    unset($vars[$optionsKey]);
                 }
 
-                array_unshift($config, $resource);
-                $config = new Config($config, $options);
+                array_unshift($vars, $resource);
+                $vars = $config($vars, $options);
             }
         }
 
-        self::$kba2xzbm = $config;
+        self::$kba2xzbm = $vars;
 
         return $this;
     }
