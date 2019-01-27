@@ -12,9 +12,7 @@ use M1\Vars\Vars;
 class Config extends Repository implements Contract\ConfigInterface
 {
     /**
-     * Sets the resource contents.
-     *
-     * @param   string|array $resource The main configuration resource.
+     * @param   string[]|string $resource A path or an array of paths where to look for resources.
      * @param   array $options The options being used.
      * @return  self
      */
