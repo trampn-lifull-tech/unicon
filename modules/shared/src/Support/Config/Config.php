@@ -16,7 +16,7 @@ class Config extends Repository implements Contract\ConfigInterface
      *
      * @param   string|array $resource The main configuration resource.
      * @param   array $options The options being used.
-     * @return  static
+     * @return  self
      */
     public function __invoke($resource, $options = [])
     {

@@ -11,7 +11,7 @@ interface ConfigAwareInterface
     /**
      * Gets a reference to the configuration object. The object returned will be of type <tt>ConfigInterface</tt>.
      *
-     * @return  \Chaos\Support\Config\Contract\ConfigInterface
+     * @return  \Chaos\Support\Config\Config|\Chaos\Support\Config\Contract\ConfigInterface
      */
     public function getVars();
 
